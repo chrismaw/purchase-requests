@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('projects');
+        $users = User::all()->sortBy('name');
+        return view('projects', ['users' => $users]);
     }
 
     public function data()
@@ -22,7 +24,8 @@ class ProjectController extends Controller
         return collect(['data' => Project::all()->map(function ($p){
             return [
                 'DT_RowId' => 'row_' . $p->id,
-                'display_name' => $p->number . ' - ' . $p->description
+                'number' => $p->number,
+                'description' => $p->description,
             ];
         })])->toJson();
     }
@@ -76,9 +79,52 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request)
     {
-        //
+//        dd($request->all());
+        if ($request->action == 'create'){
+            $p = new Project();
+            $p->number = $request->data[0]['number'];
+            $p->description = $request->data[0]['description'];
+            $p->save();
+            $output['data'][] = [
+                'DT_RowId' => 'row_' . $p->id,
+                'number' => $p->number,
+                'description' => $p->description
+            ];
+            return response()->json(
+                $output
+            );
+        } elseif ($request->action == 'edit'){
+            $p = Project::find(substr(array_key_first($request->data),4));
+            if ($p instanceof Project){
+                if (array_key_exists('number',$request->data[array_key_first($request->data)])){
+                    $p->number = $request->data[array_key_first($request->data)]['number'];
+                }
+                if (array_key_exists('description',$request->data[array_key_first($request->data)])){
+                    $p->description = $request->data[array_key_first($request->data)]['description'] ?: $p->description;
+                }
+                $p->save();
+                $output['data'][] = [
+                    'DT_RowId' => 'row_' . $p->id,
+                    'number' => $p->number,
+                    'description' => $p->description
+                ];
+                return response()->json(
+                    $output
+                );
+            }
+        } elseif ($request->action == 'remove'){
+
+            $p = Project::find(substr(array_key_first($request->data),4));
+            if ($p instanceof Project){
+                $p->delete();
+
+                return response()->json();
+            }
+
+        };
+
     }
 
     /**

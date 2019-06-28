@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('title','Projects')
 @section('styles')
+    <style>
+        #DTE_Field_task_active, #DTE_Field_task_created_by {
+            padding: 5px 4px;
+            width: 100%;
+        }
+        .display-none {
+            display: none;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="flex-center position-ref full-height">
@@ -8,14 +17,16 @@
             <div class="title m-b-md">
                 Projects
             </div>
-            <table id="projects-table" class="display" cellspacing="0" width="100%">
+            <table id="projects-table" class="display" cellspacing="0" Kwidth="100%">
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Project Name</th>
+                    <th>Number</th>
+                    <th>Description</th>
                 </tr>
                 </thead>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -57,10 +68,20 @@
             projectsEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('projects-update') }}",
                 table: "#projects-table",
-                fields: [{
-                    label: "Project name:",
-                    name: "display_name"
-                }]
+                fields: [
+                    { label: "Number:", name: "number" },
+                    { label: "Description:", name: "description" }
+                ],
+                i18n: {
+                    create: {
+                        title:  "Add a new Project",
+                        submit: 'Submit Project'
+                    },
+                    edit: {
+                        title:  "Edit Project",
+                        submit: 'Submit Edit'
+                    }
+                }
             } );
 
             $('#projects-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
@@ -76,16 +97,18 @@
                         data: null,
                         defaultContent: '',
                         className: 'select-checkbox',
-                        orderable: false
+                        orderable: false,
+                        width: '1%'
                     },
-                    { data: "display_name" }
+                    { data: "number" },
+                    { data: "description" }
                 ],
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
                 buttons: [
-                    { extend: "create", editor: projectsEditor },
+                    { extend: "create", editor: projectsEditor, text: "Add" },
                     { extend: "edit",   editor: projectsEditor },
                     { extend: "remove", editor: projectsEditor }
                 ]
@@ -95,20 +118,30 @@
             tasksEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('tasks-update') }}",
                 table: "#tasks-table",
-                fields: [{
-                    label: "Number:",
-                    name: "task_number"
-                },{
-                    label: "Description:",
-                    name: "task_description"
-                },{
-                    label: "Active:",
-                    name: "task_active"
-                },{
-                    label: "Created by:",
-                    name: "task_created_by"
+                fields: [
+                    { label: "Number:", name: "task_number" },
+                    { label: "Description:", name: "task_description" },
+                    { label: "Active:", name: "task_active", type: 'select',
+                        options: ['Yes','No']
+                    },
+                    { label: "Created by:", name: "task_created_by", type: 'select',
+                        options: [
+                                @foreach ($users as $user)
+                            { label: '{{ $user->name }}', value: '{{ $user->id }}' }
+                                @endforeach
+                        ]
+                    }
+                ],
+                i18n: {
+                    create: {
+                        title:  "Add a new Task",
+                        submit: 'Submit Task'
+                    },
+                    edit: {
+                        title:  "Edit Task",
+                        submit: 'Submit Edit'
+                    }
                 }
-                ]
             } );
 
             // Activate an inline edit on click of a table cell
@@ -125,7 +158,8 @@
                         data: null,
                         defaultContent: '',
                         className: 'select-checkbox',
-                        orderable: false
+                        orderable: false,
+                        width: '1%'
                     },
                     { data: "task_number" },
                     { data: "task_description" },
@@ -137,7 +171,7 @@
                     selector: 'td:first-child'
                 },
                 buttons: [
-                    { extend: "create", editor: tasksEditor },
+                    { extend: "create", editor: tasksEditor, text: "Add" },
                     { extend: "edit",   editor: tasksEditor },
                     { extend: "remove", editor: tasksEditor }
                 ]

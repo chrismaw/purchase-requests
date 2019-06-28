@@ -27,7 +27,7 @@ Route::post('/purchase-requests/update', 'PurchaseRequestController@update')->na
 //Projects
 Route::get('/projects', 'ProjectController@index')->name('projects');
 Route::get('/projects/data', 'ProjectController@data')->name('projects-data');
-Route::post('/projects/update', 'PurchaseRequestController@update')->name('projects-update');
+Route::post('/projects/update', 'ProjectController@update')->name('projects-update');
 //Projects
 Route::get('/tasks/data', 'TaskController@data')->name('tasks-data');
 Route::post('/tasks/update', 'TaskController@update')->name('tasks-update');
