@@ -28,7 +28,17 @@ Route::post('/purchase-requests/update', 'PurchaseRequestController@update')->na
 Route::get('/projects', 'ProjectController@index')->name('projects');
 Route::get('/projects/data', 'ProjectController@data')->name('projects-data');
 Route::post('/projects/update', 'ProjectController@update')->name('projects-update');
-//Projects
+//Tasks
 Route::get('/tasks/data', 'TaskController@data')->name('tasks-data');
 Route::post('/tasks/update', 'TaskController@update')->name('tasks-update');
+
+//Suppliers
+Route::get('/suppliers', 'SupplierController@index')->name('suppliers');
+Route::get('/suppliers/data', 'SupplierController@data')->name('suppliers-data');
+Route::post('/suppliers/update', 'SupplierController@update')->name('suppliers-update');
+
+//UOMS
+Route::get('/uoms', 'UomController@index')->name('uoms');
+Route::get('/uoms/data', 'UomController@data')->name('uoms-data');
+Route::post('/uoms/update', 'UomController@update')->name('uoms-update');
 

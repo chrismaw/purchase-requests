@@ -28,6 +28,7 @@
             <div id="nav-container">
                 <a href="{{ url('/projects') }}">Projects & Tasks</a>
                 <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
+                <a href="{{ url('/suppliers') }}">Suppliers</a>
                 @guest
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 @else

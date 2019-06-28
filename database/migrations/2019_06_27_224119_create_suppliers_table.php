@@ -16,7 +16,7 @@ class CreateSuppliersTable extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(true);
             $table->unsignedInteger('created_by');
 
             $table->foreign('created_by')->references('id')->on('users');

@@ -75,11 +75,11 @@
                 i18n: {
                     create: {
                         title:  "Add a new Project",
-                        submit: 'Submit Project'
+                        submit: 'Submit'
                     },
                     edit: {
                         title:  "Edit Project",
-                        submit: 'Submit Edit'
+                        submit: 'Submit'
                     }
                 }
             } );
@@ -142,11 +142,9 @@
                 i18n: {
                     create: {
                         title:  "Add a new Task",
-                        submit: 'Submit Task'
                     },
                     edit: {
                         title:  "Edit Task",
-                        submit: 'Submit Edit'
                     }
                 }
             } );

@@ -16,7 +16,7 @@ class CreateUomsTable extends Migration
         Schema::create('uoms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedInteger('sort_order');
+            $table->unsignedInteger('sort_order')->default(99);
         });
     }
 
