@@ -30,6 +30,7 @@
                 <a href="{{ url('/projects') }}">Projects & Tasks</a>
                 <a href="{{ url('/suppliers') }}">Suppliers</a>
                 <a href="{{ url('/uoms') }}">UOMs</a>
+                <a href="{{ url('/users') }}">Users</a>
                 @guest
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 @else
@@ -47,17 +48,13 @@
         </nav>
     </header>
     <div id="app">
-
-
         <main>
             @yield('content')
         </main>
     </div>
 <script>
-    var toggle = document.getElementById("nav-toggle");
-    var navContainer = document.getElementById("nav-container");
-    toggle.addEventListener('click', function() {
-        navContainer.classList.toggle('active');
+    $("#nav-toggle").on('click', function() {
+        $("#nav-container").classList.toggle('active');
     });
 </script>
 </body>

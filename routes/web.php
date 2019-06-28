@@ -42,3 +42,8 @@ Route::get('/uoms', 'UomController@index')->name('uoms');
 Route::get('/uoms/data', 'UomController@data')->name('uoms-data');
 Route::post('/uoms/update', 'UomController@update')->name('uoms-update');
 
+//Users
+Route::get('/users', 'UserController@index')->name('users');
+Route::get('/users/data', 'UserController@data')->name('users-data');
+Route::post('/users/update', 'UserController@update')->name('users-update');
+
