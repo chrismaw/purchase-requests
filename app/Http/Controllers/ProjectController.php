@@ -16,7 +16,8 @@ class ProjectController extends Controller
     public function index()
     {
         $users = User::all()->sortBy('name');
-        return view('projects', ['users' => $users]);
+        $projects = Project::all()->sortBy('number');
+        return view('projects', ['users' => $users, 'projects' => $projects]);
     }
 
     public function data()

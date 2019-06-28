@@ -2,7 +2,7 @@
 @section('title','Projects')
 @section('styles')
     <style>
-        #DTE_Field_task_active, #DTE_Field_task_created_by {
+        #DTE_Field_task_active, #DTE_Field_task_created_by,#DTE_Field_task_project {
             padding: 5px 4px;
             width: 100%;
         }
@@ -12,47 +12,47 @@
     </style>
 @endsection
 @section('content')
-    <div class="flex-center position-ref full-height">
-        <div class="content">
-            <div class="title m-b-md">
-                Projects
-            </div>
-            <table id="projects-table" class="display" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Number</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <div class="title m-b-md">
-                Tasks
-            </div>
-            <table id="tasks-table" class="display" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Number</th>
-                    <th>Description</th>
-                    <th>Active</th>
-                    <th>Created By</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="title m-b-md">
+            Projects
         </div>
+        <table id="projects-table" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Number</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="title m-b-md">
+            Tasks
+        </div>
+        <table id="tasks-table" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Project</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th>Created By</th>
+            </tr>
+            </thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
     </div>
     <script>
         $.ajaxSetup({
@@ -119,6 +119,13 @@
                 ajax: "{{ route('tasks-update') }}",
                 table: "#tasks-table",
                 fields: [
+                    { label: "Project:", name: "task_project", type: 'select',
+                        options: [
+                            @foreach ($projects as $project)
+                                { label: '{{ $project->number }} - {{ $project->description }}', value: '{{ $project->id }}' },
+                            @endforeach
+                        ]
+                    },
                     { label: "Number:", name: "task_number" },
                     { label: "Description:", name: "task_description" },
                     { label: "Active:", name: "task_active", type: 'select',
@@ -126,9 +133,9 @@
                     },
                     { label: "Created by:", name: "task_created_by", type: 'select',
                         options: [
-                                @foreach ($users as $user)
-                            { label: '{{ $user->name }}', value: '{{ $user->id }}' }
-                                @endforeach
+                            @foreach ($users as $user)
+                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                            @endforeach
                         ]
                     }
                 ],
@@ -161,6 +168,7 @@
                         orderable: false,
                         width: '1%'
                     },
+                    { data: "task_project" },
                     { data: "task_number" },
                     { data: "task_description" },
                     { data: "task_active" },

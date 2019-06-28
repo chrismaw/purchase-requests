@@ -6,6 +6,9 @@ html, body {
     height: 100vh;
     margin: 0;
 }
+main {
+    padding: 15px 0;
+}
 header {
     width: 100%;
 }
@@ -97,6 +100,35 @@ nav #nav-toggle {
     }
 }
 
+/* END HEADER / NAV */
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 540px;
+    }
+}
+@media (min-width: 768px){
+    .container {
+        max-width: 720px;
+    }
+}
+@media (min-width: 992px){
+    .container {
+        max-width: 960px;
+    }
+}
+@media (min-width: 1200px){
+    .container {
+        max-width: 1140px;
+    }
+}
 .display-none {
     display: none;
 }
@@ -106,23 +138,9 @@ nav #nav-toggle {
 }
 
 .flex-center {
-    align-items: center;
+    /*align-items: center;*/
     display: flex;
     justify-content: center;
-}
-
-.position-ref {
-    position: relative;
-}
-
-.top-right {
-    position: absolute;
-    right: 10px;
-    top: 18px;
-}
-
-.content {
-    min-width: 800px;
 }
 
 .title {

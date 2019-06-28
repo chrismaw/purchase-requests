@@ -11,4 +11,8 @@ class Task extends Model
     public function createdByUser(){
         return $this->belongsTo('App\User','created_by');
     }
+
+    public function project(){
+        return $this->belongsTo('App\Project');
+    }
 }

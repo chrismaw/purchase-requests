@@ -18,7 +18,6 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger('project_id');
             $table->string('number');
             $table->string('description');
-            $table->string('display_name');
             $table->boolean('is_active');
             $table->unsignedInteger('created_by');
 
