@@ -14,7 +14,18 @@ class UomController extends Controller
      */
     public function index()
     {
-        //
+        return view('uoms');
+    }
+
+    public function data()
+    {
+        return collect(['data' => Uom::all()->sortBy('name')->sortBy('sort_order')->map(function ($u){
+            return [
+                'DT_RowId' => 'row_' . $u->id,
+                'name' => $u->name,
+//                'sort_order' => $u->sort_order
+            ];
+        })])->toJson();
     }
 
     /**
@@ -69,7 +80,49 @@ class UomController extends Controller
      */
     public function update(Request $request, uom $uom)
     {
-        //
+//        dd($request->all());
+        if ($request->action == 'create'){
+            $u = new Uom();
+            $u->name = $request->data[0]['name'];
+            $u->sort_order = 99;
+            $u->save();
+            $output['data'][] = [
+                'DT_RowId' => 'row_' . $u->id,
+                'name' => $u->name,
+//                'sort_order' => $u->sort_order
+            ];
+            return response()->json(
+                $output
+            );
+        } elseif ($request->action == 'edit'){
+            $u = Uom::find(substr(array_key_first($request->data),4));
+            if ($u instanceof Uom){
+                if (array_key_exists('name',$request->data[array_key_first($request->data)])){
+                    $u->name = $request->data[array_key_first($request->data)]['name'];
+                }
+//                if (array_key_exists('sort_order',$request->data[array_key_first($request->data)])){
+//                    $u->sort_order = $request->data[array_key_first($request->data)]['sort_order'];
+//                }
+                $u->save();
+                $output['data'][] = [
+                    'DT_RowId' => 'row_' . $u->id,
+                    'name' => $u->name,
+//                    'sort_order' => $u->sort_order
+                ];
+                return response()->json(
+                    $output
+                );
+            }
+        } elseif ($request->action == 'remove'){
+
+            $u = Uom::find(substr(array_key_first($request->data),4));
+            if ($u instanceof Uom){
+                $u->delete();
+
+                return response()->json();
+            }
+
+        };
     }
 
     /**

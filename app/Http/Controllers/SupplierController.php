@@ -25,6 +25,7 @@ class SupplierController extends Controller
             return [
                 'DT_RowId' => 'row_' . $s->id,
                 'name' => $s->name,
+                'active' => $s->is_active ? 'Yes' : 'No',
                 'created_by' => $s->createdByUser->name
             ];
         })])->toJson();
@@ -84,38 +85,38 @@ class SupplierController extends Controller
     {
 //        dd($request->all());
         if ($request->action == 'create'){
-            $t = new Supplier();
-            $t->name = $request->data[0]['name'];
-            $t->is_active = $request->data[0]['active'] == 'Yes' ? true : false;
-            $t->created_by = $request->data[0]['created_by'];
-            $t->save();
+            $s = new Supplier();
+            $s->name = $request->data[0]['name'];
+            $s->is_active = $request->data[0]['active'] == 'Yes' ? true : false;
+            $s->created_by = $request->data[0]['created_by'];
+            $s->save();
             $output['data'][] = [
-                'DT_RowId' => 'row_' . $t->id,
-                'name' => $t->name,
-                'active' => $t->is_active ? 'Yes' : 'No',
-                'created_by' => $t->createdByUser->name
+                'DT_RowId' => 'row_' . $s->id,
+                'name' => $s->name,
+                'active' => $s->is_active ? 'Yes' : 'No',
+                'created_by' => $s->createdByUser->name
             ];
             return response()->json(
                 $output
             );
         } elseif ($request->action == 'edit'){
-            $t = Supplier::find(substr(array_key_first($request->data),4));
-            if ($t instanceof Supplier){
+            $s = Supplier::find(substr(array_key_first($request->data),4));
+            if ($s instanceof Supplier){
                 if (array_key_exists('name',$request->data[array_key_first($request->data)])){
-                    $t->name = $request->data[array_key_first($request->data)]['name'];
+                    $s->name = $request->data[array_key_first($request->data)]['name'];
                 }
                 if (array_key_exists('active',$request->data[array_key_first($request->data)])){
-                    $t->is_active = $request->data[array_key_first($request->data)]['active'] == 'Yes' ? true : false;
+                    $s->is_active = $request->data[array_key_first($request->data)]['active'] == 'Yes' ? true : false;
                 }
                 if (array_key_exists('created_by',$request->data[array_key_first($request->data)])){
-                    $t->created_by = $request->data[array_key_first($request->data)]['created_by'];
+                    $s->created_by = $request->data[array_key_first($request->data)]['created_by'];
                 }
-                $t->save();
+                $s->save();
                 $output['data'][] = [
-                    'DT_RowId' => 'row_' . $t->id,
-                    'name' => $t->name,
-                    'active' => $t->is_active ? 'Yes' : 'No',
-                    'created_by' => $t->createdByUser->name
+                    'DT_RowId' => 'row_' . $s->id,
+                    'name' => $s->name,
+                    'active' => $s->is_active ? 'Yes' : 'No',
+                    'created_by' => $s->createdByUser->name
                 ];
                 return response()->json(
                     $output
@@ -123,9 +124,9 @@ class SupplierController extends Controller
             }
         } elseif ($request->action == 'remove'){
 
-            $t = Supplier::find(substr(array_key_first($request->data),4));
-            if ($t instanceof Supplier){
-                $t->delete();
+            $s = Supplier::find(substr(array_key_first($request->data),4));
+            if ($s instanceof Supplier){
+                $s->delete();
 
                 return response()->json();
             }

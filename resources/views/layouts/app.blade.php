@@ -26,9 +26,10 @@
         <nav>
             <div id="logo">Logo</div>
             <div id="nav-container">
-                <a href="{{ url('/projects') }}">Projects & Tasks</a>
                 <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
+                <a href="{{ url('/projects') }}">Projects & Tasks</a>
                 <a href="{{ url('/suppliers') }}">Suppliers</a>
+                <a href="{{ url('/uoms') }}">UOMs</a>
                 @guest
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 @else
@@ -55,8 +56,6 @@
 <script>
     var toggle = document.getElementById("nav-toggle");
     var navContainer = document.getElementById("nav-container");
-    console.log(toggle);
-
     toggle.addEventListener('click', function() {
         navContainer.classList.toggle('active');
     });
