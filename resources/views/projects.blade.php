@@ -17,7 +17,7 @@
             <div class="title m-b-md">
                 Projects
             </div>
-            <table id="projects-table" class="display" cellspacing="0" Kwidth="100%">
+            <table id="projects-table" class="display" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th></th>
