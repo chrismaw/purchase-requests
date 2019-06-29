@@ -1,10 +1,16 @@
 @extends('layouts.app')
 @section('title','Users')
 @section('styles')
+    <style>
+        #DTE_Field_admin {
+            padding: 5px 4px;
+            width: 100%;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="container">
-        <div class="title m-b-md">
+        <div class="title">
             Users
         </div>
         <table id="users-table" class="display" cellspacing="0" width="100%">
@@ -13,10 +19,12 @@
                 <th></th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Added On</th>
+                <th>Admin</th>
+                <th>Date Added</th>
             </tr>
             </thead>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -41,6 +49,9 @@
                     { label: "Name:", name: "name" },
                     { label: "Email:", name: "email" },
                     { label: "Password:", name: "password", },
+                    { label: "Admin:", name: "admin", type: 'select',
+                        options: ['Yes','No']
+                    },
                 ],
                 i18n: {
                     create: {
@@ -66,6 +77,7 @@
                     },
                     { data: "name" },
                     { data: "email" },
+                    { data: "admin" },
                     { data: "added_on" }
                 ],
                 select: {

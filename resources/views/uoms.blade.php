@@ -48,12 +48,18 @@
                 }
             } );
 
+            @if (Auth::user()->isAdmin())
             $('#uoms-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 uomsEditor.inline( this );
             } );
+            @endif
 
             $('#uoms-table').DataTable( {
+                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
+                @else
+                dom: "frtip",
+                @endif
                 ajax: "{{ route('uoms-data') }}",
                 order: [[ 1, 'asc' ]],
                 columns: [
@@ -67,10 +73,16 @@
                     { data: "name" },
                     // { data: "sort_order" }
                 ],
+                @if (Auth::user()->isAdmin())
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
+                @else
+                columnDefs: [
+                    {visible: false, targets: 0},
+                ],
+                @endif
                 buttons: [
                     { extend: "create", editor: uomsEditor, text: "Add" },
                     { extend: "edit",   editor: uomsEditor },

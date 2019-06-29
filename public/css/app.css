@@ -145,6 +145,7 @@ nav #nav-toggle {
 
 .title {
     font-size: 84px;
+    margin-bottom: 15px;
 }
 
 a.link {
@@ -155,8 +156,4 @@ a.link {
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
-}
-
-.m-b-md {
-    margin-bottom: 30px;
 }

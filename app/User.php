@@ -38,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
 //        'email_verified_at' => 'datetime',
     ];
+
+    public $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function isAdmin(){
+        return !!$this->is_admin;
+    }
 }

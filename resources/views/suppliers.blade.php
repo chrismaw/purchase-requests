@@ -36,7 +36,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var suppliersEditor;
+        var suppliersEditor, suppliersTable;
 
         $(document).ready(function() {
             // Projects Table
@@ -66,12 +66,18 @@
                 }
             } );
 
+            @if (Auth::user()->isAdmin())
             $('#suppliers-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 suppliersEditor.inline( this );
             } );
+            @endif
 
-            $('#suppliers-table').DataTable( {
+            suppliersTable = $('#suppliers-table').DataTable( {
+                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
+                @else
+                dom: "frtip",
+                @endif
                 ajax: "{{ route('suppliers-data') }}",
                 order: [[ 1, 'asc' ]],
                 columns: [
@@ -86,10 +92,16 @@
                     { data: "active" },
                     { data: "created_by" }
                 ],
+                @if (Auth::user()->isAdmin())
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
+                @else
+                columnDefs: [
+                    {visible: false, targets: 0},
+                ],
+                @endif
                 buttons: [
                     { extend: "create", editor: suppliersEditor, text: "Add" },
                     { extend: "edit",   editor: suppliersEditor },

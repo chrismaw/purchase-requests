@@ -13,7 +13,7 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="title m-b-md">
+        <div class="title">
             Projects
         </div>
         <table id="projects-table" class="display" cellspacing="0" width="100%">
@@ -30,7 +30,7 @@
                 <td></td>
             </tr>
         </table>
-        <div class="title m-b-md">
+        <div class="title">
             Tasks
         </div>
         <table id="tasks-table" class="display" cellspacing="0" width="100%">
@@ -84,12 +84,18 @@
                 }
             } );
 
+            @if (Auth::user()->isAdmin())
             $('#projects-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 projectsEditor.inline( this );
             } );
+            @endif
 
             $('#projects-table').DataTable( {
+                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
+                @else
+                dom: "frtip",
+                @endif
                 ajax: "{{ route('projects-data') }}",
                 order: [[ 1, 'asc' ]],
                 columns: [
@@ -103,10 +109,16 @@
                     { data: "number" },
                     { data: "description" }
                 ],
+                @if (Auth::user()->isAdmin())
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
+                @else
+                columnDefs: [
+                    {visible: false, targets: 0},
+                ],
+                @endif
                 buttons: [
                     { extend: "create", editor: projectsEditor, text: "Add" },
                     { extend: "edit",   editor: projectsEditor },
@@ -149,13 +161,19 @@
                 }
             } );
 
-            // Activate an inline edit on click of a table cell
+
+            @if (Auth::user()->isAdmin())
             $('#tasks-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 tasksEditor.inline( this );
             } );
+            @endif
 
             $('#tasks-table').DataTable( {
+                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
+                @else
+                dom: "frtip",
+                @endif
                 ajax: "{{ route('tasks-data') }}",
                 order: [[ 1, 'asc' ]],
                 columns: [
@@ -172,10 +190,16 @@
                     { data: "task_active" },
                     { data: "task_created_by" }
                 ],
+                @if (Auth::user()->isAdmin())
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
+                @else
+                columnDefs: [
+                    {visible: false, targets: 0},
+                ],
+                @endif
                 buttons: [
                     { extend: "create", editor: tasksEditor, text: "Add" },
                     { extend: "edit",   editor: tasksEditor },

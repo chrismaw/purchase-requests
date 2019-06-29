@@ -21,6 +21,7 @@ class UserController extends Controller
                 'DT_RowId' => 'row_' . $u->id,
                 'name' => $u->name,
                 'email' => $u->email,
+                'admin' => $u->is_admin ? 'Yes' : 'No',
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
         })])->toJson();
@@ -41,12 +42,14 @@ class UserController extends Controller
             $u->name = $request->data[0]['name'];
             $u->email = $request->data[0]['email'];
             $u->password = Hash::make($request->data[0]['password']);
+            $u->is_admin = $request->data[0]['admin'] == 'Yes' ? true : false;
             $u->created_at = date('Y-m-d H:i:s');
             $u->save();
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $u->id,
                 'name' => $u->name,
                 'email' => $u->email,
+                'admin' => $u->is_admin ? 'Yes' : 'No',
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
             return response()->json(
@@ -66,12 +69,16 @@ class UserController extends Controller
                         ? Hash::make($request->data[array_key_first($request->data)]['password'])
                         : $u->password;
                 }
+                if (array_key_exists('admin',$request->data[array_key_first($request->data)])){
+                    $u->is_admin = $request->data[array_key_first($request->data)]['admin'] == 'Yes' ? true : false;
+                }
                 $u->updated_at = date('Y-m-d H:i:s');
                 $u->save();
                 $output['data'][] = [
                     'DT_RowId' => 'row_' . $u->id,
                     'name' => $u->name,
                     'email' => $u->email,
+                    'admin' => $u->is_admin ? 'Yes' : 'No',
                     'added_on' => date('m-d-Y', strtotime($u->created_at))
                 ];
                 return response()->json(
