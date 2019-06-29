@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use App\PurchaseRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class PurchaseRequestController extends Controller
 {
+    const STATUSES = [
+        'Open', 'On Hold', 'Closed'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -14,37 +19,27 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
-        return view('purchase-requests');
+        $users = User::all()->sortBy('name');
+        $projects = Project::all()->sortBy('number');
+        return view('purchase-requests',[
+            'users' => $users,
+            'projects' => $projects,
+            'statuses' => self::STATUSES
+            ]);
     }
 
     public function data()
     {
-        $output = array();
-        $output['data'][] = [
-            "DT_RowId" => "row_1",
-            "first_name" => "Tiger",
-            "last_name" => "Nixon",
-            "position" => "System Architect",
-            "email" => "t.nixon@datatables.net",
-              "office" => "Edinburgh",
-              "extn" => "5421",
-              "age" => "61",
-              "salary" => "320800",
-              "start_date" => "2011-04-25"
-        ];
-        $output['data'][] = [
-            "DT_RowId" => "row_2",
-            "first_name" => "Chris",
-            "last_name" => "Maw",
-            "position" => "Developr Architect",
-            "email" => "c.maw@datatables.net",
-              "office" => "Greenville 1",
-              "extn" => "5421",
-              "age" => "30",
-              "salary" => "2000",
-              "start_date" => "2018-04-25"
-        ];
-        return json_encode($output);
+        return collect(['data' => PurchaseRequest::with('requestedByUser:id,name','project')->get()->map(function ($pr){
+            return [
+                'DT_RowId' => 'row_' . $pr->id,
+                'id' => $pr->id,
+                'project' => $pr->project->number . ' - ' . $pr->project->description,
+                'requester' => $pr->requestedByUser ? $pr->requestedByUser->name : '',
+                'request_date' => date('m-d-Y', strtotime($pr->created_at)),
+                'status' => $pr->status
+            ];
+        })])->toJson();
     }
 
     /**
@@ -100,7 +95,73 @@ class PurchaseRequestController extends Controller
 //    public function update(Request $request, PurchaseRequest $purchaseRequest)
     public function update(Request $request)
     {
-        dd($request->all());
+        if ($request->action == 'create'){
+            $p = new PurchaseRequest();
+            $p->project_id = $request->data[0]['project'];
+            $p->requester = $request->data[0]['requester'];
+            $p->created_at = date('Y-m-d H:i:s');
+            $p->status = $request->data[0]['purchase_request_status'];
+            $p->save();
+            $output['data'][] = [
+                'DT_RowId' => 'row_' . $p->id,
+                'id' => $p->id,
+                'project' => $p->project->number . ' - ' . $p->project->description,
+                'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
+                'request_date' => date('m-d-Y', strtotime($p->created_at)),
+                'status' => $p->status
+            ];
+            return response()->json(
+                $output
+            );
+        } elseif ($request->action == 'edit'){
+            $output = array();
+            foreach ($request->data as $row_id => $data){
+                $p = PurchaseRequest::find(substr($row_id,4));
+                if ($p instanceof PurchaseRequest){
+                    if (array_key_exists('project',$data)){
+                        $p->project_id = is_int($data['project'])
+                            ? $data['project']
+                            : $p->project_id;
+                    }
+                    if (array_key_exists('requester',$data)){
+                        $p->requester = is_int($data['requester'])
+                            ? $data['requester']
+                            : $p->requester;
+                    }
+                    if (array_key_exists('request_date',$data)){
+                        $p->created_at = ($data['request_date'] && ($data['request_date'] != date('m-d-Y',strtotime($p->created_at))))
+                            ? date('Y-m-d H:i:s',strtotime($data['request_date']))
+                            : $p->created_at;
+                    }
+                    if (array_key_exists('purchase_request_status',$data)){
+                        $p->status = $data['purchase_request_status'];
+                    }
+                    $p->updated_at = date('Y-m-d H:i:s');
+                    $p->save();
+                    $output['data'][] = [
+                        'DT_RowId' => 'row_' . $p->id,
+                        'id' => $p->id,
+                        'project' => $p->project->number . ' - ' . $p->project->description,
+                        'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
+                        'request_date' => date('m-d-Y', strtotime($p->created_at)),
+                        'status' => $p->status
+                    ];
+                }
+            }
+            return response()->json(
+                $output
+            );
+
+        } elseif ($request->action == 'remove'){
+
+            $p = PurchaseRequest::find(substr(array_key_first($request->data),4));
+            if ($p instanceof PurchaseRequest){
+                $p->delete();
+
+                return response()->json();
+            }
+
+        };
     }
 
     /**
