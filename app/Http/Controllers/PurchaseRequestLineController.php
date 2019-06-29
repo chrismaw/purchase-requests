@@ -17,6 +17,39 @@ class PurchaseRequestLineController extends Controller
         //
     }
 
+    public function data()
+    {
+        return collect(['data' => PurchaseRequestLine::with(
+            'purchaseRequest:id',
+            'task:id,number,description',
+            'supplier:id,name',
+            'uom:id,name',
+            'approverUser:id,name',
+            'buyerUser:id,name'
+            )->get()->map(function ($prl){
+            return [
+                'DT_RowId' => 'row_' . $prl->id,
+                'purchase_request' => $prl->purchaseRequest->id,
+                'item_number' => $prl->item_number,
+                'item_revision' => $prl->item_revision,
+                'item_description' => $prl->item_description,
+                'qty_required' => $prl->qty_required,
+                'uom' => $prl->uom->name,
+                'qty_per_uom' => $prl->qty_per_uom,
+                'uom_qty_required' => $prl->uom_qty_required,
+                'cost_per_uom' => $prl->cost_per_uom,
+                'total_line_cost' => $prl->total_line_cost,
+                'task' => $prl->task->number . ' - ' . $prl->task->description,
+                'need_date' => date('m-d-Y', strtotime($prl->need_date)),
+                'supplier' => $prl->supplier->name,
+                'notes' => $prl->notes,
+                'approver' => $prl->approverUser->name,
+                'buyer' => $prl->buyerUser->name,
+                'status' => $prl->status
+            ];
+        })])->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

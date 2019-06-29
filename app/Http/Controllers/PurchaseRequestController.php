@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\PurchaseRequest;
+use App\Supplier;
+use App\Task;
 use App\User;
 use Illuminate\Http\Request;
 
 class PurchaseRequestController extends Controller
 {
-    const STATUSES = [
+    const PR_STATUSES = [
         'Open', 'On Hold', 'Closed'
     ];
+
+    const PRL_STATUSES = [
+        'Pending Approval', 'Unreleased Drawing', 'Approved for Purchasing',
+        'PO in Progress', 'PO Revision', 'Order Complete', 'Request Cancelled'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +29,16 @@ class PurchaseRequestController extends Controller
     {
         $users = User::all()->sortBy('name');
         $projects = Project::all()->sortBy('number');
+        $suppliers = Supplier::all()->sortBy('name');
+        $tasks = Task::all()->sortBy('number');
         return view('purchase-requests',[
             'users' => $users,
             'projects' => $projects,
-            'statuses' => self::STATUSES
-            ]);
+            'suppliers' => $suppliers,
+            'tasks' => $tasks,
+            'prStatuses' => self::PR_STATUSES,
+            'prlStatuses' => self::PRL_STATUSES
+        ]);
     }
 
     public function data()
