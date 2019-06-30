@@ -6,8 +6,8 @@
             padding: 5px 4px;
             width: 100%;
         }
-        .display-none {
-            display: none;
+        #projects-table_wrapper {
+            margin-bottom: 50px;
         }
     </style>
 @endsection
@@ -111,7 +111,7 @@
                 ],
                 @if (Auth::user()->isAdmin())
                 select: {
-                    style:    'os',
+                    style:    'single',
                     selector: 'td:first-child'
                 },
                 @else
@@ -192,7 +192,7 @@
                 ],
                 @if (Auth::user()->isAdmin())
                 select: {
-                    style:    'os',
+                    style:    'single',
                     selector: 'td:first-child'
                 },
                 @else

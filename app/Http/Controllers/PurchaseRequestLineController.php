@@ -19,27 +19,18 @@ class PurchaseRequestLineController extends Controller
 
     public function data(Request $request)
     {
-        $prl_ids = explode(',',$request->get('prl'));
-//        $query = PurchaseRequestLine::with(
-//            'purchaseRequest:id',
-//            'task:id,number,description',
-//            'supplier:id,name',
-//            'uom:id,name',
-//            'approverUser:id,name',
-//            'buyerUser:id,name'
-//        );
-//        if ($request->get('prl')){
-//            $query->whereIn('purchase_request_id',[$request->get('prl')]);
-//        }
-//        return collect(['data']) => $query->get()->map
+        $prl_ids = $request->get('prl') ? explode(',',$request->get('prl')) : null;
+
         return collect(['data' => PurchaseRequestLine::with(
             'purchaseRequest:id',
             'task:id,number,description',
             'supplier:id,name',
             'uom:id,name',
             'approverUser:id,name',
-            'buyerUser:id,name'
-            )->whereIn('purchase_request_id',$prl_ids)
+            'buyerUser:id,name')
+            ->when($prl_ids, function ($q) use ($prl_ids) {
+                return $q->whereIn('purchase_request_id',$prl_ids);
+            })
             ->get()->map(function ($prl){
             return [
                 'DT_RowId' => 'row_' . $prl->id,

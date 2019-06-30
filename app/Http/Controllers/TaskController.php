@@ -26,7 +26,7 @@ class TaskController extends Controller
                 'task_number' => $t->number,
                 'task_description' => $t->description,
                 'task_active' => $t->is_active ? 'Yes' : 'No',
-                'task_created_by' => $t->createdByUser->name
+                'task_created_by' => $t->createdByUser ? $t->createdByUser->name : ''
             ];
         })])->toJson();
     }

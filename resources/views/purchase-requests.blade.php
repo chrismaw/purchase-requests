@@ -16,6 +16,9 @@
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date {
             display: none;
         }
+        #purchase-requests-table_wrapper {
+            margin-bottom: 50px;
+        }
         #purchase-request-lines-table {
             display: block;
             width: 100%;
@@ -175,9 +178,6 @@
                     style:    'os',
                     selector: 'td:first-child'
                 },
-                // select: {
-                //     style: 'single'
-                // },
                 @else
                 columnDefs: [
                     {visible: false, targets: 0},
@@ -275,7 +275,7 @@
                     url:"{{ route('purchase-request-lines-data') }}",
                     type: "post",
                     headers: {
-                        "_token": $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function (d) {
                         var selected = prTable.rows({selected:true});

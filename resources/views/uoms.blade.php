@@ -75,7 +75,7 @@
                 ],
                 @if (Auth::user()->isAdmin())
                 select: {
-                    style:    'os',
+                    style:    'single',
                     selector: 'td:first-child'
                 },
                 @else

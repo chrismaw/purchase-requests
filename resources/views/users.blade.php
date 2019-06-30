@@ -81,7 +81,7 @@
                     { data: "added_on" }
                 ],
                 select: {
-                    style:    'os',
+                    style:    'single',
                     selector: 'td:first-child'
                 },
                 buttons: [
