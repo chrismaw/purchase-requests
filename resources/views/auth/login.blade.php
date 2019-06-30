@@ -13,6 +13,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin-left: auto;
+            margin-right: auto;
+        }
         }
         #login-form {
             width:100%;

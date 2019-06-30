@@ -161,18 +161,17 @@
                 }
             } );
 
-
             @if (Auth::user()->isAdmin())
-            $('#tasks-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                tasksEditor.inline( this );
-            } );
+                $('#tasks-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+                    tasksEditor.inline( this );
+                } );
             @endif
 
             $('#tasks-table').DataTable( {
                 @if (Auth::user()->isAdmin())
-                dom: "Bfrtip",
+                    dom: "Bfrtip",
                 @else
-                dom: "frtip",
+                    dom: "frtip",
                 @endif
                 ajax: "{{ route('tasks-data') }}",
                 order: [[ 1, 'asc' ]],
@@ -191,14 +190,14 @@
                     { data: "task_created_by" }
                 ],
                 @if (Auth::user()->isAdmin())
-                select: {
-                    style:    'single',
-                    selector: 'td:first-child'
-                },
+                    select: {
+                        style:    'single',
+                        selector: 'td:first-child'
+                    },
                 @else
-                columnDefs: [
-                    {visible: false, targets: 0},
-                ],
+                    columnDefs: [
+                        {visible: false, targets: 0},
+                    ],
                 @endif
                 buttons: [
                     { extend: "create", editor: tasksEditor, text: "Add" },

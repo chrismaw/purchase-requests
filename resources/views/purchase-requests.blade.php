@@ -10,7 +10,8 @@
         #DTE_Field_supplier,
         #DTE_Field_approver,
         #DTE_Field_buyer,
-        #DTE_Field_prl_status {
+        #DTE_Field_prl_status,
+        #DTE_Field_purchase_request {
             padding: 5px 4px;
             width: 100%;
         }
@@ -181,16 +182,10 @@
                     { data: "request_date" },
                     { data: "status" },
                 ],
-                @if (Auth::user()->isAdmin())
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
-                @else
-                columnDefs: [
-                    {visible: false, targets: 0},
-                ],
-                @endif
                 buttons: [
                     { extend: "create", editor: prEditor, text: "Add" },
                     { extend: "edit",   editor: prEditor },
@@ -211,7 +206,13 @@
 
                 table: "#purchase-request-lines-table",
                 fields: [
-                    { label: "Purchase Request:", name: "purchase_request" },
+                    { label: "Purchase Request:", name: "purchase_request", type: 'select',
+                        options: [
+                            @foreach ($purchase_requests as $request)
+                                { label: '{{ $request->id }} | {{ $request->project->number }} - {{ $request->project->description }}', value: '{{ $request->id }}' },
+                            @endforeach
+                        ]
+                    },
                     { label: "Item Number:", name: "item_number" },
                     { label: "Item Revision:", name: "item_revision" },
                     { label: "Item Description:", name: "item_description" },
@@ -273,19 +274,12 @@
                 }
             } );
 
-
-            @if (Auth::user()->isAdmin())
             $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 prlEditor.inline( this );
             } );
-            @endif
 
             prlTable = $('#purchase-request-lines-table').DataTable( {
-                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
-                @else
-                dom: "frtip",
-                @endif
                 ajax: {
                     url:"{{ route('purchase-request-lines-data') }}",
                     type: "post",
@@ -326,18 +320,15 @@
                     { data: "buyer" },
                     { data: "status" },
                 ],
-                @if (Auth::user()->isAdmin())
                 select: {
-                    style:    'os',
+                    style:    'single',
                     selector: 'td:first-child'
                 },
-                @endif
                 columnDefs: [
-                    { visible: false, targets: [
-                        @if (!Auth::user()->isAdmin())0,@endif 1
-                    ] },
-                    { "className": "text-nowrap", "targets": '_all' }
+                    { visible: false, targets: 1 },
+                    { className: "text-nowrap", "targets": [4,11,12,13,15,16,17] }
                 ],
+                paging: false,
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
                     { extend: "edit",   editor: prlEditor },
