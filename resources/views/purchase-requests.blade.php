@@ -50,11 +50,11 @@
                 <td></td>
             </tr>
         </table>
-    </div>
-    <div class="container-fluid" style="width: unset;">
         <div class="title">
             Purchase Request Lines
         </div>
+    </div>
+    <div class="container-fluid" style="width: unset;">
         <table id="purchase-request-lines-table" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -171,13 +171,13 @@
                     { data: "status" },
                 ],
                 @if (Auth::user()->isAdmin())
-                // select: {
-                //     style:    'os',
-                //     selector: 'td:first-child'
-                // },
                 select: {
-                    style: 'single'
+                    style:    'os',
+                    selector: 'td:first-child'
                 },
+                // select: {
+                //     style: 'single'
+                // },
                 @else
                 columnDefs: [
                     {visible: false, targets: 0},
@@ -189,10 +189,18 @@
                     { extend: "remove", editor: prEditor }
                 ]
             } );
-            prTable.row( { selected: true }).data();
             // Tasks Table
             prlEditor = new $.fn.dataTable.Editor( {
-                ajax: "{{ route('purchase-request-lines-update') }}",
+                ajax: {
+                    url: "{{ route('purchase-request-lines-update') }}",
+                    data: function (d){
+                        var selected = prTable.row({selected:true});
+                        if (selected.any()){
+                            d.prl = selected.data().id;
+                        }
+                    }
+                },
+
                 table: "#purchase-request-lines-table",
                 fields: [
                     { label: "Purchase Request:", name: "purchase_request" },
@@ -257,13 +265,25 @@
             } );
             @endif
 
-            $('#purchase-request-lines-table').DataTable( {
+            prlTable = $('#purchase-request-lines-table').DataTable( {
                 @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
                 @else
                 dom: "frtip",
                 @endif
-                ajax: "{{ route('purchase-request-lines-data') }}",
+                ajax: {
+                    url:"{{ route('purchase-request-lines-data') }}",
+                    type: "post",
+                    headers: {
+                        "_token": $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function (d) {
+                        var selected = prTable.rows({selected:true});
+                        if (selected.any()){
+                            d.prl = selected.data().pluck('id').join(',');
+                        }
+                    }
+                },
                 order: [[ 1, 'asc' ]],
                 columns: [
                     {
@@ -298,8 +318,9 @@
                 @endif
                 columnDefs: [
                     { visible: false, targets: [
-                            @if (!Auth::user()->isAdmin())0,@endif 1
-                        ] },
+                        @if (!Auth::user()->isAdmin())0,@endif 1
+                    ] },
+                    { "className": "text-nowrap", "targets": '_all' }
                 ],
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
@@ -307,6 +328,18 @@
                     { extend: "remove", editor: prlEditor }
                 ]
             } );
+
+            prTable.on('select', function () {
+                prlTable.ajax.reload();
+
+                console.log(prlEditor);
+                prlEditor
+                    .field('purchase_request')
+                    .def(prTable.rows({selected:true}).data().id);
+            });
+            prTable.on('deselect',function () {
+                prlTable.ajax.reload();
+            })
         } );
     </script>
     @endsection

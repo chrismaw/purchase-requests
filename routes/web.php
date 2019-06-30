@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/purchase-requests/update', 'PurchaseRequestController@update')->name('purchase-requests-update');
 
     // Purchase Request Lines
-    Route::get('/purchase-request-lines/data', 'PurchaseRequestLineController@data')->name('purchase-request-lines-data');
+    Route::post('/purchase-request-lines/data', 'PurchaseRequestLineController@data')->name('purchase-request-lines-data');
     Route::post('/purchase-request-lines/update', 'PurchaseRequestLineController@update')->name('purchase-request-lines-update');
 
     //Projects

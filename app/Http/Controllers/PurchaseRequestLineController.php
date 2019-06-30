@@ -17,8 +17,21 @@ class PurchaseRequestLineController extends Controller
         //
     }
 
-    public function data()
+    public function data(Request $request)
     {
+        $prl_ids = explode(',',$request->get('prl'));
+//        $query = PurchaseRequestLine::with(
+//            'purchaseRequest:id',
+//            'task:id,number,description',
+//            'supplier:id,name',
+//            'uom:id,name',
+//            'approverUser:id,name',
+//            'buyerUser:id,name'
+//        );
+//        if ($request->get('prl')){
+//            $query->whereIn('purchase_request_id',[$request->get('prl')]);
+//        }
+//        return collect(['data']) => $query->get()->map
         return collect(['data' => PurchaseRequestLine::with(
             'purchaseRequest:id',
             'task:id,number,description',
@@ -26,7 +39,8 @@ class PurchaseRequestLineController extends Controller
             'uom:id,name',
             'approverUser:id,name',
             'buyerUser:id,name'
-            )->get()->map(function ($prl){
+            )->whereIn('purchase_request_id',$prl_ids)
+            ->get()->map(function ($prl){
             return [
                 'DT_RowId' => 'row_' . $prl->id,
                 'purchase_request' => $prl->purchaseRequest->id,

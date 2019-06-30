@@ -139,7 +139,9 @@ nav #nav-toggle {
 .display-none {
     display: none;
 }
-
+.text-nowrap {
+    white-space: nowrap;
+}
 .full-height {
     height: 100vh;
 }
