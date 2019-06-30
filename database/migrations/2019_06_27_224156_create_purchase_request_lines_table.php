@@ -27,7 +27,6 @@ class CreatePurchaseRequestLinesTable extends Migration
             $table->float('qty_required');
             $table->float('qty_per_uom')->default('1.00');
             $table->float('cost_per_uom')->default('0.00');
-            $table->float('uom_qty_required')->nullable();
             $table->dateTime('need_date');
             $table->longText('notes')->nullable();
             $table->string('status')->default('Pending Approval');

@@ -5,6 +5,7 @@
         #DTE_Field_project,
         #DTE_Field_requester,
         #DTE_Field_purchase_request_status,
+        #DTE_Field_uom,
         #DTE_Field_task,
         #DTE_Field_supplier,
         #DTE_Field_approver,
@@ -67,6 +68,7 @@
                 <th>Item Revision</th>
                 <th>Item Description</th>
                 <th>Qty Required</th>
+                <th>UOM</th>
                 <th>Qty Per UOM</th>
                 <th>UOM Qty Required</th>
                 <th>UOM Cost</th>
@@ -81,6 +83,7 @@
             </tr>
             </thead>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -157,7 +160,12 @@
                 @else
                 dom: "frtip",
                 @endif
-                ajax: "{{ route('purchase-requests-data') }}",
+                ajax: {
+                    url: "{{ route('purchase-requests-data') }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
                 order: [[ 1, 'asc' ]],
                 columns: [
                     {
@@ -209,6 +217,13 @@
                     { label: "Item Description:", name: "item_description" },
                     { label: "Qty Required:", name: "qty_required" },
                     { label: "Qty Per UOM:", name: "qty_per_uom" },
+                    { label: "Uom:", name: "uom", type: 'select',
+                        options: [
+                            @foreach ($uoms as $uom)
+                                { label: '{{ $uom->name }}', value: '{{ $uom->id }}' },
+                            @endforeach
+                        ]
+                    },
                     { label: "UOM Cost:", name: "cost_per_uom" },
                     { label: "Task:", name: "task", type: 'select',
                         options: [
@@ -274,9 +289,9 @@
                 ajax: {
                     url:"{{ route('purchase-request-lines-data') }}",
                     type: "post",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
+                    // headers: {
+                    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
                     data: function (d) {
                         var selected = prTable.rows({selected:true});
                         if (selected.any()){
@@ -298,6 +313,7 @@
                     { data: "item_revision" },
                     { data: "item_description" },
                     { data: "qty_required" },
+                    { data: "uom" },
                     { data: "qty_per_uom" },
                     { data: "uom_qty_required" },
                     { data: "cost_per_uom" },

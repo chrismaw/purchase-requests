@@ -6,6 +6,7 @@ use App\Project;
 use App\PurchaseRequest;
 use App\Supplier;
 use App\Task;
+use App\Uom;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,15 @@ class PurchaseRequestController extends Controller
         $projects = Project::all()->sortBy('number');
         $suppliers = Supplier::all()->sortBy('name');
         $tasks = Task::all()->sortBy('number');
+        $uoms = Uom::all()->sortBy('name');
+        $purchase_requests = PurchaseRequest::all()->sortBy('number');
         return view('purchase-requests',[
             'users' => $users,
             'projects' => $projects,
             'suppliers' => $suppliers,
             'tasks' => $tasks,
+            'uoms' => $uoms,
+            'purchase_requests' => $purchase_requests,
             'prStatuses' => self::PR_STATUSES,
             'prlStatuses' => self::PRL_STATUSES
         ]);
