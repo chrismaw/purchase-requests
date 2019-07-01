@@ -23,13 +23,15 @@
                 <th>Date Added</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
     </div>
     <script>
@@ -38,10 +40,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var usersEditor;
+        var usersEditor, usersTable;
 
         $(document).ready(function() {
-            // Projects Table
+            // Users Editor
             usersEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('users-update') }}",
                 table: "#users-table",
@@ -62,8 +64,8 @@
                     }
                 }
             } );
-
-            $('#users-table').DataTable( {
+            // Users Datatable
+            usersTable = $('#users-table').DataTable( {
                 dom: "Bfrtip",
                 ajax: "{{ route('users-data') }}",
                 order: [[ 1, 'asc' ]],
@@ -90,6 +92,20 @@
                     { extend: "remove", editor: usersEditor }
                 ]
             } );
+
+            // add input for each column for Projects Table
+            $('#users-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Projects Table
+            usersTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            });
         } );
     </script>
     @endsection

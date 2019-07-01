@@ -22,12 +22,14 @@
                 <th>Added By</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
     </div>
     <script>
@@ -39,7 +41,7 @@
         var suppliersEditor, suppliersTable;
 
         $(document).ready(function() {
-            // Projects Table
+            // Suppliers Editor
             suppliersEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('suppliers-update') }}",
                 table: "#suppliers-table",
@@ -65,18 +67,18 @@
                     }
                 }
             } );
-
+            // Inline edit functionality
             @if (Auth::user()->isAdmin())
-            $('#suppliers-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                suppliersEditor.inline( this );
-            } );
+                $('#suppliers-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+                    suppliersEditor.inline( this );
+                } );
             @endif
-
+            //Suppliers Datatable
             suppliersTable = $('#suppliers-table').DataTable( {
                 @if (Auth::user()->isAdmin())
-                dom: "Bfrtip",
+                    dom: "Bfrtip",
                 @else
-                dom: "frtip",
+                    dom: "frtip",
                 @endif
                 ajax: "{{ route('suppliers-data') }}",
                 order: [[ 1, 'asc' ]],
@@ -93,14 +95,14 @@
                     { data: "created_by" }
                 ],
                 @if (Auth::user()->isAdmin())
-                select: {
-                    style:    'single',
-                    selector: 'td:first-child'
-                },
+                    select: {
+                        style:    'single',
+                        selector: 'td:first-child'
+                    },
                 @else
-                columnDefs: [
-                    {visible: false, targets: 0},
-                ],
+                    columnDefs: [
+                        {visible: false, targets: 0},
+                    ],
                 @endif
                 buttons: [
                     { extend: "create", editor: suppliersEditor, text: "Add" },
@@ -108,6 +110,20 @@
                     { extend: "remove", editor: suppliersEditor }
                 ]
             } );
+
+            // add input for each column for Projects Table
+            $('#suppliers-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Projects Table
+            suppliersTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            });
         } );
     </script>
     @endsection

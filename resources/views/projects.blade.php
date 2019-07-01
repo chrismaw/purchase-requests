@@ -24,11 +24,13 @@
                 <th>Description</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
         <div class="title">
             Tasks
@@ -44,14 +46,16 @@
                 <th>Created By</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
     </div>
     <script>
@@ -60,11 +64,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var projectsEditor;
-        var tasksEditor;
+        var projectsEditor, projectsTable, tasksEditor, tasksTable;
 
         $(document).ready(function() {
-            // Projects Table
+            // Projects Editor
             projectsEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('projects-update') }}",
                 table: "#projects-table",
@@ -83,14 +86,14 @@
                     }
                 }
             } );
-
+            // Edit inline Functionality
             @if (Auth::user()->isAdmin())
             $('#projects-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 projectsEditor.inline( this );
             } );
             @endif
-
-            $('#projects-table').DataTable( {
+            // Projects Datatable
+            projectsTable = $('#projects-table').DataTable( {
                 @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
                 @else
@@ -126,7 +129,21 @@
                 ]
             } );
 
-            // Tasks Table
+            // add input for each column for Projects Table
+            $('#projects-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Projects Table
+            projectsTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            });
+
+            // Tasks Editor
             tasksEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('tasks-update') }}",
                 table: "#tasks-table",
@@ -161,13 +178,15 @@
                 }
             } );
 
+            // Inline Edit Functionality
             @if (Auth::user()->isAdmin())
                 $('#tasks-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                     tasksEditor.inline( this );
                 } );
             @endif
 
-            $('#tasks-table').DataTable( {
+            //Tasks Datatable
+            tasksTable = $('#tasks-table').DataTable( {
                 @if (Auth::user()->isAdmin())
                     dom: "Bfrtip",
                 @else
@@ -205,6 +224,20 @@
                     { extend: "remove", editor: tasksEditor }
                 ]
             } );
+
+            // add input for each column for Tasks Table
+            $('#tasks-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Tasks Table
+            tasksTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            })
         } );
     </script>
     @endsection

@@ -46,14 +46,16 @@
                 <th>Status</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
         <div class="title">
             Purchase Request Lines
@@ -83,26 +85,28 @@
                 <th>Status</th>
             </tr>
             </thead>
+            <tfoot>
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
             </tr>
+            </tfoot>
         </table>
     </div>
     <script>
@@ -114,7 +118,7 @@
         var prEditor, prTable, prlEditor, prlTable;
 
         $(document).ready(function() {
-            // Projects Table
+            // Purchase Requests Editor
             prEditor = new $.fn.dataTable.Editor( {
                 ajax: "{{ route('purchase-requests-update') }}",
                 table: "#purchase-requests-table",
@@ -141,7 +145,6 @@
                             @endforeach
                         ]
                     }
-
                 ],
                 i18n: {
                     create: {
@@ -154,13 +157,9 @@
                     }
                 }
             } );
-
+            // Purchase request Datatable
             prTable = $('#purchase-requests-table').DataTable( {
-                @if (Auth::user()->isAdmin())
                 dom: "Bfrtip",
-                @else
-                dom: "frtip",
-                @endif
                 ajax: {
                     url: "{{ route('purchase-requests-data') }}",
                     headers: {
@@ -192,7 +191,22 @@
                     { extend: "remove", editor: prEditor }
                 ]
             } );
-            // Tasks Table
+
+            // add input for each column for Purchase Requests Table
+            $('#purchase-requests-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Purchase Requests Table
+            prTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            });
+
+            // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
                 ajax: {
                     url: "{{ route('purchase-request-lines-update') }}",
@@ -203,7 +217,6 @@
                         }
                     }
                 },
-
                 table: "#purchase-request-lines-table",
                 fields: [
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
@@ -273,11 +286,11 @@
                     }
                 }
             } );
-
+            // Inline Edit Functionality
             $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
                 prlEditor.inline( this );
             } );
-
+            // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
                 dom: "Bfrtip",
                 ajax: {
@@ -335,6 +348,19 @@
                     { extend: "remove", editor: prlEditor }
                 ]
             } );
+            // add input for each column for Purchase Request Lines Table
+            $('#purchase-request-lines-table tfoot td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text"/>')
+            });
+            // add search function for Purchase Request Lines Table
+            prlTable.columns().every(function(){
+                let that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                })
+            });
 
             prTable.on('select', function () {
                 prlTable.ajax.reload();

@@ -23,29 +23,30 @@
 </head>
 <body>
     <header>
-        <nav>
-            <div id="logo">Logo</div>
-            <div id="nav-container">
-                <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
-                <a href="{{ url('/projects') }}">Projects & Tasks</a>
-                <a href="{{ url('/suppliers') }}">Suppliers</a>
-                <a href="{{ url('/uoms') }}">UOMs</a>
-                @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
-                @guest
-                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                @else
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
+{{--        <nav>--}}
+{{--            <div id="logo">{{ config('app.name') }}</div>--}}
+{{--        </nav>--}}
+        <div class="topnav" id="myTopnav">
+            <div id="logo">{{ config('app.name') }}</div>
+            <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
+            <a href="{{ url('/projects') }}">Projects & Tasks</a>
+            <a href="{{ url('/suppliers') }}">Suppliers</a>
+            <a href="{{ url('/uoms') }}">UOMs</a>
+            @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
+            @guest
+                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+            @else
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @endguest
-            </div>
-            <div id="nav-toggle">Menu</div>
-        </nav>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endguest
+            <a href="#" class="icon" id="burger">&#9776;</a>
+        </div>
     </header>
     <div id="app">
         <main>
@@ -53,9 +54,14 @@
         </main>
     </div>
 <script>
-    $("#nav-toggle").on('click', function() {
-        $("#nav-container").classList.toggle('active');
-    });
+    document.getElementById("burger").onclick = function(){
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
 </script>
 </body>
 </html>
