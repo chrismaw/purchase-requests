@@ -185,6 +185,9 @@
                     style:    'os',
                     selector: 'td:first-child'
                 },
+                columnDefs: [
+                    { className: "text-nowrap", targets: '_all' }
+                ],
                 buttons: [
                     { extend: "create", editor: prEditor, text: "Add" },
                     { extend: "edit",   editor: prEditor },

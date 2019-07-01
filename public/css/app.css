@@ -16,7 +16,7 @@ header {
 /* Header / Nav */
 .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #fff;
 }
 #logo {
     font-weight: 600;
@@ -24,7 +24,7 @@ header {
 .topnav a, .topnav #logo {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: #636b6f;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
