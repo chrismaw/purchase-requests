@@ -142,7 +142,7 @@ class PurchaseRequestController extends Controller
                             : $p->project_id;
                     }
                     if (array_key_exists('requester',$data)){
-                        $p->requester = is_int($data['requester'])
+                        $p->requester = preg_match('/^\d+$/',$data['requester'])
                             ? $data['requester']
                             : $p->requester;
                     }

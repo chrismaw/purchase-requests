@@ -225,7 +225,7 @@
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
                         options: [
                             @foreach ($purchase_requests as $request)
-                                { label: '{{ $request->id }} | {{ $request->project->number }} - {{ $request->project->description }}', value: '{{ $request->id }}' },
+                                { label: 'ID: {{ $request->id }} | {{ $request->project->number }} - {{ $request->project->description }}', value: '{{ $request->id }}' },
                             @endforeach
                         ]
                     },
@@ -367,8 +367,6 @@
 
             prTable.on('select', function () {
                 prlTable.ajax.reload();
-
-                console.log(prlEditor);
                 prlEditor
                     .field('purchase_request')
                     .def(prTable.rows({selected:true}).data().id);
