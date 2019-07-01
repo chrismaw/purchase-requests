@@ -23,9 +23,6 @@
 </head>
 <body>
     <header>
-{{--        <nav>--}}
-{{--            <div id="logo">{{ config('app.name') }}</div>--}}
-{{--        </nav>--}}
         <div class="topnav" id="myTopnav">
             <div id="logo">{{ config('app.name') }}</div>
             <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>

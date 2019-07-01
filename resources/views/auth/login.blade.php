@@ -17,7 +17,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-        }
         #login-form {
             width:100%;
         }
@@ -83,9 +82,9 @@
 </head>
 <body>
 <header>
-    <nav>
-        <div id="logo">Logo</div>
-    </nav>
+    <div class="topnav" id="myTopnav">
+        <div id="logo">{{ config('app.name') }}</div>
+    </div>
 </header>
 <div id="form-container" class="container">
     <h1 class="title">{{ __('Login') }}</h1>
