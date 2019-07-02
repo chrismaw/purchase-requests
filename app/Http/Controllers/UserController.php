@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function data()
     {
-        return collect(['data' => User::all()->sortBy('name')->map(function ($u){
+        return collect(['data' => User::all()->map(function ($u){
             return [
                 'DT_RowId' => 'row_' . $u->id,
                 'name' => $u->name,
