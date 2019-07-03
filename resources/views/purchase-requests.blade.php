@@ -271,7 +271,7 @@
                             @endforeach
                         ]
                     },
-                    { label: "Need Date:", name: "need_date", type: 'date' },
+                    { label: "Need Date:", name: "need_date", type: 'datetime' },
                     { label: "Supplier:", name: "supplier", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
@@ -368,7 +368,7 @@
                 },
                 columnDefs: [
                     { visible: false, targets: 1 },
-                    { className: "text-nowrap", "targets": [4,11,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [4,12,13,15,16,17] }
                 ],
                 paging: false,
                 buttons: [
@@ -416,11 +416,10 @@
                         if (!qtyRequired.val()) {
                             qtyRequired.error('A quantity must be provided');
                         }
-                    }
-                    if (!qtyRequired.isMultiValue()) {
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
                         }
+
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
