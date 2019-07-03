@@ -49,6 +49,21 @@
                     }
                 }
             } );
+
+            uomsEditor.on( 'preSubmit', function ( e, o, action ) {
+                if ( action !== 'remove' ) {
+                    var name = this.field('name');
+
+                    if (!name.isMultiValue()){
+                        if (!name.val()) {
+                            name.error('A name must be provided');
+                        }
+                    }
+                    if ( this.inError() ) {
+                        return false;
+                    }
+                }
+            } );
             // Inline edit functionality
             @if (Auth::user()->isAdmin())
                 $('#uoms-table').on( 'click', 'tbody td:not(:first-child)', function (e) {

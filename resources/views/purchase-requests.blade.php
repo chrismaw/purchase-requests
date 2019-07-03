@@ -15,7 +15,8 @@
             padding: 5px 4px;
             width: 100%;
         }
-        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date {
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
         }
         #purchase-requests-table_wrapper {
@@ -116,7 +117,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var prEditor, prTable, prlEditor, prlTable;
+        var prEditor, prTable, prlEditor, prlTable, prID;
 
         $(document).ready(function() {
             // Purchase Requests Editor
@@ -272,7 +273,7 @@
                             @endforeach
                         ]
                     },
-                    { label: "Need Date:", name: "need_date", type: 'date' },
+                    { label: "Need Date:", name: "need_date", type: 'datetime' },
                     { label: "Supplier:", name: "supplier", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
@@ -369,7 +370,7 @@
                 },
                 columnDefs: [
                     { visible: false, targets: 1 },
-                    { className: "text-nowrap", "targets": [4,11,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [4,12,13,15,16,17] }
                 ],
                 paging: false,
                 buttons: [
@@ -382,6 +383,7 @@
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text"/>')
             });
+            prlTable.buttons().disable();
             // add search function for Purchase Request Lines Table
             prlTable.columns().every(function(){
                 let that = this;
@@ -391,15 +393,20 @@
                     }
                 })
             });
-
-            prTable.on('select', function () {
+            prTable.on('select', function (e, dt, type, indexes) {
                 prlTable.ajax.reload();
                 prlEditor
                     .field('purchase_request')
                     .def(prTable.rows({selected:true}).data().id);
+                prID = prTable.rows(indexes).data()[0]['id'];
+                setTimeout(function () {
+                    prlEditor.set('purchase_request',prID);
+                }, 2000);
+                prlTable.buttons().enable();
             });
             prTable.on('deselect',function () {
                 prlTable.ajax.reload();
+                prlTable.buttons().disable();
             });
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {
@@ -417,11 +424,10 @@
                         if (!qtyRequired.val()) {
                             qtyRequired.error('A quantity must be provided');
                         }
-                    }
-                    if (!qtyRequired.isMultiValue()) {
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
                         }
+
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
@@ -433,14 +439,29 @@
                             needDate.error('A date must be provided');
                         }
                     }
-
-                    // ... additional validation rules
-
-                    // If any error was reported, cancel the submission so it can be corrected
                     if ( this.inError() ) {
                         return false;
                     }
                 }
+            } );
+            // prlEditor.on( 'onInitCreate', function () {
+            //     prlEditor.disable('purchase_request');
+            // } );
+            // prlEditor.on( 'onInitEdit', function () {
+                // prlEditor.enable('purchase_request');
+            // } );
+
+            prEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_project').select2();
+                $('#DTE_Field_requester').select2();
+            } );
+            prlEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_uom').select2();
+                $('#DTE_Field_task').select2();
+                $('#DTE_Field_supplier').select2();
+                $('#DTE_Field_approver').select2();
+                $('#DTE_Field_buyer').select2();
+                $('#DTE_Field_purchase_request').select2();
             } );
         } );
     </script>

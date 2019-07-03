@@ -52,8 +52,12 @@
                     },
                     { label: "Added by:", name: "created_by", type: 'select',
                         options: [
+                            { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
                             @foreach ($users as $user)
-                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @if ($user->id == Auth::user()->id)
+                                @else
+                                    { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @endif
                             @endforeach
                         ]
                     }
@@ -64,6 +68,21 @@
                     },
                     edit: {
                         title:  "Edit Supplier",
+                    }
+                }
+            } );
+
+            suppliersEditor.on( 'preSubmit', function ( e, o, action ) {
+                if ( action !== 'remove' ) {
+                    var name = this.field('name');
+
+                    if (!name.isMultiValue()){
+                        if (!name.val()) {
+                            name.error('A name must be provided');
+                        }
+                    }
+                    if ( this.inError() ) {
+                        return false;
                     }
                 }
             } );
@@ -126,6 +145,10 @@
                     }
                 })
             });
+
+            suppliersEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_created_by').select2();
+            } );
         } );
     </script>
     @endsection

@@ -160,3 +160,13 @@ a.link {
     text-decoration: none;
     text-transform: uppercase;
 }
+.select2-selection__rendered {
+    color: #000 !important;
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #000; !important;
+    border-radius: unset !important;
+}
+.select2-dropdown {
+    border-radius: unset !important;
+}
