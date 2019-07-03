@@ -47,6 +47,7 @@
             <a href="#" class="icon" id="burger">&#9776;</a>
         </div>
     </header>
+	<hr />
     <div id="app">
         <main>
             @yield('content')

@@ -32,6 +32,7 @@
             </tr>
             </tfoot>
         </table>
+		<hr />
         <div class="title">
             Tasks
         </div>
