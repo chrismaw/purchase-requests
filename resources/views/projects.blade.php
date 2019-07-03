@@ -86,6 +86,31 @@
                     }
                 }
             } );
+
+            projectsEditor.on( 'preSubmit', function ( e, o, action ) {
+                if ( action !== 'remove' ) {
+                    var number = this.field('number'),
+                        description = this.field('description');
+
+                    if (!description.isMultiValue()){
+                        if (!description.val()) {
+                            description.error('A description must be provided');
+                        }
+                    }
+                    if (!number.isMultiValue()) {
+                        if (!/\d/.test(number.val())) {
+                            number.error('This must be a number');
+                        }
+                        if (!number.val()) {
+                            number.error('A number must be provided');
+                        }
+
+                    }
+                    if ( this.inError() ) {
+                        return false;
+                    }
+                }
+            } );
             // Edit inline Functionality
             @if (Auth::user()->isAdmin())
             $('#projects-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
@@ -192,7 +217,30 @@
                     });
                 } );
             @endif
+            tasksEditor.on( 'preSubmit', function ( e, o, action ) {
+                if ( action !== 'remove' ) {
+                    var number = this.field('task_number'),
+                        description = this.field('task_description');
 
+                    if (!description.isMultiValue()){
+                        if (!description.val()) {
+                            description.error('A description must be provided');
+                        }
+                    }
+                    if (!number.isMultiValue()) {
+                        if (!/\d/.test(number.val())) {
+                            number.error('This must be a number');
+                        }
+                        if (!number.val()) {
+                            number.error('A number must be provided');
+                        }
+
+                    }
+                    if ( this.inError() ) {
+                        return false;
+                    }
+                }
+            } );
             //Tasks Datatable
             tasksTable = $('#tasks-table').DataTable( {
                 @if (Auth::user()->isAdmin())

@@ -437,10 +437,6 @@
                             needDate.error('A date must be provided');
                         }
                     }
-
-                    // ... additional validation rules
-
-                    // If any error was reported, cancel the submission so it can be corrected
                     if ( this.inError() ) {
                         return false;
                     }
