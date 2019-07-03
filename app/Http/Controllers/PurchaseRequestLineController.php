@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PurchaseRequestLine;
 use Illuminate\Http\Request;
+use Monolog\Handler\IFTTTHandler;
 
 class PurchaseRequestLineController extends Controller
 {
@@ -20,41 +21,46 @@ class PurchaseRequestLineController extends Controller
     public function data(Request $request)
     {
         $prl_ids = $request->get('prl') ? explode(',',$request->get('prl')) : null;
-
-        return collect(['data' => PurchaseRequestLine::with(
-            'purchaseRequest:id',
-            'task:id,number,description',
-            'supplier:id,name',
-            'uom:id,name',
-            'approverUser:id,name',
-            'buyerUser:id,name')
-            ->where('is_deleted','=',false)
-            ->when($prl_ids, function ($q) use ($prl_ids) {
-                return $q->whereIn('purchase_request_id',$prl_ids);
-            })
-            ->get()->map(function ($prl){
-            $uom_qty_required = number_format($prl->qty_required / $prl->qty_per_uom,2);
-            return [
-                'DT_RowId' => 'row_' . $prl->id,
-                'purchase_request' => $prl->purchaseRequest->id,
-                'item_number' => $prl->item_number,
-                'item_revision' => $prl->item_revision,
-                'item_description' => $prl->item_description,
-                'qty_required' => $prl->qty_required,
-                'uom' => $prl->uom->name,
-                'qty_per_uom' => $prl->qty_per_uom,
-                'uom_qty_required' => $uom_qty_required,
-                'cost_per_uom' => number_format($prl->cost_per_uom,2),
-                'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required,2),
-                'task' => $prl->task->number,
-                'need_date' => date('m-d-Y', strtotime($prl->need_date)),
-                'supplier' => $prl->supplier ? $prl->supplier->name : '',
-                'notes' => $prl->notes,
-                'approver' => $prl->approverUser ? $prl->approverUser->name : '',
-                'buyer' => $prl->buyerUser ? $prl->buyerUser->name : '',
-                'prl_status' => $prl->status
-            ];
-        })])->toJson();
+        if ($request->get('prl')) {
+            return collect(['data' => PurchaseRequestLine::with(
+                'purchaseRequest:id',
+                'task:id,number,description',
+                'supplier:id,name',
+                'uom:id,name',
+                'approverUser:id,name',
+                'buyerUser:id,name')
+                ->where('is_deleted', '=', false)
+                ->when($prl_ids, function ($q) use ($prl_ids) {
+                    return $q->whereIn('purchase_request_id', $prl_ids);
+                })
+                ->get()->map(function ($prl) {
+                    $uom_qty_required = number_format($prl->qty_required / $prl->qty_per_uom, 2);
+                    return [
+                        'DT_RowId' => 'row_' . $prl->id,
+                        'purchase_request' => $prl->purchaseRequest->id,
+                        'item_number' => $prl->item_number,
+                        'item_revision' => $prl->item_revision,
+                        'item_description' => $prl->item_description,
+                        'qty_required' => $prl->qty_required,
+                        'uom' => $prl->uom->name,
+                        'qty_per_uom' => $prl->qty_per_uom,
+                        'uom_qty_required' => $uom_qty_required,
+                        'cost_per_uom' => number_format($prl->cost_per_uom, 2),
+                        'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required, 2),
+                        'task' => $prl->task->number,
+                        'need_date' => date('m-d-Y', strtotime($prl->need_date)),
+                        'supplier' => $prl->supplier ? $prl->supplier->name : '',
+                        'notes' => $prl->notes,
+                        'approver' => $prl->approverUser ? $prl->approverUser->name : '',
+                        'buyer' => $prl->buyerUser ? $prl->buyerUser->name : '',
+                        'prl_status' => $prl->status
+                    ];
+                })])->toJson();
+        } else {
+            $output = array();
+            $output['data'] = array();
+            return json_encode($output);
+        }
     }
 
     /**

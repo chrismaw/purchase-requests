@@ -115,7 +115,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var prEditor, prTable, prlEditor, prlTable;
+        var prEditor, prTable, prlEditor, prlTable, prID;
 
         $(document).ready(function() {
             // Purchase Requests Editor
@@ -381,6 +381,7 @@
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text"/>')
             });
+            prlTable.buttons().disable();
             // add search function for Purchase Request Lines Table
             prlTable.columns().every(function(){
                 let that = this;
@@ -390,15 +391,20 @@
                     }
                 })
             });
-
-            prTable.on('select', function () {
+            prTable.on('select', function (e, dt, type, indexes) {
                 prlTable.ajax.reload();
                 prlEditor
                     .field('purchase_request')
                     .def(prTable.rows({selected:true}).data().id);
+                prID = prTable.rows(indexes).data()[0]['id'];
+                setTimeout(function () {
+                    prlEditor.set('purchase_request',prID);
+                }, 2000);
+                prlTable.buttons().enable();
             });
             prTable.on('deselect',function () {
                 prlTable.ajax.reload();
+                prlTable.buttons().disable();
             });
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {
@@ -439,6 +445,12 @@
                         return false;
                     }
                 }
+            } );
+            prlEditor.on( 'onInitCreate', function () {
+                prlEditor.disable('purchase_request');
+            } );
+            prlEditor.on( 'onInitEdit', function () {
+                prlEditor.enable('purchase_request');
             } );
         } );
     </script>
