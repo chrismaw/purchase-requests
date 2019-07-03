@@ -15,7 +15,8 @@
             padding: 5px 4px;
             width: 100%;
         }
-        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date {
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
         }
         #purchase-requests-table_wrapper {
@@ -442,12 +443,12 @@
                     }
                 }
             } );
-            prlEditor.on( 'onInitCreate', function () {
-                prlEditor.disable('purchase_request');
-            } );
-            prlEditor.on( 'onInitEdit', function () {
-                prlEditor.enable('purchase_request');
-            } );
+            // prlEditor.on( 'onInitCreate', function () {
+            //     prlEditor.disable('purchase_request');
+            // } );
+            // prlEditor.on( 'onInitEdit', function () {
+            //     prlEditor.enable('purchase_request');
+            // } );
         } );
     </script>
     @endsection
