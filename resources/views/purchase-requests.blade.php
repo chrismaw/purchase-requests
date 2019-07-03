@@ -447,8 +447,21 @@
             //     prlEditor.disable('purchase_request');
             // } );
             // prlEditor.on( 'onInitEdit', function () {
-            //     prlEditor.enable('purchase_request');
+                // prlEditor.enable('purchase_request');
             // } );
+
+            prEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_project').select2();
+                $('#DTE_Field_requester').select2();
+            } );
+            prlEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_uom').select2();
+                $('#DTE_Field_task').select2();
+                $('#DTE_Field_supplier').select2();
+                $('#DTE_Field_approver').select2();
+                $('#DTE_Field_buyer').select2();
+                $('#DTE_Field_purchase_request').select2();
+            } );
         } );
     </script>
     @endsection

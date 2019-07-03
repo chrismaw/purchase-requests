@@ -145,6 +145,10 @@
                     }
                 })
             });
+
+            suppliersEditor.on( 'open', function ( e, mode, action ) {
+                $('#DTE_Field_created_by').select2();
+            } );
         } );
     </script>
     @endsection

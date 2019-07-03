@@ -293,7 +293,11 @@
                         that.search(this.value).draw();
                     }
                 })
-            })
+            });
+			tasksEditor.on( 'open', function ( e, mode, action ) {
+				$('#DTE_Field_task_project').select2();
+				$('#DTE_Field_task_created_by').select2();
+			} );
         } );
     </script>
     @endsection
