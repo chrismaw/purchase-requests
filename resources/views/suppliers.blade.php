@@ -70,7 +70,9 @@
             // Inline edit functionality
             @if (Auth::user()->isAdmin())
                 $('#suppliers-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                    suppliersEditor.inline( this );
+                    suppliersEditor.inline( this, {
+                        onBlur: 'submit'
+                    });
                 } );
             @endif
             //Suppliers Datatable

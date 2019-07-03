@@ -14,4 +14,8 @@ class PurchaseRequest extends Model
         return $this->belongsTo('App\User','requester');
     }
 
+    public function projectRequestLines(){
+        return $this->hasMany('App\ProjectRequestLine');
+    }
+
 }

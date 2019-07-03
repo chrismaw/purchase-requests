@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\PurchaseRequest;
+use App\PurchaseRequestLine;
 use App\Supplier;
 use App\Task;
 use App\Uom;
@@ -174,6 +175,15 @@ class PurchaseRequestController extends Controller
 
             $p = PurchaseRequest::find(substr(array_key_first($request->data),4));
             if ($p instanceof PurchaseRequest){
+                $prls = PurchaseRequestLine::where('purchase_request_id','=',$p->id)->get();
+                if ($prls){
+                    foreach ($prls as $prl){
+                        if ($prl instanceof PurchaseRequestLine){
+                            $prl->is_deleted = true;
+                            $prl->save();
+                        }
+                    }
+                }
                 $p->delete();
 
                 return response()->json();

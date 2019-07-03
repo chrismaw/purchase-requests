@@ -53,7 +53,7 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
+                <td><input id="purchase-request-status-filter" class="filter-input" type="text"/></td>
             </tr>
             </tfoot>
         </table>
@@ -132,8 +132,13 @@
                     },
                     { label: "Requester:", name: "requester", type: 'select',
                         options: [
+                            { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
+
                             @foreach ($users as $user)
-                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @if ($user->id == Auth::user()->id)
+                                @else
+                                    { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @endif
                             @endforeach
                         ]
                     },
@@ -157,9 +162,13 @@
                     }
                 }
             } );
+            // Reload Child Table - Purchase Request Lines on removal of Purchase Request
+            prEditor.on('postRemove', function (e, json, data) {
+                prlTable.ajax.reload();
+            });
             // Purchase request Datatable
             prTable = $('#purchase-requests-table').DataTable( {
-                dom: "Bfrtip",
+                dom: "B<'pr-toolbar'>frtip",
                 ajax: {
                     url: "{{ route('purchase-requests-data') }}",
                     headers: {
@@ -182,8 +191,7 @@
                     { data: "status" },
                 ],
                 select: {
-                    style:    'os',
-                    selector: 'td:first-child'
+                    style:    'os'
                 },
                 columnDefs: [
                     { className: "text-nowrap", targets: '_all' }
@@ -192,9 +200,23 @@
                     { extend: "create", editor: prEditor, text: "Add" },
                     { extend: "edit",   editor: prEditor },
                     { extend: "remove", editor: prEditor }
-                ]
+                ],
+                initComplete: function (settings, json) {
+                    document.getElementById('purchase-request-status-filter').value = 'Open';
+                    $('#purchase-request-status-filter').trigger('keyup');
+                }
             } );
-
+            // create the Show Open Request checkbox
+            $('div.pr-toolbar').html('<input type="checkbox" id="status-filter-checkbox" style="margin: 10px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label>')
+            $('#status-filter-checkbox').on('change', function(){
+                if($(this).is(':checked')){
+                    document.getElementById('purchase-request-status-filter').value = 'Open';
+                    $('#purchase-request-status-filter').trigger('keyup');
+                } else {
+                    document.getElementById('purchase-request-status-filter').value = '';
+                    $('#purchase-request-status-filter').trigger('keyup');
+                }
+            });
             // add input for each column for Purchase Requests Table
             $('#purchase-requests-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text"/>')
@@ -233,7 +255,7 @@
                     { label: "Item Revision:", name: "item_revision" },
                     { label: "Item Description:", name: "item_description" },
                     { label: "Qty Required:", name: "qty_required" },
-                    { label: "Qty Per UOM:", name: "qty_per_uom" },
+                    { label: "Qty Per UOM:", name: "qty_per_uom", def: '1' },
                     { label: "Uom:", name: "uom", type: 'select',
                         options: [
                             @foreach ($uoms as $uom)
@@ -267,6 +289,7 @@
                     },
                     { label: "Buyer:", name: "buyer", type: 'select',
                         options: [
+                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: '{{ $user->name }}', value: '{{ $user->id }}' },
                             @endforeach
@@ -274,6 +297,7 @@
                     },
                     { label: "Status:", name: "prl_status", type: 'select',
                         options: [
+                            { label: '', value: '' },
                             @foreach ($prlStatuses as $status)
                                 { label: '{{ $status }}', value: '{{ $status }}' },
                             @endforeach
@@ -282,16 +306,18 @@
                 ],
                 i18n: {
                     create: {
-                        title:  "Add a new Task",
+                        title:  "Add a new Purchase Request Line",
                     },
                     edit: {
-                        title:  "Edit Task",
+                        title:  "Edit Line",
                     }
                 }
             } );
             // Inline Edit Functionality
             $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                prlEditor.inline( this );
+                prlEditor.inline( this, {
+                    onBlur: 'submit'
+                });
             } );
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
@@ -334,10 +360,10 @@
                     { data: "notes" },
                     { data: "approver" },
                     { data: "buyer" },
-                    { data: "status" },
+                    { data: "prl_status" },
                 ],
                 select: {
-                    style:    'single',
+                    style:    'os',
                     selector: 'td:first-child'
                 },
                 columnDefs: [

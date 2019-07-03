@@ -89,7 +89,9 @@
             // Edit inline Functionality
             @if (Auth::user()->isAdmin())
             $('#projects-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                projectsEditor.inline( this );
+                projectsEditor.inline( this, {
+                    onBlur: 'submit'
+                });
             } );
             @endif
             // Projects Datatable
@@ -162,8 +164,12 @@
                     },
                     { label: "Created by:", name: "task_created_by", type: 'select',
                         options: [
+                            { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
                             @foreach ($users as $user)
-                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @if ($user->id == Auth::user()->id)
+                                @else
+                                    { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                @endif
                             @endforeach
                         ]
                     }
@@ -181,7 +187,9 @@
             // Inline Edit Functionality
             @if (Auth::user()->isAdmin())
                 $('#tasks-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                    tasksEditor.inline( this );
+                    tasksEditor.inline( this, {
+                        onBlur: 'submit'
+                    });
                 } );
             @endif
 

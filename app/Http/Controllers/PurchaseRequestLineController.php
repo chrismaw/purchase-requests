@@ -28,6 +28,7 @@ class PurchaseRequestLineController extends Controller
             'uom:id,name',
             'approverUser:id,name',
             'buyerUser:id,name')
+            ->where('is_deleted','=',false)
             ->when($prl_ids, function ($q) use ($prl_ids) {
                 return $q->whereIn('purchase_request_id',$prl_ids);
             })
@@ -45,13 +46,13 @@ class PurchaseRequestLineController extends Controller
                 'uom_qty_required' => $uom_qty_required,
                 'cost_per_uom' => number_format($prl->cost_per_uom,2),
                 'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required,2),
-                'task' => $prl->task->number . ' - ' . $prl->task->description,
+                'task' => $prl->task->number,
                 'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                 'supplier' => $prl->supplier ? $prl->supplier->name : '',
                 'notes' => $prl->notes,
                 'approver' => $prl->approverUser ? $prl->approverUser->name : '',
                 'buyer' => $prl->buyerUser ? $prl->buyerUser->name : '',
-                'status' => $prl->status
+                'prl_status' => $prl->status
             ];
         })])->toJson();
     }
@@ -141,13 +142,13 @@ class PurchaseRequestLineController extends Controller
                 'uom_qty_required' => $uom_qty_required,
                 'cost_per_uom' => number_format($prl->cost_per_uom,2),
                 'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required,2),
-                'task' => $prl->task->number . ' - ' . $prl->task->description,
+                'task' => $prl->task->number,
                 'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                 'supplier' => $prl->supplier ? $prl->supplier->name : '',
                 'notes' => $prl->notes,
                 'approver' => $prl->approverUser ? $prl->approverUser->name : '',
                 'buyer' => $prl->buyerUser ? $prl->buyerUser->name : '',
-                'status' => $prl->status
+                'prl_status' => $prl->status
             ];
             return response()->json(
                 $output
@@ -157,50 +158,52 @@ class PurchaseRequestLineController extends Controller
             foreach ($request->data as $row_id => $data){
                 $prl = PurchaseRequestLine::find(substr($row_id,4));
                 if ($prl instanceof PurchaseRequestLine){
-                    if (array_key_exists('purchase_request',$request->data[array_key_first($request->data)])){
-                        $prl->purchase_request_id = $request->data[array_key_first($request->data)]['purchase_request'];
+                    if (array_key_exists('purchase_request',$data)){
+                        $prl->purchase_request_id = $data['purchase_request'];
                     }
-                    if (array_key_exists('item_number',$request->data[array_key_first($request->data)])){
-                        $prl->item_number = $request->data[array_key_first($request->data)]['item_number'];
+                    if (array_key_exists('item_number',$data)){
+                        $prl->item_number = $data['item_number'];
                     }
-                    if (array_key_exists('item_revision',$request->data[array_key_first($request->data)])){
-                        $prl->item_revision = $request->data[array_key_first($request->data)]['item_revision'];
+                    if (array_key_exists('item_revision',$data)){
+                        $prl->item_revision = $data['item_revision'];
                     }
-                    if (array_key_exists('item_description',$request->data[array_key_first($request->data)])){
-                        $prl->item_description = $request->data[array_key_first($request->data)]['item_description'];
+                    if (array_key_exists('item_description',$data)){
+                        $prl->item_description = $data['item_description'];
                     }
-                    if (array_key_exists('qty_required',$request->data[array_key_first($request->data)])){
-                        $prl->qty_required = $request->data[array_key_first($request->data)]['qty_required'];
+                    if (array_key_exists('qty_required',$data)){
+                        $prl->qty_required = $data['qty_required'];
                     }
-                    if (array_key_exists('uom',$request->data[array_key_first($request->data)])){
-                        $prl->uom_id = $request->data[array_key_first($request->data)]['uom'];
+                    if (array_key_exists('uom',$data)){
+                        $prl->uom_id = $data['uom'];
                     }
-                    if (array_key_exists('qty_per_uom',$request->data[array_key_first($request->data)])){
-                        $prl->qty_per_uom = $request->data[array_key_first($request->data)]['qty_per_uom'];
+                    if (array_key_exists('qty_per_uom',$data)){
+                        $prl->qty_per_uom = $data['qty_per_uom'];
                     }
-                    if (array_key_exists('cost_per_uom',$request->data[array_key_first($request->data)])){
-                        $prl->cost_per_uom = $request->data[array_key_first($request->data)]['cost_per_uom'];
+                    if (array_key_exists('cost_per_uom',$data)){
+                        $prl->cost_per_uom = $data['cost_per_uom'];
                     }
-                    if (array_key_exists('task',$request->data[array_key_first($request->data)])){
-                        $prl->task_id = $request->data[array_key_first($request->data)]['task'];
+                    if (array_key_exists('task',$data)){
+                        $prl->task_id = $data['task'];
                     }
-                    if (array_key_exists('need_date',$request->data[array_key_first($request->data)])){
-                        $prl->need_date = date('Y-m-d H:i:s', strtotime($request->data[array_key_first($request->data)]['need_date']));
+                    if (array_key_exists('need_date',$data)){
+                        $prl->need_date = ($data['need_date'] && ($data['need_date'] != date('m-d-Y',strtotime($prl->need_date))))
+                            ? date('Y-m-d H:i:s',strtotime($data['need_date']))
+                            : $prl->need_date;
                     }
-                    if (array_key_exists('supplier',$request->data[array_key_first($request->data)])){
-                        $prl->supplier_id = $request->data[array_key_first($request->data)]['supplier'];
+                    if (array_key_exists('supplier',$data)){
+                        $prl->supplier_id = $data['supplier'];
                     }
-                    if (array_key_exists('notes',$request->data[array_key_first($request->data)])){
-                        $prl->notes = $request->data[array_key_first($request->data)]['notes'];
+                    if (array_key_exists('notes',$data)){
+                        $prl->notes = $data['notes'];
                     }
-                    if (array_key_exists('approver',$request->data[array_key_first($request->data)])){
-                        $prl->approver = $request->data[array_key_first($request->data)]['approver'];
+                    if (array_key_exists('approver',$data)){
+                        $prl->approver = $data['approver'];
                     }
-                    if (array_key_exists('buyer',$request->data[array_key_first($request->data)])){
-                        $prl->buyer = $request->data[array_key_first($request->data)]['buyer'];
+                    if (array_key_exists('buyer',$data)){
+                        $prl->buyer = $data['buyer'];
                     }
-                    if (array_key_exists('prl_status',$request->data[array_key_first($request->data)])){
-                        $prl->status = $request->data[array_key_first($request->data)]['prl_status'];
+                    if (array_key_exists('prl_status',$data)){
+                        $prl->status = $data['prl_status'];
                     }
                     $prl->save();
 
@@ -218,13 +221,13 @@ class PurchaseRequestLineController extends Controller
                         'uom_qty_required' => $uom_qty_required,
                         'cost_per_uom' => number_format($prl->cost_per_uom,2),
                         'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required,2),
-                        'task' => $prl->task->number . ' - ' . $prl->task->description,
+                        'task' => $prl->task->number,
                         'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                         'supplier' => $prl->supplier ? $prl->supplier->name : '',
                         'notes' => $prl->notes,
                         'approver' => $prl->approverUser ? $prl->approverUser->name : '',
                         'buyer' => $prl->buyerUser ? $prl->buyerUser->name : '',
-                        'status' => $prl->status
+                        'prl_status' => $prl->status
                     ];
                 }
             }

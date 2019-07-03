@@ -38,7 +38,7 @@
                 table: "#uoms-table",
                 fields: [
                     { label: "Name:", name: "name" },
-                    // { label: "Sort Order:", name: "sort_order" },
+                    { label: "Sort Order:", name: "sort_order", def: '99'},
                 ],
                 i18n: {
                     create: {
@@ -52,7 +52,9 @@
             // Inline edit functionality
             @if (Auth::user()->isAdmin())
                 $('#uoms-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                    uomsEditor.inline( this );
+                    uomsEditor.inline( this, {
+                        onBlur: 'submit'
+                    });
                 } );
             @endif
             // UOMS datatable
