@@ -191,7 +191,7 @@
                     { data: "status" },
                 ],
                 select: {
-                    style:    'os'
+                    style:    'single'
                 },
                 columnDefs: [
                     { className: "text-nowrap", targets: '_all' }
@@ -282,6 +282,7 @@
                     { label: "Notes:", name: "notes" },
                     { label: "Approver:", name: "approver", type: 'select',
                         options: [
+                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: '{{ $user->name }}', value: '{{ $user->id }}' },
                             @endforeach
@@ -295,11 +296,10 @@
                             @endforeach
                         ]
                     },
-                    { label: "Status:", name: "prl_status", type: 'select',
+                    { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
-                            { label: '', value: '' },
                             @foreach ($prlStatuses as $status)
-                                { label: '{{ $status }}', value: '{{ $status }}' },
+                                { label: '{{ $status }}', value: '{{ $status }}'},
                             @endforeach
                         ]
                     }
@@ -399,7 +399,48 @@
             });
             prTable.on('deselect',function () {
                 prlTable.ajax.reload();
-            })
+            });
+            prlEditor.on( 'preSubmit', function ( e, o, action ) {
+                if ( action !== 'remove' ) {
+                    var itemDescription = this.field('item_description'),
+                        qtyRequired = this.field('qty_required'),
+                        qtyPerUom = this.field('qty_per_uom'),
+                        needDate = this.field('need_date');
+
+                    if (!itemDescription.isMultiValue()){
+                        if (!itemDescription.val()) {
+                            itemDescription.error('A description must be provided');
+                        }
+                    }
+                    if (!qtyRequired.isMultiValue()) {
+                        if (!qtyRequired.val()) {
+                            qtyRequired.error('A quantity must be provided');
+                        }
+                    }
+                    if (!qtyRequired.isMultiValue()) {
+                        if (!/\d/.test(qtyRequired.val())) {
+                            qtyRequired.error('A quantity must be a number');
+                        }
+                    }
+                    if (!qtyPerUom.isMultiValue()) {
+                        if (!/\d/.test(qtyPerUom.val())) {
+                            qtyPerUom.error('A quantity must be a number');
+                        }
+                    }
+                    if (!needDate.isMultiValue()){
+                        if (!needDate.val()){
+                            needDate.error('A date must be provided');
+                        }
+                    }
+
+                    // ... additional validation rules
+
+                    // If any error was reported, cancel the submission so it can be corrected
+                    if ( this.inError() ) {
+                        return false;
+                    }
+                }
+            } );
         } );
     </script>
     @endsection
