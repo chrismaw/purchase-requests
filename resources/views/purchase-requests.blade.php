@@ -69,7 +69,6 @@
             </tr>
             </tfoot>
         </table>
-		<hr />
         <div class="title">
             Purchase Request Lines
         </div>
