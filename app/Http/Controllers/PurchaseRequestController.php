@@ -30,7 +30,7 @@ class PurchaseRequestController extends Controller
     public function index()
     {
         $users = User::all()->sortBy('name');
-        $projects = Project::all()->sortBy('number');
+        $projects = Project::all()->sortBy('description');
         $suppliers = Supplier::orderBy('name')->get();
         $tasks = Task::all()->sortBy('number');
         $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
@@ -53,7 +53,7 @@ class PurchaseRequestController extends Controller
             return [
                 'DT_RowId' => 'row_' . $pr->id,
                 'id' => $pr->id,
-                'project' => $pr->project->number . ' - ' . $pr->project->description,
+                'project' => $pr->project->description,
                 'requester' => $pr->requestedByUser ? $pr->requestedByUser->name : '',
                 'request_date' => date('m-d-Y', strtotime($pr->created_at)),
                 'status' => $pr->status
@@ -124,7 +124,7 @@ class PurchaseRequestController extends Controller
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $p->id,
                 'id' => $p->id,
-                'project' => $p->project->number . ' - ' . $p->project->description,
+                'project' => $p->project->description,
                 'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
                 'request_date' => date('m-d-Y', strtotime($p->created_at)),
                 'status' => $p->status
@@ -160,7 +160,7 @@ class PurchaseRequestController extends Controller
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $p->id,
                         'id' => $p->id,
-                        'project' => $p->project->number . ' - ' . $p->project->description,
+                        'project' => $p->project->description,
                         'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
                         'request_date' => date('m-d-Y', strtotime($p->created_at)),
                         'status' => $p->status
