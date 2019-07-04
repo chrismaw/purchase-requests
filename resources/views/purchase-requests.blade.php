@@ -287,7 +287,7 @@
                     { label: "Supplier:", name: "supplier", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
-                                { label: '{{ $supplier->name }}', value: '{{ $supplier->id }}' },
+                                { label: '{!! $supplier->name !!}', value: '{{ $supplier->id }}' },
                             @endforeach
                         ]
                     },

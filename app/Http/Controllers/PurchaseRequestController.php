@@ -31,9 +31,9 @@ class PurchaseRequestController extends Controller
     {
         $users = User::all()->sortBy('name');
         $projects = Project::all()->sortBy('number');
-        $suppliers = Supplier::all()->sortBy('name');
+        $suppliers = Supplier::orderBy('name')->get();
         $tasks = Task::all()->sortBy('number');
-        $uoms = Uom::all()->sortBy('name');
+        $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
         $purchase_requests = PurchaseRequest::all()->sortBy('number');
         return view('purchase-requests',[
             'users' => $users,
