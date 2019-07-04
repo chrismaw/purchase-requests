@@ -29,6 +29,17 @@
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
+        .select2-selection__rendered {
+            color: #000 !important;
+        }
+        .select2-container .select2-selection--single,
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #aaa; !important;
+            border-radius: unset !important;
+        }
+        .select2-dropdown {
+            border-radius: unset !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -462,6 +473,7 @@
                 $('#DTE_Field_approver').select2();
                 $('#DTE_Field_buyer').select2();
                 $('#DTE_Field_purchase_request').select2();
+                $('#DTE_Field_purchase_request').val(prID ? prID : '');
             } );
         } );
     </script>

@@ -6,6 +6,17 @@
             padding: 5px 4px;
             width: 100%;
         }
+        .select2-selection__rendered {
+            color: #000 !important;
+        }
+        .select2-container .select2-selection--single,
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #aaa; !important;
+            border-radius: unset !important;
+        }
+        .select2-dropdown {
+            border-radius: unset !important;
+        }
     </style>
 @endsection
 @section('content')
