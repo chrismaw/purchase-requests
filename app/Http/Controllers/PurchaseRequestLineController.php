@@ -124,7 +124,7 @@ class PurchaseRequestLineController extends Controller
             $prl->qty_required = $request->data[0]['qty_required'];
             $prl->qty_per_uom = $request->data[0]['qty_per_uom'];
             $prl->uom_id = $request->data[0]['uom'];
-            $prl->cost_per_uom = $request->data[0]['cost_per_uom'];
+            $prl->cost_per_uom = $request->data[0]['cost_per_uom'] ?: '0.00';
             $prl->task_id = $request->data[0]['task'];
             $prl->supplier_id = $request->data[0]['supplier'];
             $prl->notes = $request->data[0]['notes'];
@@ -165,31 +165,40 @@ class PurchaseRequestLineController extends Controller
                 $prl = PurchaseRequestLine::find(substr($row_id,4));
                 if ($prl instanceof PurchaseRequestLine){
                     if (array_key_exists('purchase_request',$data)){
-                        $prl->purchase_request_id = $data['purchase_request'];
+                        $prl->purchase_request_id = $data['purchase_request']
+                            ? $data['purchase_request'] : $prl->purchase_request_id;
                     }
                     if (array_key_exists('item_number',$data)){
-                        $prl->item_number = $data['item_number'];
+                        $prl->item_number = $data['item_number']
+                            ? $data['item_number'] : $prl->item_number;
                     }
                     if (array_key_exists('item_revision',$data)){
-                        $prl->item_revision = $data['item_revision'];
+                        $prl->item_revision = $data['item_revision']
+                            ? $data['item_revision'] : $prl->item_revision;
                     }
                     if (array_key_exists('item_description',$data)){
-                        $prl->item_description = $data['item_description'];
+                        $prl->item_description = $data['item_description']
+                            ? $data['item_description'] : $prl->item_description;
                     }
                     if (array_key_exists('qty_required',$data)){
-                        $prl->qty_required = $data['qty_required'];
+                        $prl->qty_required = $data['qty_required']
+                            ? $data['qty_required'] : $prl->qty_required;
                     }
                     if (array_key_exists('uom',$data)){
-                        $prl->uom_id = $data['uom'];
+                        $prl->uom_id = preg_match('/^\d+$/',$data['uom'])
+                            ? $data['uom'] : $prl->uom_id;
                     }
                     if (array_key_exists('qty_per_uom',$data)){
-                        $prl->qty_per_uom = $data['qty_per_uom'];
+                        $prl->qty_per_uom = $data['qty_per_uom']
+                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
                     }
                     if (array_key_exists('cost_per_uom',$data)){
-                        $prl->cost_per_uom = $data['cost_per_uom'];
+                        $prl->cost_per_uom = $data['cost_per_uom']
+                            ? $data['cost_per_uom'] : $prl->cost_per_uom;
                     }
                     if (array_key_exists('task',$data)){
-                        $prl->task_id = $data['task'];
+                        $prl->task_id = preg_match('/^\d+$/',$data['task'])
+                            ? $data['task'] : $prl->task_id;
                     }
                     if (array_key_exists('need_date',$data)){
                         $prl->need_date = ($data['need_date'] && ($data['need_date'] != date('m-d-Y',strtotime($prl->need_date))))
@@ -197,19 +206,24 @@ class PurchaseRequestLineController extends Controller
                             : $prl->need_date;
                     }
                     if (array_key_exists('supplier',$data)){
-                        $prl->supplier_id = $data['supplier'];
+                        $prl->supplier_id = preg_match('/^\d+$/',$data['supplier'])
+                            ? $data['supplier'] : $prl->supplier_id;
                     }
                     if (array_key_exists('notes',$data)){
-                        $prl->notes = $data['notes'];
+                        $prl->notes = $data['notes']
+                            ? $data['notes'] : $prl->notes;
                     }
                     if (array_key_exists('approver',$data)){
-                        $prl->approver = $data['approver'];
+                        $prl->approver = preg_match('/^\d+$/',$data['approver'])
+                            ? $data['approver'] : $prl->approver;
                     }
                     if (array_key_exists('buyer',$data)){
-                        $prl->buyer = $data['buyer'];
+                        $prl->buyer = preg_match('/^\d+$/',$data['buyer'])
+                            ? $data['buyer'] : $prl->buyer;
                     }
                     if (array_key_exists('prl_status',$data)){
-                        $prl->status = $data['prl_status'];
+                        $prl->status = $data['prl_status']
+                            ? $data['prl_status'] : $prl->prl_status;
                     }
                     $prl->save();
 

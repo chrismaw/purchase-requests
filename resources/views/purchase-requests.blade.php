@@ -139,7 +139,7 @@
                     { label: "Project:", name: "project", type: 'select',
                         options: [
                             @foreach ($projects as $project)
-                                { label: '{{ $project->number }} - {{ $project->description }}', value: '{{ $project->id }}' },
+                                { label: '{{ $project->description }}', value: '{{ $project->id }}' },
                             @endforeach
                         ]
                     },
@@ -220,7 +220,7 @@
                 }
             } );
             // create the Show Open Request checkbox
-            $('div.pr-toolbar').html('<input type="checkbox" id="status-filter-checkbox" style="margin: 10px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label>')
+            $('div.pr-toolbar').html('<input type="checkbox" id="status-filter-checkbox" style="margin: 10px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label>');
             $('#status-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){
                     document.getElementById('purchase-request-status-filter').value = 'Open';
@@ -288,7 +288,7 @@
                     { label: "Supplier:", name: "supplier", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
-                                { label: '{{ $supplier->name }}', value: '{{ $supplier->id }}' },
+                                { label: '{!! $supplier->name !!}', value: '{{ $supplier->id }}' },
                             @endforeach
                         ]
                     },

@@ -22,7 +22,7 @@ class TaskController extends Controller
         return collect(['data' => Task::with('createdByUser:id,name','project')->get()->map(function ($t){
             return [
                 'DT_RowId' => 'row_' . $t->id,
-                'task_project' => $t->project->number . ' - ' . $t->project->description,
+//                'task_project' => $t->project->description,
                 'task_number' => $t->number,
                 'task_description' => $t->description,
                 'task_active' => $t->is_active ? 'Yes' : 'No',
@@ -86,7 +86,7 @@ class TaskController extends Controller
 //        dd($request->all());
         if ($request->action == 'create'){
             $t = new Task();
-            $t->project_id = $request->data[0]['task_project'];
+//            $t->project_id = $request->data[0]['task_project'];
             $t->number = $request->data[0]['task_number'];
             $t->description = $request->data[0]['task_description'];
             $t->is_active = $request->data[0]['task_active'] == 'Yes' ? true : false;
@@ -94,7 +94,7 @@ class TaskController extends Controller
             $t->save();
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $t->id,
-                'task_project' => $t->project->number . ' - ' . $t->project->description,
+//                'task_project' => $t->project->description,
                 'task_number' => $t->number,
                 'task_description' => $t->description,
                 'task_active' => $t->is_active ? 'Yes' : 'No',
@@ -106,9 +106,9 @@ class TaskController extends Controller
         } elseif ($request->action == 'edit'){
             $t = Task::find(substr(array_key_first($request->data),4));
             if ($t instanceof Task){
-                if (array_key_exists('task_project',$request->data[array_key_first($request->data)])){
-                    $t->project_id = $request->data[array_key_first($request->data)]['task_project'];
-                }
+//                if (array_key_exists('task_project',$request->data[array_key_first($request->data)])){
+//                    $t->project_id = $request->data[array_key_first($request->data)]['task_project'];
+//                }
                 if (array_key_exists('task_number',$request->data[array_key_first($request->data)])){
                     $t->number = $request->data[array_key_first($request->data)]['task_number'];
                 }
@@ -124,7 +124,7 @@ class TaskController extends Controller
                 $t->save();
                 $output['data'][] = [
                     'DT_RowId' => 'row_' . $t->id,
-                    'task_project' => $t->project->number . ' - ' . $t->project->description,
+//                    'task_project' => $t->project->description,
                     'task_number' => $t->number,
                     'task_description' => $t->description,
                     'task_active' => $t->is_active ? 'Yes' : 'No',
