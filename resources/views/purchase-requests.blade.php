@@ -271,7 +271,7 @@
                     { label: "Uom:", name: "uom", type: 'select',
                         options: [
                             @foreach ($uoms as $uom)
-                                { label: '{{ $uom->name }}', value: '{{ $uom->id }}' },
+                                { label: "{{ $uom->name }}", value: "{{ $uom->id }}" },
                             @endforeach
                         ]
                     },
@@ -279,7 +279,7 @@
                     { label: "Task:", name: "task", type: 'select',
                         options: [
                             @foreach ($tasks as $task)
-                                { label: '{{ $task->number }} - {{ $task->description }}', value: '{{ $task->id }}' },
+                                { label: "{{ $task->number }} - {{ $task->description }}", value: "{{ $task->id }}" },
                             @endforeach
                         ]
                     },
@@ -287,7 +287,7 @@
                     { label: "Supplier:", name: "supplier", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
-                                { label: '{!! $supplier->name !!}', value: '{{ $supplier->id }}' },
+                                { label: '{!! addslashes($supplier->name) !!}', value: "{{ $supplier->id }}" },
                             @endforeach
                         ]
                     },
@@ -296,7 +296,7 @@
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
-                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                { label: "addslashes({{ $user->name }})", value: "{{ $user->id }}" },
                             @endforeach
                         ]
                     },
@@ -304,14 +304,14 @@
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
-                                { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                { label: "addslashes({{ $user->name }})", value: "{{ $user->id }}" },
                             @endforeach
                         ]
                     },
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
-                                { label: '{{ $status }}', value: '{{ $status }}'},
+                                { label: "addslashes({{ $status }})", value: "{{ $status }}"},
                             @endforeach
                         ]
                     }
