@@ -4,6 +4,8 @@
     </IfModule>
 
     RewriteEngine On
+	
+	RewriteBase /prdb
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
