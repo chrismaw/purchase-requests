@@ -63,11 +63,11 @@
                     },
                     { label: "Added by:", name: "created_by", type: 'select',
                         options: [
-                            { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
+                            { label: "{{ Auth::user()->name }}", value: "{{ Auth::user()->id }}" },
                             @foreach ($users as $user)
                                 @if ($user->id == Auth::user()->id)
                                 @else
-                                    { label: '{{ $user->name }}', value: '{{ $user->id }}' },
+                                    { label: "{{ $user->name }}", value: "{{ $user->id }}" },
                                 @endif
                             @endforeach
                         ]
