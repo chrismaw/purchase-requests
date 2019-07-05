@@ -117,7 +117,7 @@ class PurchaseRequestLineController extends Controller
     {
         if ($request->action == 'create'){
             $prl = new PurchaseRequestLine();
-            $prl->purchase_request_id = $request->data[0]['purchase_request'];
+            $prl->purchase_request_id = $request->data[0]['purchase_request_ID'] ?: $request->data[0]['purchase_request'];
             $prl->item_number = $request->data[0]['item_number'];
             $prl->item_revision = $request->data[0]['item_revision'];
             $prl->item_description = $request->data[0]['item_description'];
