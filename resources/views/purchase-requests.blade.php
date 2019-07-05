@@ -105,12 +105,12 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -232,7 +232,7 @@
             });
             // add input for each column for Purchase Requests Table
             $('#purchase-requests-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text"/>')
+                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             // add search function for Purchase Requests Table
             prTable.columns().every(function(){
@@ -393,7 +393,7 @@
             } );
             // add input for each column for Purchase Request Lines Table
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text"/>')
+                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             prlTable.buttons().disable();
             // add search function for Purchase Request Lines Table
