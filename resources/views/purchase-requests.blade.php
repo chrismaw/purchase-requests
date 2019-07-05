@@ -256,10 +256,11 @@
                 },
                 table: "#purchase-request-lines-table",
                 fields: [
+                    { label: "", name: "purchase_request_ID", type: 'hidden'},
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
                         options: [
                             @foreach ($purchase_requests as $request)
-                                { label: 'ID: {{ $request->id }} | {{ $request->project->number }} - {{ $request->project->description }}', value: '{{ $request->id }}' },
+                                { label: 'ID: {{ $request->id }} | {{ $request->project->description }}', value: '{{ $request->id }}' },
                             @endforeach
                         ]
                     },
@@ -411,6 +412,7 @@
                 prID = prTable.rows(indexes).data()[0]['id'];
                 setTimeout(function () {
                     prlEditor.set('purchase_request',prID);
+                    prlEditor.set('purchase_request_ID',prID);
                 }, 2000);
                 prlTable.buttons().enable();
             });
@@ -471,8 +473,7 @@
                 $('#DTE_Field_supplier').select2();
                 $('#DTE_Field_approver').select2();
                 $('#DTE_Field_buyer').select2();
-                $('#DTE_Field_purchase_request').select2();
-                $('#DTE_Field_purchase_request').val(prID ? prID : '');
+                $('#DTE_Field_purchase_request').select2().attr('disabled', true);
             } );
         } );
     </script>
