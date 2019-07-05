@@ -227,7 +227,7 @@
                             @foreach ($users as $user)
                                 @if ($user->id == Auth::user()->id)
                                 @else
-                                    { label: "addslashes({{ $user->name }})", value: "{{ $user->id }}" },
+                                    { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                                 @endif
                             @endforeach
                         ]

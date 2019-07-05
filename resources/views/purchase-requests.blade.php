@@ -296,7 +296,7 @@
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
-                                { label: "addslashes({{ $user->name }})", value: "{{ $user->id }}" },
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach
                         ]
                     },
@@ -304,14 +304,14 @@
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
-                                { label: "addslashes({{ $user->name }})", value: "{{ $user->id }}" },
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach
                         ]
                     },
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
-                                { label: "addslashes({{ $status }})", value: "{{ $status }}"},
+                                { label: "{{ addslashes($status) }}", value: "{{ $status }}"},
                             @endforeach
                         ]
                     }
