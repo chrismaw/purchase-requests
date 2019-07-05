@@ -29,16 +29,17 @@
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
-        .select2-selection__rendered {
-            color: #000 !important;
+        .chosen-container-active .chosen-single {
+            border: 1px solid #5897fb;
+             -webkit-box-shadow: unset !important;
+             box-shadow: unset !important;
         }
-        .select2-container .select2-selection--single,
-        .select2-container--default .select2-selection--single {
-            border: 1px solid #aaa; !important;
-            border-radius: unset !important;
+        .chosen-container-single .chosen-single {
+            width: 100% !important;
         }
-        .select2-dropdown {
+        .chosen-single {
             border-radius: unset !important;
+            background: unset !important;
         }
     </style>
 @endsection
@@ -464,16 +465,15 @@
             // } );
 
             prEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_project').select2();
-                $('#DTE_Field_requester').select2();
+                $('#DTE_Field_project').chosen();
+                $('#DTE_Field_requester').chosen();
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_uom').select2();
-                $('#DTE_Field_task').select2();
-                $('#DTE_Field_supplier').select2();
-                $('#DTE_Field_approver').select2();
-                $('#DTE_Field_buyer').select2();
-                $('#DTE_Field_purchase_request').select2().attr('disabled', true);
+                $('#DTE_Field_uom').chosen();
+                $('#DTE_Field_task').chosen();
+                $('#DTE_Field_supplier').chosen();
+                $('#DTE_Field_approver').chosen();
+                $('#DTE_Field_buyer').chosen();
             } );
         } );
     </script>

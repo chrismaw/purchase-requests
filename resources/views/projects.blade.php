@@ -9,16 +9,17 @@
         #projects-table_wrapper {
             margin-bottom: 50px;
         }
-        .select2-selection__rendered {
-            color: #000 !important;
+        .chosen-container-active .chosen-single {
+            border: 1px solid #5897fb;
+            -webkit-box-shadow: unset !important;
+            box-shadow: unset !important;
         }
-        .select2-container .select2-selection--single,
-        .select2-container--default .select2-selection--single {
-            border: 1px solid #aaa; !important;
-            border-radius: unset !important;
+        .chosen-container-single .chosen-single {
+            width: 100% !important;
         }
-        .select2-dropdown {
+        .chosen-single {
             border-radius: unset !important;
+            background: unset !important;
         }
     </style>
 @endsection
@@ -344,7 +345,7 @@
             });
 			tasksEditor.on( 'open', function ( e, mode, action ) {
 				// $('#DTE_Field_task_project').select2();
-				$('#DTE_Field_task_created_by').select2();
+				$('#DTE_Field_task_created_by').chosen();
 			} );
         } );
     </script>
