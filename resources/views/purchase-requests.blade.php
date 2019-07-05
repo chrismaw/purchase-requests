@@ -464,16 +464,36 @@
             // } );
 
             prEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_project').select2();
-                $('#DTE_Field_requester').select2();
+                $('#DTE_Field_project').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_requester').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_uom').select2();
-                $('#DTE_Field_task').select2();
-                $('#DTE_Field_supplier').select2();
-                $('#DTE_Field_approver').select2();
-                $('#DTE_Field_buyer').select2();
-                $('#DTE_Field_purchase_request').select2().attr('disabled', true);
+                $('#DTE_Field_uom').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_task').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_supplier').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_approver').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_buyer').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
             } );
         } );
     </script>

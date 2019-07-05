@@ -158,7 +158,10 @@
             });
 
             suppliersEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_created_by').select2();
+                $('#DTE_Field_created_by').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
             } );
         } );
     </script>
