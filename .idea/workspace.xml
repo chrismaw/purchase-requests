@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="412" column="40" lean-forward="true" selection-start-line="412" selection-start-column="40" selection-end-line="412" selection-end-column="40" />
+            <state relative-caret-position="380">
+              <caret line="411" column="61" lean-forward="true" selection-start-line="411" selection-start-column="61" selection-end-line="411" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
               </folding>
@@ -381,7 +379,7 @@
       <workItem from="1562341992000" duration="6364000" />
       <workItem from="1562366718695" duration="3723000" />
       <workItem from="1562761261901" duration="6443000" />
-      <workItem from="1562781608396" duration="2561000" />
+      <workItem from="1562781608396" duration="2829000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1561683606501</created>
@@ -635,14 +633,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562368171840</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="fixed purchase_request select override error">
+      <created>1562784422604</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1562784422604</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142389000" />
+    <option name="totallyTimeSpent" value="142657000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-583" width="1936" height="1066" extended-state="7" />
+    <frame x="1358" y="-583" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20095949" />
@@ -703,7 +708,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finished uom table" />
     <MESSAGE value="added simple user add/update" />
     <MESSAGE value="added auth and admin middleware&#10;added admin check to tables" />
     <MESSAGE value="began purchase requests... finished parent table" />
@@ -728,7 +732,8 @@
     <MESSAGE value="switched select2 to chosen" />
     <MESSAGE value="Revert &quot;switched select2 to chosen&quot;&#10;&#10;This reverts commit 601388e1" />
     <MESSAGE value="Added autowidth and select on close for select2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added autowidth and select on close for select2" />
+    <MESSAGE value="fixed purchase_request select override error" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed purchase_request select override error" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
@@ -1079,8 +1084,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="412" column="40" lean-forward="true" selection-start-line="412" selection-start-column="40" selection-end-line="412" selection-end-column="40" />
+        <state relative-caret-position="380">
+          <caret line="411" column="61" lean-forward="true" selection-start-line="411" selection-start-column="61" selection-end-line="411" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
           </folding>

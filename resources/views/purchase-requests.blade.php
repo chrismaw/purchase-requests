@@ -474,31 +474,6 @@
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
-                {{--$('#DTE_Field_purchase_request').select2({--}}
-                {{--    ajax:{--}}
-                {{--        url: '{{ route('get-select-purchase-requests') }}',--}}
-                {{--        dataType: 'json'--}}
-                {{--    },--}}
-                {{--    selectOnClose: true,--}}
-                {{--    dropdownAutoWidth : true--}}
-                {{--});--}}
-
-                var prID = prTable.row({selected:true}).data()['id'];
-                {{--var purchaseSelect = $('#DTE_Field_purchase_request');--}}
-                {{--$.ajax({--}}
-                {{--    type: 'GET',--}}
-                {{--    url: '{{ url('/purchase-requests/select') }}/' + prID--}}
-                {{--}).then(function (data) {--}}
-                {{--    var option = new Option(data.text, data.id, true, true);--}}
-                {{--    purchaseSelect.append(option).trigger('change');--}}
-                {{--    purchaseSelect.trigger({--}}
-                {{--        type: 'select2:select',--}}
-                {{--        params: {--}}
-                {{--            data: data--}}
-                {{--        }--}}
-                {{--    })--}}
-                {{--});--}}
-
                 var optionsA = [];
                 $.getJSON('{{ route('get-select-purchase-requests') }}',
                     function (data) {
