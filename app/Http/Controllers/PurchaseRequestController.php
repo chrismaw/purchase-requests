@@ -61,6 +61,26 @@ class PurchaseRequestController extends Controller
         })])->toJson();
     }
 
+    public function selectData()
+    {
+        return collect(PurchaseRequest::with('project')->get()->map(function ($pr){
+            return [
+                'id' => $pr->id,
+                'text' => $pr->id . ' | ' . $pr->project->description
+            ];
+        }))->toJson();
+    }
+
+    public function select($id)
+    {
+        $pr = PurchaseRequest::findOrFail($id);
+        $resp = [
+            'id' => $pr->id,
+            'text' => $pr->id . ' | ' . $pr->project->description
+        ];
+        return json_encode($resp);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

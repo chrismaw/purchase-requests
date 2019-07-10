@@ -406,12 +406,12 @@
             });
             prTable.on('select', function (e, dt, type, indexes) {
                 prlTable.ajax.reload();
-                prlEditor
-                    .field('purchase_request')
-                    .def(prTable.rows({selected:true}).data().id);
+                // prlEditor
+                //     .field('purchase_request')
+                //     .def(prTable.rows({selected:true}).data().id);
                 prID = prTable.rows(indexes).data()[0]['id'];
                 setTimeout(function () {
-                    prlEditor.set('purchase_request',prID);
+                    // prlEditor.set('purchase_request',prID);
                     prlEditor.set('purchase_request_ID',prID);
                 }, 2000);
                 prlTable.buttons().enable();
@@ -474,6 +474,51 @@
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
+                {{--$('#DTE_Field_purchase_request').select2({--}}
+                {{--    ajax:{--}}
+                {{--        url: '{{ route('get-select-purchase-requests') }}',--}}
+                {{--        dataType: 'json'--}}
+                {{--    },--}}
+                {{--    selectOnClose: true,--}}
+                {{--    dropdownAutoWidth : true--}}
+                {{--});--}}
+
+                var prID = prTable.row({selected:true}).data()['id'];
+                {{--var purchaseSelect = $('#DTE_Field_purchase_request');--}}
+                {{--$.ajax({--}}
+                {{--    type: 'GET',--}}
+                {{--    url: '{{ url('/purchase-requests/select') }}/' + prID--}}
+                {{--}).then(function (data) {--}}
+                {{--    var option = new Option(data.text, data.id, true, true);--}}
+                {{--    purchaseSelect.append(option).trigger('change');--}}
+                {{--    purchaseSelect.trigger({--}}
+                {{--        type: 'select2:select',--}}
+                {{--        params: {--}}
+                {{--            data: data--}}
+                {{--        }--}}
+                {{--    })--}}
+                {{--});--}}
+
+                var optionsA = [];
+                $.getJSON('{{ route('get-select-purchase-requests') }}',
+                    function (data) {
+                        var option = {};
+                        $.each(data, function (i,e) {
+                            option.label = e.text;
+                            option.value = e.id;
+                            optionsA.push(option);
+                            option = {};
+                        });
+                    }
+                ).done(function() {
+                    prlEditor.field('purchase_request').update(optionsA);
+                });
+
+
+                $('#DTE_Field_purchase_request').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
                 $('#DTE_Field_uom').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
