@@ -34,7 +34,7 @@ class PurchaseRequestLineController extends Controller
                     return $q->whereIn('purchase_request_id', $prl_ids);
                 })
                 ->get()->map(function ($prl) {
-                    $uom_qty_required = number_format($prl->qty_required / $prl->qty_per_uom, 2);
+                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
                     return [
                         'DT_RowId' => 'row_' . $prl->id,
                         'purchase_request' => $prl->purchaseRequest->id,
@@ -140,7 +140,7 @@ class PurchaseRequestLineController extends Controller
             $prl->status = $request->data[0]['prl_status'];
             $prl->save();
 
-            $uom_qty_required = number_format($prl->qty_required / $prl->qty_per_uom,2);
+            $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
 
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $prl->id,
@@ -239,7 +239,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->save();
 
-                    $uom_qty_required = number_format($prl->qty_required / $prl->qty_per_uom,2);
+                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
 
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,
