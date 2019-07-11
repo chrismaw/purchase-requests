@@ -2,7 +2,7 @@
 @section('title','Projects')
 @section('styles')
     <style>
-        #DTE_Field_task_active, #DTE_Field_task_created_by,#DTE_Field_task_project, #DTE_Field_is_active {
+        #DTE_Field_task_active, #DTE_Field_task_created_by-id,#DTE_Field_task_project, #DTE_Field_is_active {
             padding: 5px 4px;
             width: 100%;
         }
@@ -221,7 +221,7 @@
                     { label: "Active:", name: "task_active", type: 'select',
                         options: ['Yes','No']
                     },
-                    { label: "Created by:", name: "task_created_by", type: 'select',
+                    { label: "Created by:", name: "task_created_by.id", type: 'select',
                         options: [
                             { label: "{{ Auth::user()->name }}", value: "{{ Auth::user()->id }}" },
                             @foreach ($users as $user)
@@ -296,7 +296,7 @@
                     { data: "task_number" },
                     { data: "task_description" },
                     { data: "task_active" },
-                    { data: "task_created_by" }
+                    { data: "task_created_by.name", editField: "task_created_by.id"  }
                 ],
                 @if (Auth::user()->isAdmin())
                     select: {
@@ -345,7 +345,7 @@
             });
 			tasksEditor.on( 'open', function ( e, mode, action ) {
 				// $('#DTE_Field_task_project').select2();
-				$('#DTE_Field_task_created_by').select2({
+				$('#DTE_Field_task_created_by-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });

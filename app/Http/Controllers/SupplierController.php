@@ -15,7 +15,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $users = User::all()->sortBy('name');
+        $users = User::all();
         return view('suppliers', ['users' => $users]);
     }
 
@@ -26,7 +26,7 @@ class SupplierController extends Controller
                 'DT_RowId' => 'row_' . $s->id,
                 'name' => $s->name,
                 'active' => $s->is_active ? 'Yes' : 'No',
-                'created_by' => $s->createdByUser->name
+                'created_by' => [ 'name' => $s->createdByUser->name, 'id' => $s->created_by]
             ];
         })])->toJson();
     }
@@ -88,13 +88,13 @@ class SupplierController extends Controller
             $s = new Supplier();
             $s->name = $request->data[0]['name'];
             $s->is_active = $request->data[0]['active'] == 'Yes' ? true : false;
-            $s->created_by = $request->data[0]['created_by'];
+            $s->created_by = $request->data[0]['created_by']['id'];
             $s->save();
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $s->id,
                 'name' => $s->name,
                 'active' => $s->is_active ? 'Yes' : 'No',
-                'created_by' => $s->createdByUser->name
+                'created_by' => [ 'name' => $s->createdByUser->name, 'id' => $s->created_by]
             ];
             return response()->json(
                 $output
@@ -109,14 +109,14 @@ class SupplierController extends Controller
                     $s->is_active = $request->data[array_key_first($request->data)]['active'] == 'Yes' ? true : false;
                 }
                 if (array_key_exists('created_by',$request->data[array_key_first($request->data)])){
-                    $s->created_by = $request->data[array_key_first($request->data)]['created_by'];
+                    $s->created_by = $request->data[array_key_first($request->data)]['created_by']['id'];
                 }
                 $s->save();
                 $output['data'][] = [
                     'DT_RowId' => 'row_' . $s->id,
                     'name' => $s->name,
                     'active' => $s->is_active ? 'Yes' : 'No',
-                    'created_by' => $s->createdByUser->name
+                    'created_by' => [ 'name' => $s->createdByUser->name, 'id' => $s->created_by]
                 ];
                 return response()->json(
                     $output

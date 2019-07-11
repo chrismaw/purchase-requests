@@ -3,17 +3,20 @@
 @section('styles')
     <style>
         #DTE_Field_project,
-        #DTE_Field_requester,
+        #DTE_Field_requester-id,
         #DTE_Field_purchase_request_status,
-        #DTE_Field_uom,
-        #DTE_Field_task,
-        #DTE_Field_supplier,
-        #DTE_Field_approver,
-        #DTE_Field_buyer,
+        #DTE_Field_uom-id,
+        #DTE_Field_task-id,
+        #DTE_Field_supplier-id,
+        #DTE_Field_approver-id,
+        #DTE_Field_buyer-id,
         #DTE_Field_prl_status,
         #DTE_Field_purchase_request {
             padding: 5px 4px;
             width: 100%;
+        }
+        #DTE_Field_item_description {
+            text-transform: uppercase;
         }
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
@@ -142,7 +145,7 @@
                             @endforeach
                         ]
                     },
-                    { label: "Requester:", name: "requester", type: 'select',
+                    { label: "Requester:", name: "requester.id", type: 'select',
                         options: [
                             { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
 
@@ -158,7 +161,7 @@
                     { label: "Status:", name: "purchase_request_status", type: 'select',
                         options: [
                             @foreach ($prStatuses as $status)
-                                { label: '{{ $status }}', value: '{{ $status }}' },
+                                "{{ $status }}",
                             @endforeach
                         ]
                     }
@@ -198,9 +201,9 @@
                     },
                     { data: "id" },
                     { data: "project" },
-                    { data: "requester" },
+                    { data: "requester.name", editField: "requester.id" },
                     { data: "request_date" },
-                    { data: "status" },
+                    { data: "purchase_request_status" },
                 ],
                 select: {
                     style:    'single'
@@ -269,7 +272,7 @@
                     { label: "Item Description:", name: "item_description" },
                     { label: "Qty Required:", name: "qty_required" },
                     { label: "Qty Per UOM:", name: "qty_per_uom", def: '1' },
-                    { label: "Uom:", name: "uom", type: 'select',
+                    { label: "Uom:", name: "uom.id", type: 'select',
                         options: [
                             @foreach ($uoms as $uom)
                                 { label: "{{ $uom->name }}", value: "{{ $uom->id }}" },
@@ -277,7 +280,7 @@
                         ]
                     },
                     { label: "UOM Cost:", name: "cost_per_uom" },
-                    { label: "Task:", name: "task", type: 'select',
+                    { label: "Task:", name: "task.id", type: 'select',
                         options: [
                             @foreach ($tasks as $task)
                                 { label: "{{ $task->number }} - {{ $task->description }}", value: "{{ $task->id }}" },
@@ -285,7 +288,7 @@
                         ]
                     },
                     { label: "Need Date:", name: "need_date", type: 'datetime' },
-                    { label: "Supplier:", name: "supplier", type: 'select',
+                    { label: "Supplier:", name: "supplier.id", type: 'select',
                         options: [
                             @foreach ($suppliers as $supplier)
                                 { label: '{!! addslashes($supplier->name) !!}', value: "{{ $supplier->id }}" },
@@ -293,7 +296,7 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    { label: "Approver:", name: "approver", type: 'select',
+                    { label: "Approver:", name: "approver.id", type: 'select',
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
@@ -301,7 +304,7 @@
                             @endforeach
                         ]
                     },
-                    { label: "Buyer:", name: "buyer", type: 'select',
+                    { label: "Buyer:", name: "buyer.id", type: 'select',
                         options: [
                             { label: '', value: '' },
                             @foreach ($users as $user)
@@ -362,17 +365,17 @@
                     { data: "item_revision" },
                     { data: "item_description" },
                     { data: "qty_required" },
-                    { data: "uom" },
+                    { data: "uom.name", editField: "uom.id" },
                     { data: "qty_per_uom" },
                     { data: "uom_qty_required" },
                     { data: "cost_per_uom" },
                     { data: "total_line_cost" },
-                    { data: "task" },
+                    { data: "task.number", editField: "task.id" },
                     { data: "need_date" },
-                    { data: "supplier" },
+                    { data: "supplier.name", editField: "supplier.id" },
                     { data: "notes" },
-                    { data: "approver" },
-                    { data: "buyer" },
+                    { data: "approver.name", editField: "approver.id" },
+                    { data: "buyer.name", editField: "buyer.id" },
                     { data: "prl_status" },
                 ],
                 select: {
@@ -406,9 +409,9 @@
             });
             prTable.on('select', function (e, dt, type, indexes) {
                 prlTable.ajax.reload();
-                prlEditor
-                    .field('purchase_request')
-                    .def(prTable.rows({selected:true}).data().id);
+                // prlEditor
+                //     .field('purchase_request')
+                //     .def(prTable.rows({selected:true}).data().id);
                 prID = prTable.rows(indexes).data()[0]['id'];
                 setTimeout(function () {
                     prlEditor.set('purchase_request',prID);
@@ -468,33 +471,59 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_requester').select2({
+                $('#DTE_Field_requester-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_uom').select2({
+                var optionsA = [];
+                $.getJSON('{{ route('get-select-purchase-requests') }}',
+                    function (data) {
+                        var option = {};
+                        $.each(data, function (i,e) {
+                            option.label = e.text;
+                            option.value = e.id;
+                            optionsA.push(option);
+                            option = {};
+                        });
+                    }
+                ).done(function() {
+                    prlEditor.field('purchase_request').update(optionsA);
+                });
+
+                $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_task').select2({
+                $('#DTE_Field_uom-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_supplier').select2({
+                $('#DTE_Field_task-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_approver').select2({
+                $('#DTE_Field_supplier-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_buyer').select2({
+                $('#DTE_Field_approver-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_buyer-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
             } );
+
+            // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
+            prlEditor.on( 'submitComplete', function (e, json, data, action) {
+                if (action === 'edit'){
+                    prlTable.ajax.reload();
+                }
+            })
         } );
     </script>
     @endsection

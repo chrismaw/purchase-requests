@@ -26,7 +26,7 @@ class TaskController extends Controller
                 'task_number' => $t->number,
                 'task_description' => $t->description,
                 'task_active' => $t->is_active ? 'Yes' : 'No',
-                'task_created_by' => $t->createdByUser ? $t->createdByUser->name : ''
+                'task_created_by' => [ 'name' => $t->createdByUser->name, 'id' => $t->created_by]
             ];
         })])->toJson();
     }
@@ -90,7 +90,7 @@ class TaskController extends Controller
             $t->number = $request->data[0]['task_number'];
             $t->description = $request->data[0]['task_description'];
             $t->is_active = $request->data[0]['task_active'] == 'Yes' ? true : false;
-            $t->created_by = $request->data[0]['task_created_by'];
+            $t->created_by = $request->data[0]['task_created_by']['id'];
             $t->save();
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $t->id,
@@ -98,7 +98,7 @@ class TaskController extends Controller
                 'task_number' => $t->number,
                 'task_description' => $t->description,
                 'task_active' => $t->is_active ? 'Yes' : 'No',
-                'task_created_by' => $t->createdByUser->name
+                'task_created_by' => [ 'name' => $t->createdByUser->name, 'id' => $t->created_by]
             ];
             return response()->json(
                 $output
@@ -119,7 +119,7 @@ class TaskController extends Controller
                     $t->is_active = $request->data[array_key_first($request->data)]['task_active'] == 'Yes' ? true : false;
                 }
                 if (array_key_exists('task_created_by',$request->data[array_key_first($request->data)])){
-                    $t->created_by = $request->data[array_key_first($request->data)]['task_created_by'];
+                    $t->created_by = $request->data[array_key_first($request->data)]['task_created_by']['id'];
                 }
                 $t->save();
                 $output['data'][] = [
@@ -128,7 +128,7 @@ class TaskController extends Controller
                     'task_number' => $t->number,
                     'task_description' => $t->description,
                     'task_active' => $t->is_active ? 'Yes' : 'No',
-                    'task_created_by' => $t->createdByUser->name
+                    'task_created_by' => [ 'name' => $t->createdByUser->name, 'id' => $t->created_by]
                 ];
                 return response()->json(
                     $output

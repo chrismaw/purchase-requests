@@ -10,6 +10,7 @@ use App\Task;
 use App\Uom;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseRequestController extends Controller
 {
@@ -29,8 +30,8 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
-        $users = User::all()->sortBy('name');
-        $projects = Project::all()->sortBy('description');
+        $users = DB::table('users')->select('id','name')->orderBy('name')->get();
+        $projects = DB::table('projects')->select('id','description')->orderBy('description')->get();
         $suppliers = Supplier::orderBy('name')->get();
         $tasks = Task::all()->sortBy('number');
         $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
@@ -54,11 +55,31 @@ class PurchaseRequestController extends Controller
                 'DT_RowId' => 'row_' . $pr->id,
                 'id' => $pr->id,
                 'project' => $pr->project->description,
-                'requester' => $pr->requestedByUser ? $pr->requestedByUser->name : '',
+                'requester' => ['name' => $pr->requestedByUser->name, 'id' => $pr->requester],
                 'request_date' => date('m-d-Y', strtotime($pr->created_at)),
-                'status' => $pr->status
+                'purchase_request_status' => $pr->status
             ];
         })])->toJson();
+    }
+
+    public function selectData()
+    {
+        return collect(PurchaseRequest::with('project')->get()->map(function ($pr){
+            return [
+                'id' => $pr->id,
+                'text' => $pr->id . ' | ' . $pr->project->description
+            ];
+        }))->toJson();
+    }
+
+    public function select($id)
+    {
+        $pr = PurchaseRequest::findOrFail($id);
+        $resp = [
+            'id' => $pr->id,
+            'text' => $pr->id . ' | ' . $pr->project->description
+        ];
+        return json_encode($resp);
     }
 
     /**
@@ -117,7 +138,7 @@ class PurchaseRequestController extends Controller
         if ($request->action == 'create'){
             $p = new PurchaseRequest();
             $p->project_id = $request->data[0]['project'];
-            $p->requester = $request->data[0]['requester'];
+            $p->requester = $request->data[0]['requester']['id'];
             $p->created_at = date('Y-m-d H:i:s');
             $p->status = $request->data[0]['purchase_request_status'];
             $p->save();
@@ -125,26 +146,27 @@ class PurchaseRequestController extends Controller
                 'DT_RowId' => 'row_' . $p->id,
                 'id' => $p->id,
                 'project' => $p->project->description,
-                'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
+                'requester' => ['name' => $p->requestedByUser->name, 'id' => $p->requester],
                 'request_date' => date('m-d-Y', strtotime($p->created_at)),
-                'status' => $p->status
+                'purchase_request_status' => $p->status
             ];
             return response()->json(
                 $output
             );
         } elseif ($request->action == 'edit'){
+//            dd($request->all());
             $output = array();
             foreach ($request->data as $row_id => $data){
                 $p = PurchaseRequest::find(substr($row_id,4));
                 if ($p instanceof PurchaseRequest){
                     if (array_key_exists('project',$data)){
-                        $p->project_id = is_int($data['project'])
+                        $p->project_id = preg_match('/^\d+$/',$data['project'])
                             ? $data['project']
                             : $p->project_id;
                     }
                     if (array_key_exists('requester',$data)){
-                        $p->requester = preg_match('/^\d+$/',$data['requester'])
-                            ? $data['requester']
+                        $p->requester = preg_match('/^\d+$/',$data['requester']['id'])
+                            ? $data['requester']['id']
                             : $p->requester;
                     }
                     if (array_key_exists('request_date',$data)){
@@ -161,9 +183,9 @@ class PurchaseRequestController extends Controller
                         'DT_RowId' => 'row_' . $p->id,
                         'id' => $p->id,
                         'project' => $p->project->description,
-                        'requester' => $p->requestedByUser ? $p->requestedByUser->name : '',
+                        'requester' => ['name' => $p->requestedByUser->name, 'id' => $p->requester],
                         'request_date' => date('m-d-Y', strtotime($p->created_at)),
-                        'status' => $p->status
+                        'purchase_request_status' => $p->status
                     ];
                 }
             }

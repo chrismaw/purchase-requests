@@ -21,14 +21,24 @@
     <fileColor scope="Project Files" color="Blue" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-420">
+              <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13">
-              <caret line="467" column="40" lean-forward="true" selection-start-line="467" selection-start-column="40" selection-end-line="468" selection-end-column="44" />
+            <state relative-caret-position="630">
+              <caret line="526" column="12" lean-forward="true" selection-start-line="526" selection-start-column="12" selection-end-line="526" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="e#20459#22027#0#HTML" />
               </folding>
             </state>
           </provider>
@@ -38,9 +48,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>uoms</find>
-      <find>suppliers</find>
-      <find>projectsEditor</find>
       <find>statuses</find>
       <find>tasks</find>
       <find>prlTable</find>
@@ -65,9 +72,12 @@
       <find>adds</find>
       <find>addslashes</find>
       <find>add</find>
-      <find>prID</find>
       <find>prlEditor</find>
       <find>approver</find>
+      <find>purchase_re</find>
+      <find>prID</find>
+      <find>purchase_request</find>
+      <find>requester</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,7 +108,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_06_27_224133_create_tasks_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_27_224119_create_suppliers_table.php" />
         <option value="$PROJECT_DIR$/app/Supplier.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_27_224155_create_uoms_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" />
@@ -108,7 +117,6 @@
         <option value="$PROJECT_DIR$/app/Http/Middleware/CheckAdmin.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
         <option value="$PROJECT_DIR$/app/PurchaseRequestLine.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_27_224156_create_purchase_request_lines_table.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/resources/views/users.blade.php" />
@@ -122,15 +130,17 @@
         <option value="$PROJECT_DIR$/resources/views/uoms.blade.php" />
         <option value="$PROJECT_DIR$/public/css/app.css" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_04_105836_drop_number_from_projects_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_04_110744_column_changes_to_projects_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_04_112333_drop_project_id_from_tasks_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/suppliers.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" />
         <option value="$PROJECT_DIR$/resources/views/projects.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" />
         <option value="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" />
       </list>
     </option>
@@ -235,10 +245,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="170" />
-    <option name="y" value="92" />
-    <option name="width" value="1026" />
-    <option name="height" value="554" />
+    <option name="x" value="1557" />
+    <option name="y" value="-373" />
+    <option name="width" value="1378" />
+    <option name="height" value="745" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -246,6 +256,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -274,17 +285,6 @@
             <path>
               <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
               <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -292,12 +292,17 @@
               <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -361,7 +366,9 @@
       <workItem from="1562263192962" duration="1762000" />
       <workItem from="1562329704130" duration="74000" />
       <workItem from="1562341992000" duration="6364000" />
-      <workItem from="1562366718695" duration="1202000" />
+      <workItem from="1562366718695" duration="3723000" />
+      <workItem from="1562761261901" duration="6443000" />
+      <workItem from="1562781608396" duration="2829000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1561683606501</created>
@@ -608,17 +615,52 @@
       <option name="project" value="LOCAL" />
       <updated>1562366758303</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Added autowidth and select on close for select2">
+      <created>1562368171840</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1562368171840</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fixed purchase_request select override error">
+      <created>1562784422604</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1562784422604</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fixed select option default for editing row">
+      <created>1562816208896</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1562816208896</updated>
+    </task>
+    <task id="LOCAL-00039" summary="added $ to uom cost and total line cost">
+      <created>1562816701663</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1562816701663</updated>
+    </task>
+    <task id="LOCAL-00040" summary="forced text description to upper&#10;removed auto reload for prl table on submit">
+      <created>1562819942609</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1562819942609</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130864000" />
+    <option name="totallyTimeSpent" value="157059000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="1358" y="-583" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19591528" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20095949" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -676,11 +718,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finished supplier table" />
-    <MESSAGE value="finished uom table" />
-    <MESSAGE value="added simple user add/update" />
-    <MESSAGE value="added auth and admin middleware&#10;added admin check to tables" />
-    <MESSAGE value="began purchase requests... finished parent table" />
     <MESSAGE value="prl table up and running... need to provide edit inline" />
     <MESSAGE value="parent child purchase requests added" />
     <MESSAGE value="just need to handle prl inline editing" />
@@ -701,7 +738,12 @@
     <MESSAGE value="fixed new prl from new pr bug" />
     <MESSAGE value="switched select2 to chosen" />
     <MESSAGE value="Revert &quot;switched select2 to chosen&quot;&#10;&#10;This reverts commit 601388e1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;switched select2 to chosen&quot;&#10;&#10;This reverts commit 601388e1" />
+    <MESSAGE value="Added autowidth and select on close for select2" />
+    <MESSAGE value="fixed purchase_request select override error" />
+    <MESSAGE value="fixed select option default for editing row" />
+    <MESSAGE value="added $ to uom cost and total line cost" />
+    <MESSAGE value="forced text description to upper&#10;removed auto reload for prl table on submit" />
+    <option name="LAST_COMMIT_MESSAGE" value="forced text description to upper&#10;removed auto reload for prl table on submit" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
@@ -801,13 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storage/framework/sessions/ND7aN9w0gx3t9ipu00Cdswb9hUCurXk2cTYNrbYv" />
     <entry file="file://$PROJECT_DIR$/app/Uom.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -844,13 +879,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/cache/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="164" column="8" selection-start-line="164" selection-start-column="8" selection-end-line="164" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/bootstrap/cache/config.php" />
     <entry file="file://$PROJECT_DIR$/bootstrap/cache/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -886,13 +915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/PurchaseRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -904,13 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
           <caret line="161" column="1" selection-start-line="161" selection-start-column="1" selection-end-line="161" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SupplierController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="104" column="71" selection-start-line="104" selection-start-column="69" selection-end-line="104" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -946,16 +961,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_04_105836_drop_number_from_projects_table.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1460">
-          <caret line="103" column="10" selection-start-line="103" selection-start-column="10" selection-end-line="103" selection-end-column="10" />
-          <folding>
-            <element signature="e#40#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_03_020146_add_is_deleted_to_purchase_request_lines_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
@@ -970,27 +975,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
-          <folding>
-            <element signature="e#40#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_04_112333_drop_project_id_from_tasks_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="28" column="62" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1004,35 +992,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/projects.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5040">
-          <caret line="12" column="35" lean-forward="true" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="21" column="88" selection-start-line="21" selection-start-column="88" selection-end-line="21" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2560">
-          <caret line="130" column="59" selection-start-line="130" selection-start-column="59" selection-end-line="130" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/suppliers.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3200">
-          <caret line="160" column="50" selection-start-line="160" selection-start-column="50" selection-end-line="160" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -1045,17 +1008,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/users.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
+        <state relative-caret-position="20">
           <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/PurchaseRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+          <folding>
+            <element signature="e#40#56#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="92" column="69" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/projects.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="349" column="19" lean-forward="true" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="140" column="64" selection-start-line="140" selection-start-column="64" selection-end-line="140" selection-end-column="64" />
+          <folding>
+            <element signature="e#40#56#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/suppliers.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2380">
+          <caret line="4" column="51" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SupplierController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="118" column="48" selection-start-line="118" selection-start-column="38" selection-end-line="118" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-420">
+          <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="467" column="40" lean-forward="true" selection-start-line="467" selection-start-column="40" selection-end-line="468" selection-end-column="44" />
+        <state relative-caret-position="630">
+          <caret line="526" column="12" lean-forward="true" selection-start-line="526" selection-start-column="12" selection-end-line="526" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="e#20459#22027#0#HTML" />
           </folding>
         </state>
       </provider>
