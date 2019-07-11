@@ -45,8 +45,8 @@ class PurchaseRequestLineController extends Controller
                         'uom' => ['name' => $prl->uom->name, 'id' => $prl->uom_id],
                         'qty_per_uom' => $prl->qty_per_uom,
                         'uom_qty_required' => $uom_qty_required,
-                        'cost_per_uom' => number_format($prl->cost_per_uom, 2),
-                        'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required, 2),
+                        'cost_per_uom' => '$' . number_format($prl->cost_per_uom, 2),
+                        'total_line_cost' => '$' . number_format($prl->cost_per_uom * $uom_qty_required, 2),
                         'task' => ['number' => $prl->task->number, 'id' => $prl->task_id],
                         'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                         'supplier' => $prl->supplier
@@ -152,8 +152,8 @@ class PurchaseRequestLineController extends Controller
                 'uom' => ['name' => $prl->uom->name, 'id' => $prl->uom_id],
                 'qty_per_uom' => $prl->qty_per_uom,
                 'uom_qty_required' => $uom_qty_required,
-                'cost_per_uom' => number_format($prl->cost_per_uom, 2),
-                'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required, 2),
+                'cost_per_uom' => '$' . number_format($prl->cost_per_uom, 2),
+                'total_line_cost' => '$' . number_format($prl->cost_per_uom * $uom_qty_required, 2),
                 'task' => ['number' => $prl->task->number, 'id' => $prl->task_id],
                 'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                 'supplier' => $prl->supplier
@@ -206,7 +206,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('cost_per_uom',$data)){
                         $prl->cost_per_uom = $data['cost_per_uom']
-                            ? $data['cost_per_uom'] : $prl->cost_per_uom;
+                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
                     }
                     if (array_key_exists('task',$data)){
                         $prl->task_id = preg_match('/^\d+$/',$data['task']['id'])
@@ -251,8 +251,8 @@ class PurchaseRequestLineController extends Controller
                         'uom' => ['name' => $prl->uom->name, 'id' => $prl->uom_id],
                         'qty_per_uom' => $prl->qty_per_uom,
                         'uom_qty_required' => $uom_qty_required,
-                        'cost_per_uom' => number_format($prl->cost_per_uom, 2),
-                        'total_line_cost' => number_format($prl->cost_per_uom * $uom_qty_required, 2),
+                        'cost_per_uom' => '$' . number_format($prl->cost_per_uom, 2),
+                        'total_line_cost' => '$' . number_format($prl->cost_per_uom * $uom_qty_required, 2),
                         'task' => ['number' => $prl->task->number, 'id' => $prl->task_id],
                         'need_date' => date('m-d-Y', strtotime($prl->need_date)),
                         'supplier' => $prl->supplier
