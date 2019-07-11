@@ -2,7 +2,7 @@
 @section('title','Suppliers')
 @section('styles')
     <style>
-        #DTE_Field_active, #DTE_Field_created_by {
+        #DTE_Field_active, #DTE_Field_created_by-id {
             padding: 5px 4px;
             width: 100%;
         }
@@ -61,7 +61,7 @@
                     { label: "Active:", name: "active", type: 'select',
                         options: ['Yes','No']
                     },
-                    { label: "Added by:", name: "created_by", type: 'select',
+                    { label: "Added by:", name: "created_by.id", type: 'select',
                         options: [
                             { label: "{{ Auth::user()->name }}", value: "{{ Auth::user()->id }}" },
                             @foreach ($users as $user)
@@ -124,7 +124,7 @@
                     },
                     { data: "name" },
                     { data: "active" },
-                    { data: "created_by" }
+                    { data: "created_by.name", editField: "created_by.id" }
                 ],
                 @if (Auth::user()->isAdmin())
                     select: {
@@ -156,9 +156,8 @@
                     }
                 })
             });
-
             suppliersEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_created_by').select2({
+                $('#DTE_Field_created_by-id').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
