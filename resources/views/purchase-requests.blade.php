@@ -519,11 +519,11 @@
             } );
 
             // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
-            // prlEditor.on( 'submitComplete', function (e, json, data, action) {
-            //     if (action === 'edit'){
-            //         prlTable.ajax.reload();
-            //     }
-            // })
+            prlEditor.on( 'submitComplete', function (e, json, data, action) {
+                if (action === 'edit'){
+                    prlTable.ajax.reload();
+                }
+            })
         } );
     </script>
     @endsection
