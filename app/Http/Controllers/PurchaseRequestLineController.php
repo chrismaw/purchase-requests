@@ -126,7 +126,7 @@ class PurchaseRequestLineController extends Controller
             $prl->purchase_request_id = $request->data[0]['purchase_request_ID'] ?: $request->data[0]['purchase_request'];
             $prl->item_number = $request->data[0]['item_number'];
             $prl->item_revision = $request->data[0]['item_revision'];
-            $prl->item_description = $request->data[0]['item_description'];
+            $prl->item_description = strtoupper($request->data[0]['item_description']);
             $prl->qty_required = $request->data[0]['qty_required'];
             $prl->qty_per_uom = $request->data[0]['qty_per_uom'];
             $prl->uom_id = $request->data[0]['uom']['id'];
@@ -190,7 +190,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('item_description',$data)){
                         $prl->item_description = $data['item_description']
-                            ? $data['item_description'] : $prl->item_description;
+                            ? strtoupper($data['item_description']) : $prl->item_description;
                     }
                     if (array_key_exists('qty_required',$data)){
                         $prl->qty_required = $data['qty_required']

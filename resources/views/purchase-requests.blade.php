@@ -15,6 +15,9 @@
             padding: 5px 4px;
             width: 100%;
         }
+        #DTE_Field_item_description {
+            text-transform: uppercase;
+        }
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
@@ -514,11 +517,13 @@
                     dropdownAutoWidth : true
                 });
             } );
-            prlEditor.on( 'submitComplete', function (e, json, data, action) {
-                if (action === 'edit'){
-                    prlTable.ajax.reload();
-                }
-            })
+
+            // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
+            // prlEditor.on( 'submitComplete', function (e, json, data, action) {
+            //     if (action === 'edit'){
+            //         prlTable.ajax.reload();
+            //     }
+            // })
         } );
     </script>
     @endsection
