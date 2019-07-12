@@ -41,7 +41,7 @@
                 <td></td>
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
-                <td><input id="projects-active-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 18px 6px 6px;"><input id="projects-active-filter" class="filter-input" type="text"/></td>
             </tr>
             </tfoot>
         </table>
@@ -65,7 +65,7 @@
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td><input id="tasks-active-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 18px 6px 6px;"><input id="tasks-active-filter" class="filter-input" type="text"/></td>
                 <td class="searchable"></td>
             </tr>
             </tfoot>
@@ -154,7 +154,10 @@
                     },
                     // { data: "number" },
                     { data: "description" },
-                    { data: "is_active" }
+                    {
+                        data: "is_active",
+                        width: '1%'
+                    }
                 ],
                 @if (Auth::user()->isAdmin())
                     select: {
@@ -294,7 +297,10 @@
                     // { data: "task_project" },
                     { data: "task_number" },
                     { data: "task_description" },
-                    { data: "task_active" },
+                    {
+                        data: "task_active",
+                        width: '1%'
+                    },
                     { data: "task_created_by.name", editField: "task_created_by.id"  }
                 ],
                 @if (Auth::user()->isAdmin())

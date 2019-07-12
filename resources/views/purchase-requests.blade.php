@@ -8,8 +8,6 @@
         #DTE_Field_uom-id,
         #DTE_Field_task-id,
         #DTE_Field_supplier-id,
-        #DTE_Field_approver-id,
-        #DTE_Field_buyer-id,
         #DTE_Field_prl_status,
         #DTE_Field_purchase_request {
             padding: 5px 4px;
@@ -32,16 +30,32 @@
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
+        #purchase-request-lines-table > tbody > tr > td:nth-child(8),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(10),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(15),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(16)
+        {
+            color: #333;
+            font-style: italic;
+        }
         .select2-selection__rendered {
             color: #000 !important;
         }
         .select2-container .select2-selection--single,
-        .select2-container--default .select2-selection--single {
+        .select2-container--default .select2-selection--single,
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
             border: 1px solid #aaa; !important;
             border-radius: unset !important;
         }
+        .select2-container .select2-selection--multiple {
+            min-height: 29px !important;
+        }
         .select2-dropdown {
             border-radius: unset !important;
+        }
+        #purchase-requests-table > tfoot > tr > td:nth-child(4) > span {
+            width: 100% !important;
         }
     </style>
 @endsection
@@ -66,9 +80,15 @@
                 <td></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-requester-filter" class="filter-input" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td><input id="purchase-request-status-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 18px 6px 6px;"><input id="purchase-request-status-filter" class="filter-input" type="text"/></td>
             </tr>
             </tfoot>
         </table>
@@ -111,14 +131,32 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-uom-filter" class="filter-input" style="width: 100px" multiple>
+                        @foreach ($uoms as $uom)
+                            <option value="{{ $uom->name }}">{{ $uom->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-task-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($tasks as $task)
+                            <option value="{{ $task->number }}">{{ $task->number }} - {{ $task->description }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-supplier-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -205,14 +243,23 @@
                         orderable: false,
                         width: '1%'
                     },
-                    { data: "id" },
+                    {
+                        data: "id",
+                        width: '1%'
+                    },
                     { data: "project" },
                     { data: "requester.name", editField: "requester.id" },
-                    { data: "request_date" },
-                    { data: "purchase_request_status" },
+                    {
+                        data: "request_date",
+                        width: '10%'
+                    },
+                    {
+                        data: "purchase_request_status",
+                        width: '10%'
+                    },
                 ],
                 select: {
-                    style:    'single'
+                    style: 'single'
                 },
                 columnDefs: [
                     { className: "text-nowrap", targets: '_all' }
@@ -249,7 +296,40 @@
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
-                })
+                });
+            });
+
+            $('#purchase-request-requester-filter').on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-requester-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prTable.column(3).search(search, true, false).draw();
+            });
+            $('#purchase-request-lines-uom-filter').on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-uom-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(6).search(search, true, false).draw();
+            });
+            $('#purchase-request-lines-task-filter').on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-task-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(11).search(search, true, false).draw();
+            });
+            $('#purchase-request-lines-supplier-filter').on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-supplier-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(13).search(search, true, false).draw();
             });
 
             // Purchase Request Lines Editor
@@ -302,22 +382,22 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    { label: "Approver:", name: "approver.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
-                    { label: "Buyer:", name: "buyer.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
+                    {{--{ label: "Approver:", name: "approver.id", type: 'select',--}}
+                    {{--    options: [--}}
+                    {{--        { label: '', value: '' },--}}
+                    {{--        @foreach ($users as $user)--}}
+                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
+                    {{--        @endforeach--}}
+                    {{--    ]--}}
+                    {{--},--}}
+                    {{--{ label: "Buyer:", name: "buyer.id", type: 'select',--}}
+                    {{--    options: [--}}
+                    {{--        { label: '', value: '' },--}}
+                    {{--        @foreach ($users as $user)--}}
+                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
+                    {{--        @endforeach--}}
+                    {{--    ]--}}
+                    {{--},--}}
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
@@ -383,8 +463,8 @@
                     { data: "need_date" },
                     { data: "supplier.name", editField: "supplier.id" },
                     { data: "notes" },
-                    { data: "approver.name", editField: "approver.id" },
-                    { data: "buyer.name", editField: "buyer.id" },
+                    { data: "approver" },
+                    { data: "buyer" },
                     { data: "prl_status" },
                     { data: "next_assembly" },
                     { data: "work_order" },
@@ -396,7 +476,7 @@
                 },
                 columnDefs: [
                     { visible: false, targets: 1 },
-                    { className: "text-nowrap", "targets": [4,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [4,6,12,13,15,16,17] }
                 ],
                 paging: false,
                 buttons: [
@@ -430,7 +510,7 @@
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
-                })
+                });
             });
             prTable.on('select', function (e, dt, type, indexes) {
                 prlTable.ajax.reload();
@@ -484,12 +564,6 @@
                     }
                 }
             } );
-            // prlEditor.on( 'onInitCreate', function () {
-            //     prlEditor.disable('purchase_request');
-            // } );
-            // prlEditor.on( 'onInitEdit', function () {
-                // prlEditor.enable('purchase_request');
-            // } );
 
             prEditor.on( 'open', function ( e, mode, action ) {
                 $('#DTE_Field_project').select2({
@@ -533,16 +607,25 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                $('#DTE_Field_approver-id').select2({
-                    selectOnClose: true,
-                    dropdownAutoWidth : true
-                });
-                $('#DTE_Field_buyer-id').select2({
-                    selectOnClose: true,
-                    dropdownAutoWidth : true
-                });
+                // $('#DTE_Field_approver-id').select2({
+                //     selectOnClose: true,
+                //     dropdownAutoWidth : true
+                // });
+                // $('#DTE_Field_buyer-id').select2({
+                //     selectOnClose: true,
+                //     dropdownAutoWidth : true
+                // });
             } );
-
+            $('#purchase-request-requester-filter').select2();
+            $('#purchase-request-lines-uom-filter').select2({
+                dropdownAutoWidth : true
+            });
+            $('#purchase-request-lines-task-filter').select2({
+                dropdownAutoWidth : true
+            });
+            $('#purchase-request-lines-supplier-filter').select2({
+                dropdownAutoWidth : true
+            });
             // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
             // prlEditor.on( 'submitComplete', function (e, json, data, action) {
             //     if (action === 'edit'){
