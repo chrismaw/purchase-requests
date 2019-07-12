@@ -98,12 +98,18 @@
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
+                <th>Next Assembly</th>
+                <th>Work Order</th>
+                <th>PO Number</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <td></td>
                 <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -318,7 +324,10 @@
                                 { label: "{{ addslashes($status) }}", value: "{{ $status }}"},
                             @endforeach
                         ]
-                    }
+                    },
+                    { label: "Next Assembly:", name: "next_assembly" },
+                    { label: "Work Order:", name: "work_order" },
+                    { label: "PO Number:", name: "po_number" }
                 ],
                 i18n: {
                     create: {
@@ -377,6 +386,9 @@
                     { data: "approver.name", editField: "approver.id" },
                     { data: "buyer.name", editField: "buyer.id" },
                     { data: "prl_status" },
+                    { data: "next_assembly" },
+                    { data: "work_order" },
+                    { data: "po_number" },
                 ],
                 select: {
                     style:    'os',

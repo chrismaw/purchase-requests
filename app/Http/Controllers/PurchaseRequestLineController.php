@@ -59,7 +59,10 @@ class PurchaseRequestLineController extends Controller
                         'buyer' => $prl->buyer
                             ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
                             : ['name' => '', 'id' => ''],
-                        'prl_status' => $prl->status
+                        'prl_status' => $prl->status,
+                        'next_assembly' => $prl->next_assembly,
+                        'work_order' => $prl->work_order,
+                        'po_number' => $prl->po_number,
                     ];
                 })])->toJson();
         } else {
@@ -141,6 +144,9 @@ class PurchaseRequestLineController extends Controller
                 $prl->buyer = $request->data[0]['buyer']['id'];
                 $prl->need_date = date('Y-m-d H:i:s', strtotime($request->data[0]['need_date']));
                 $prl->status = $request->data[0]['prl_status'];
+                $prl->next_assembly = $request->data[0]['next_assembly'];
+                $prl->work_order = $request->data[0]['work_order'];
+                $prl->po_number = $request->data[0]['po_number'];
                 $prl->save();
 
                 $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
@@ -169,7 +175,10 @@ class PurchaseRequestLineController extends Controller
                     'buyer' => $prl->buyer
                         ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
                         : ['name' => '', 'id' => ''],
-                    'prl_status' => $prl->status
+                    'prl_status' => $prl->status,
+                    'next_assembly' => $prl->next_assembly,
+                    'work_order' => $prl->work_order,
+                    'po_number' => $prl->po_number,
                 ];
                 return response()->json(
                     $output
@@ -240,6 +249,18 @@ class PurchaseRequestLineController extends Controller
                         $prl->status = $data['prl_status']
                             ? $data['prl_status'] : $prl->prl_status;
                     }
+                    if (array_key_exists('next_assembly',$data)){
+                        $prl->next_assembly = $data['next_assembly']
+                            ? $data['next_assembly'] : $prl->next_assembly;
+                    }
+                    if (array_key_exists('work_order',$data)){
+                        $prl->work_order = $data['work_order']
+                            ? $data['work_order'] : $prl->work_order;
+                    }
+                    if (array_key_exists('po_number',$data)){
+                        $prl->po_number = $data['po_number']
+                            ? $data['po_number'] : $prl->po_number;
+                    }
                     $prl->save();
 
                     $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
@@ -268,7 +289,10 @@ class PurchaseRequestLineController extends Controller
                         'buyer' => $prl->buyer
                             ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
                             : ['name' => '', 'id' => ''],
-                        'prl_status' => $prl->status
+                        'prl_status' => $prl->status,
+                        'next_assembly' => $prl->next_assembly,
+                        'work_order' => $prl->work_order,
+                        'po_number' => $prl->po_number,
                     ];
                 }
                 return response()->json(
@@ -341,6 +365,18 @@ class PurchaseRequestLineController extends Controller
                         $prl->status = $data['prl_status']
                             ? $data['prl_status'] : $prl->prl_status;
                     }
+                    if (array_key_exists('next_assembly',$data)){
+                        $prl->next_assembly = $data['next_assembly']
+                            ? $data['next_assembly'] : $prl->next_assembly;
+                    }
+                    if (array_key_exists('work_order',$data)){
+                        $prl->work_order = $data['work_order']
+                            ? $data['work_order'] : $prl->work_order;
+                    }
+                    if (array_key_exists('po_number',$data)){
+                        $prl->po_number = $data['po_number']
+                            ? $data['po_number'] : $prl->po_number;
+                    }
                     $prl->save();
 
                     $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
@@ -369,7 +405,10 @@ class PurchaseRequestLineController extends Controller
                         'buyer' => $prl->buyer
                             ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
                             : ['name' => '', 'id' => ''],
-                        'prl_status' => $prl->status
+                        'prl_status' => $prl->status,
+                        'next_assembly' => $prl->next_assembly,
+                        'work_order' => $prl->work_order,
+                        'po_number' => $prl->po_number,
                     ];
                 }
             }
@@ -377,44 +416,6 @@ class PurchaseRequestLineController extends Controller
                 $output
             );
 
-        } elseif ($request->action == 'duplicate'){
-            $oldPrl = PurchaseRequestLine::where($request->prl);
-            dd($request->prl);
-            dd($oldPrl);
-            $prl = $oldPrl->replicate();
-            $prl->save();
-
-            $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
-
-            $output['data'][] = [
-                'DT_RowId' => 'row_' . $prl->id,
-                'purchase_request' => $prl->purchaseRequest->id,
-                'item_number' => $prl->item_number,
-                'item_revision' => $prl->item_revision,
-                'item_description' => $prl->item_description,
-                'qty_required' => $prl->qty_required,
-                'uom' => ['name' => $prl->uom->name, 'id' => $prl->uom_id],
-                'qty_per_uom' => $prl->qty_per_uom,
-                'uom_qty_required' => $uom_qty_required,
-                'cost_per_uom' => '$' . number_format($prl->cost_per_uom, 2),
-                'total_line_cost' => '$' . number_format($prl->cost_per_uom * $uom_qty_required, 2),
-                'task' => ['number' => $prl->task->number, 'id' => $prl->task_id],
-                'need_date' => date('m-d-Y', strtotime($prl->need_date)),
-                'supplier' => $prl->supplier
-                    ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
-                    : ['name' => '', 'id' => ''],
-                'notes' => $prl->notes,
-                'approver' => $prl->approver
-                    ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
-                    : ['name' => '', 'id' => ''],
-                'buyer' => $prl->buyer
-                    ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
-                    : ['name' => '', 'id' => ''],
-                'prl_status' => $prl->status
-            ];
-            return response()->json(
-                $output
-            );
         } elseif ($request->action == 'remove'){
 
             $p = PurchaseRequestLine::find(substr(array_key_first($request->data),4));
