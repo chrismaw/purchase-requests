@@ -390,6 +390,19 @@
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
                     { extend: "edit",   editor: prlEditor },
+                    {
+                        extend: "selected",
+                        text: 'Duplicate',
+                        action: function ( e, dt, node, config ) {
+                            // Start in edit mode, and then change to create
+                            prlEditor
+                                .edit( prlTable.rows( {selected: true} ).indexes(), {
+                                    title: 'Duplicate record',
+                                    buttons: 'Create from existing'
+                                } )
+                                .mode( 'create' );
+                        }
+                    },
                     { extend: "remove", editor: prlEditor }
                 ]
             } );
