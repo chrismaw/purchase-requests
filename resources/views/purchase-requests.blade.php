@@ -54,6 +54,9 @@
         .select2-dropdown {
             border-radius: unset !important;
         }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            border-radius: unset;
+        }
         #purchase-requests-table > tfoot > tr > td:nth-child(4) > span {
             width: 100% !important;
         }
@@ -88,7 +91,13 @@
                     </select>
                 </td>
                 <td class="searchable"></td>
-                <td style="padding: 10px 18px 6px 6px;"><input id="purchase-request-status-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-status-filter" class="filter-input" multiple>
+                        <option selected value="Open">Open</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -158,9 +167,27 @@
                     </select>
                 </td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-approver-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-buyer-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-lines-status-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($prlStatuses as $status)
+                            <option value="{{ $status }}">{{ $status }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -271,7 +298,7 @@
                 ],
                 initComplete: function (settings, json) {
                     document.getElementById('purchase-request-status-filter').value = 'Open';
-                    $('#purchase-request-status-filter').trigger('keyup');
+                    $('#purchase-request-status-filter').trigger('change');
                 }
             } );
             // create the Show Open Request checkbox
@@ -279,10 +306,10 @@
             $('#status-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){
                     document.getElementById('purchase-request-status-filter').value = 'Open';
-                    $('#purchase-request-status-filter').trigger('keyup');
+                    $('#purchase-request-status-filter').trigger('change');
                 } else {
                     document.getElementById('purchase-request-status-filter').value = '';
-                    $('#purchase-request-status-filter').trigger('keyup');
+                    $('#purchase-request-status-filter').trigger('change');
                 }
             });
             // add input for each column for Purchase Requests Table
@@ -298,40 +325,6 @@
                     }
                 });
             });
-
-            $('#purchase-request-requester-filter').on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-requester-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prTable.column(3).search(search, true, false).draw();
-            });
-            $('#purchase-request-lines-uom-filter').on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-lines-uom-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prlTable.column(6).search(search, true, false).draw();
-            });
-            $('#purchase-request-lines-task-filter').on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-lines-task-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prlTable.column(11).search(search, true, false).draw();
-            });
-            $('#purchase-request-lines-supplier-filter').on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-lines-supplier-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prlTable.column(13).search(search, true, false).draw();
-            });
-
             // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
                 ajax: {
@@ -616,16 +609,85 @@
                 //     dropdownAutoWidth : true
                 // });
             } );
-            $('#purchase-request-requester-filter').select2();
+
+            // purchase request table column filters
+            $('#purchase-request-requester-filter').select2().on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-requester-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prTable.column(3).search(search, true, false).draw();
+            });
+            $('#purchase-request-status-filter').select2().on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-status-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prTable.column(5).search(search, true, false).draw();
+            });
             $('#purchase-request-lines-uom-filter').select2({
                 dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-uom-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(6).search(search, true, false).draw();
             });
             $('#purchase-request-lines-task-filter').select2({
                 dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-task-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(11).search(search, true, false).draw();
             });
             $('#purchase-request-lines-supplier-filter').select2({
                 dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-supplier-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(13).search(search, true, false).draw();
             });
+            $('#purchase-request-lines-approver-filter').select2({
+                dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-approver-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(15).search(search, true, false).draw();
+            });
+            $('#purchase-request-lines-buyer-filter').select2({
+                dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-buyer-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(16).search(search, true, false).draw();
+            });
+            $('#purchase-request-lines-status-filter').select2({
+                dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-lines-status-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prlTable.column(17).search(search, true, false).draw();
+            });
+
             // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
             // prlEditor.on( 'submitComplete', function (e, json, data, action) {
             //     if (action === 'edit'){

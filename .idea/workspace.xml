@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/projects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/projects.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,30 +24,54 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-315">
-              <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="25">
+              <caret line="35" column="1" lean-forward="true" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="658" column="15" lean-forward="true" selection-start-line="658" selection-start-column="15" selection-end-line="658" selection-end-column="15" />
+              <folding>
+                <element signature="e#6946#6980#0#HTML" expanded="true" />
+                <element signature="e#7075#7095#0#HTML" expanded="true" />
+                <element signature="e#7201#9095#0#HTML" />
+                <element signature="e#9252#9307#0#HTML" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="e#12159#12248#0#HTML" />
+                <element signature="e#12360#12633#0#HTML" />
+                <element signature="e#14347#18781#0#HTML" />
+                <element signature="e#18929#19043#0#HTML" />
+                <element signature="e#19164#22324#0#HTML" />
+                <element signature="e#22733#23006#0#HTML" />
+                <element signature="e#23074#23575#0#HTML" />
+                <element signature="e#23624#23725#0#HTML" />
+                <element signature="e#23793#25333#0#HTML" />
+                <element signature="e#25400#25732#0#HTML" />
+                <element signature="e#25799#27405#0#HTML" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/projects.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="685">
-              <caret line="355" column="32" lean-forward="true" selection-start-line="355" selection-start-column="32" selection-end-line="355" selection-end-column="32" />
+            <state relative-caret-position="546">
+              <caret line="78" column="21" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
               <folding>
+                <element signature="e#1337#1372#0#HTML" expanded="true" />
+                <element signature="e#2255#2290#0#HTML" expanded="true" />
+                <element signature="e#2725#3495#0#HTML" />
+                <element signature="e#3570#4519#0#HTML" />
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="e#8016#9730#0#HTML" />
+                <element signature="e#10130#11040#0#HTML" />
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -58,11 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>statuses</find>
-      <find>tasks</find>
-      <find>prlTable</find>
-      <find>prlEd</find>
-      <find>burger</find>
       <find>consol</find>
       <find>file</find>
       <find>file_</find>
@@ -77,24 +96,29 @@
       <find>pag</find>
       <find>'</find>
       <find>field</find>
-      <find>supplier</find>
       <find>addsl</find>
       <find>adds</find>
       <find>addslashes</find>
       <find>add</find>
       <find>prlEditor</find>
-      <find>approver</find>
       <find>purchase_re</find>
       <find>prID</find>
       <find>purchase_request</find>
       <find>requester</find>
+      <find>approver</find>
+      <find>$uom</find>
+      <find>$task</find>
+      <find>supplier</find>
+      <find>$('#purchase-request-lines-supplier-filter')</find>
+      <find>purchase-request-requester-filter</find>
+      <find>status-filter-checkbox</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
   </component>
@@ -147,11 +171,11 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_12_005734_add_columns_to_prlines_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" />
         <option value="$PROJECT_DIR$/public/css/app.css" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" />
         <option value="$PROJECT_DIR$/resources/views/projects.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" />
       </list>
     </option>
   </component>
@@ -255,10 +279,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1595" />
-    <option name="y" value="-562" />
-    <option name="width" value="1378" />
-    <option name="height" value="745" />
+    <option name="x" value="1358" />
+    <option name="y" value="-583" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -266,6 +290,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -294,17 +319,6 @@
             <path>
               <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
               <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
-              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -321,13 +335,18 @@
             <path>
               <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
               <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="purchase-requests" type="b2602c69:ProjectViewProjectNode" />
+              <item name="purchase-requests" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -396,6 +415,9 @@
       <workItem from="1562781608396" duration="2829000" />
       <workItem from="1562843661407" duration="1217000" />
       <workItem from="1562875692344" duration="3115000" />
+      <workItem from="1562934187656" duration="14000" />
+      <workItem from="1562938814575" duration="14000" />
+      <workItem from="1562959136135" duration="3321000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1561683606501</created>
@@ -691,18 +713,32 @@
       <option name="project" value="LOCAL" />
       <updated>1562894260268</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="added tippy.js">
+      <created>1562896233259</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1562896233259</updated>
+    </task>
+    <task id="LOCAL-00044" summary="started column filters">
+      <created>1562902817718</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1562902817718</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164633000" />
+    <option name="totallyTimeSpent" value="174586000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-583" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19296375" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49517685" visible="true" weight="0.20149253" />
+      <window_info id="Structure" order="1" sideWeight="0.50482315" side_tool="true" weight="0.20149253" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290461" />
@@ -715,7 +751,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3279743" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32475883" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.21864952" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -783,10 +819,22 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="just need to handle prl inline editing" />
-    <MESSAGE value="added inline editing for prls" />
     <MESSAGE value="styles and new navbar" />
     <MESSAGE value="Added users seeder" />
     <MESSAGE value="removed sort by name for users data" />
@@ -810,7 +858,9 @@
     <MESSAGE value="forced text description to upper&#10;removed auto reload for prl table on submit" />
     <MESSAGE value="rounded up uom qty required&#10;removed prl table auto reload" />
     <MESSAGE value="added extra columns to prlines" />
-    <option name="LAST_COMMIT_MESSAGE" value="added extra columns to prlines" />
+    <MESSAGE value="added tippy.js" />
+    <MESSAGE value="started column filters" />
+    <option name="LAST_COMMIT_MESSAGE" value="started column filters" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php">
@@ -929,13 +979,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/PurchaseRequestLine.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="30" column="29" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1111,54 +1154,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php">
+    <entry file="file://$PROJECT_DIR$/app/PurchaseRequestLine.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
+        <state relative-caret-position="600">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="140" column="64" selection-start-line="140" selection-start-column="64" selection-end-line="140" selection-end-column="64" />
+        <state relative-caret-position="540">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="24" />
           <folding>
             <element signature="e#40#56#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-869">
-          <caret line="221" column="59" lean-forward="true" selection-start-line="221" selection-start-column="59" selection-end-line="221" selection-end-column="59" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1200">
+          <caret line="62" column="59" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+        <state relative-caret-position="25">
+          <caret line="35" column="1" lean-forward="true" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/projects.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="355" column="32" lean-forward="true" selection-start-line="355" selection-start-column="32" selection-end-line="355" selection-end-column="32" />
+        <state relative-caret-position="546">
+          <caret line="78" column="21" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
           <folding>
+            <element signature="e#1337#1372#0#HTML" expanded="true" />
+            <element signature="e#2255#2290#0#HTML" expanded="true" />
+            <element signature="e#2725#3495#0#HTML" />
+            <element signature="e#3570#4519#0#HTML" />
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="e#8016#9730#0#HTML" />
+            <element signature="e#10130#11040#0#HTML" />
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="658" column="15" lean-forward="true" selection-start-line="658" selection-start-column="15" selection-end-line="658" selection-end-column="15" />
+          <folding>
+            <element signature="e#6946#6980#0#HTML" expanded="true" />
+            <element signature="e#7075#7095#0#HTML" expanded="true" />
+            <element signature="e#7201#9095#0#HTML" />
+            <element signature="e#9252#9307#0#HTML" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="e#12159#12248#0#HTML" />
+            <element signature="e#12360#12633#0#HTML" />
+            <element signature="e#14347#18781#0#HTML" />
+            <element signature="e#18929#19043#0#HTML" />
+            <element signature="e#19164#22324#0#HTML" />
+            <element signature="e#22733#23006#0#HTML" />
+            <element signature="e#23074#23575#0#HTML" />
+            <element signature="e#23624#23725#0#HTML" />
+            <element signature="e#23793#25333#0#HTML" />
+            <element signature="e#25400#25732#0#HTML" />
+            <element signature="e#25799#27405#0#HTML" />
           </folding>
         </state>
       </provider>

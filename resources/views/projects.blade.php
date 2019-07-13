@@ -41,7 +41,9 @@
                 <td></td>
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
-                <td style="padding: 10px 18px 6px 6px;"><input id="projects-active-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 18px 6px 6px;">
+                    <select id="projects-active-filter" class="filter-input"><option value="Yes" selected>Yes</option><option value="No">No</option></select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -65,8 +67,16 @@
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td style="padding: 10px 18px 6px 6px;"><input id="tasks-active-filter" class="filter-input" type="text"/></td>
-                <td class="searchable"></td>
+                <td style="padding: 10px 18px 6px 6px;">
+                    <select id="tasks-active-filter" class="filter-input"><option value="Yes" selected>Yes</option><option value="No">No</option></select>
+                </td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-approver-supplier-filter" class="filter-input" style="width: 200px" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -156,7 +166,7 @@
                     { data: "description" },
                     {
                         data: "is_active",
-                        width: '1%'
+                        width: '10%'
                     }
                 ],
                 @if (Auth::user()->isAdmin())
@@ -177,7 +187,7 @@
                 ],
                 initComplete: function (settings, json) {
                     document.getElementById('projects-active-filter').value = 'Yes';
-                    $('#projects-active-filter').trigger('keyup');
+                    $('#projects-active-filter').trigger('change');
                 }
             } );
 
@@ -200,6 +210,11 @@
             projectsTable.columns().every(function(){
                 let that = this;
                 $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                });
+                $('select', this.footer()).on('keyup change', function () {
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
@@ -299,7 +314,7 @@
                     { data: "task_description" },
                     {
                         data: "task_active",
-                        width: '1%'
+                        width: '10%'
                     },
                     { data: "task_created_by.name", editField: "task_created_by.id"  }
                 ],
@@ -321,7 +336,7 @@
                 ],
                 initComplete: function (settings, json) {
                     document.getElementById('tasks-active-filter').value = 'Yes';
-                    $('#tasks-active-filter').trigger('keyup');
+                    $('#tasks-active-filter').trigger('change');
                 }
             } );
 
@@ -343,6 +358,11 @@
             tasksTable.columns().every(function(){
                 let that = this;
                 $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                });
+                $('select', this.footer()).on('keyup change', function () {
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
