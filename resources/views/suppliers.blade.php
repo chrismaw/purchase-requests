@@ -10,12 +10,23 @@
             color: #000 !important;
         }
         .select2-container .select2-selection--single,
-        .select2-container--default .select2-selection--single {
+        .select2-container--default .select2-selection--single,
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
             border: 1px solid #aaa; !important;
             border-radius: unset !important;
         }
+        .select2-container .select2-selection--multiple {
+            min-height: 29px !important;
+        }
         .select2-dropdown {
             border-radius: unset !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            border-radius: unset;
+        }
+        #suppliers-table > tfoot > tr > td:nth-child(4) > span {
+            width: 100% !important;
         }
     </style>
 @endsection
@@ -37,8 +48,16 @@
             <tr>
                 <td></td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="suppliers-active-filter" class="filter-input"><option value="Yes">Yes</option><option value="No">No</option></select>
+                </td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="suppliers-added-by-filter" class="filter-input" style="width: 100px" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -123,8 +142,15 @@
                         width: '1%'
                     },
                     { data: "name" },
-                    { data: "active" },
-                    { data: "created_by.name", editField: "created_by.id" }
+                    {
+                        data: "active",
+                        width: '10%'
+                    },
+                    {
+                        data: "created_by.name",
+                        editField: "created_by.id",
+                        width: '20%'
+                    }
                 ],
                 @if (Auth::user()->isAdmin())
                     select: {
@@ -154,6 +180,11 @@
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
+                });
+                $('select', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
                 })
             });
             suppliersEditor.on( 'open', function ( e, mode, action ) {
@@ -162,6 +193,18 @@
                     dropdownAutoWidth : true
                 });
             } );
+
+
+            $('#suppliers-added-by-filter').select2({
+                dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#suppliers-added-by-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                suppliersTable.column(3).search(search, true, false).draw();
+            });
         } );
     </script>
     @endsection

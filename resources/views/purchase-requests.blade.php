@@ -141,7 +141,7 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-uom-filter" class="filter-input" style="width: 100px" multiple>
+                    <select id="purchase-request-lines-uom-filter" class="filter-input" multiple>
                         @foreach ($uoms as $uom)
                             <option value="{{ $uom->name }}">{{ $uom->name }}</option>
                         @endforeach
@@ -152,7 +152,7 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-task-filter" class="filter-input" style="width: 200px" multiple>
+                    <select id="purchase-request-lines-task-filter" class="filter-input" multiple>
                         @foreach ($tasks as $task)
                             <option value="{{ $task->number }}">{{ $task->number }} - {{ $task->description }}</option>
                         @endforeach
@@ -160,7 +160,7 @@
                 </td>
                 <td class="searchable"></td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-supplier-filter" class="filter-input" style="width: 200px" multiple>
+                    <select id="purchase-request-lines-supplier-filter" class="filter-input"  multiple>
                         @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
                         @endforeach
@@ -168,21 +168,21 @@
                 </td>
                 <td class="searchable"></td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-approver-filter" class="filter-input" style="width: 200px" multiple>
+                    <select id="purchase-request-lines-approver-filter" class="filter-input" multiple>
                         @foreach ($users as $user)
                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-buyer-filter" class="filter-input" style="width: 200px" multiple>
+                    <select id="purchase-request-lines-buyer-filter" class="filter-input" multiple>
                         @foreach ($users as $user)
                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                         @endforeach
                     </select>
                 </td>
                 <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-lines-status-filter" class="filter-input" style="width: 200px" multiple>
+                    <select id="purchase-request-lines-status-filter" class="filter-input" multiple>
                         @foreach ($prlStatuses as $status)
                             <option value="{{ $status }}">{{ $status }}</option>
                         @endforeach
