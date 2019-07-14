@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/purchase-request-lines/data', 'PurchaseRequestLineController@data')->name('purchase-request-lines-data');
     Route::post('/purchase-request-lines/update', 'PurchaseRequestLineController@update')->name('purchase-request-lines-update');
 
+    Route::get('/purchase-requests-lines-all', 'PurchaseRequestLineController@allIndex')->name('purchase-requests-lines-all');
+    Route::get('/purchase-request-lines-all/data', 'PurchaseRequestLineController@allData')->name('purchase-request-lines-all-data');
+    Route::post('/purchase-request-lines-all/update', 'PurchaseRequestLineController@allUpdate')->name('purchase-request-lines-all-update');
+
     //Projects
     Route::get('/projects', 'ProjectController@index')->name('projects');
     Route::get('/projects/data', 'ProjectController@data')->name('projects-data');

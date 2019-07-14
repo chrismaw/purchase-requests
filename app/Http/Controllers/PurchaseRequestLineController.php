@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\PurchaseRequest;
 use App\PurchaseRequestLine;
+use App\Supplier;
+use App\Task;
+use App\Uom;
 use Illuminate\Http\Request;
-use Monolog\Handler\IFTTTHandler;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseRequestLineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     public function data(Request $request)
     {
         $prl_ids = $request->get('prl') ? explode(',',$request->get('prl')) : null;
@@ -446,4 +440,79 @@ class PurchaseRequestLineController extends Controller
     {
         //
     }
+    /**
+     * Display a listing of all purchase request lines.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allIndex()
+    {
+        $users = DB::table('users')->select('id','name')->orderBy('name')->get();
+        $projects = DB::table('projects')->select('id','description')->orderBy('description')->get();
+        $suppliers = Supplier::orderBy('name')->get();
+        $tasks = Task::all()->sortBy('number');
+        $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
+        $purchase_requests = PurchaseRequest::all()->sortBy('number');
+        return view('purchase-request-lines-all',[
+            'users' => $users,
+            'projects' => $projects,
+            'suppliers' => $suppliers,
+            'tasks' => $tasks,
+            'uoms' => $uoms,
+            'purchase_requests' => $purchase_requests,
+            'prStatuses' => PurchaseRequest::PR_STATUSES,
+            'prlStatuses' => PurchaseRequestLine::PRL_STATUSES
+        ]);
+    }
+
+    public function allData()
+    {
+        return collect(['data' => PurchaseRequestLine::with(
+            'purchaseRequest',
+            'task:id,number,description',
+            'supplier:id,name',
+            'uom:id,name',
+            'approverUser:id,name',
+            'buyerUser:id,name')
+            ->where('is_deleted', '=', false)
+            ->get()->map(function ($prl) {
+                $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                return [
+                    'DT_RowId' => 'row_' . $prl->id,
+                    'id' => $prl->id,
+                    'item_number' => $prl->item_number,
+                    'item_revision' => $prl->item_revision,
+                    'item_description' => $prl->item_description,
+                    'qty_required' => $prl->qty_required,
+                    'uom' => ['name' => $prl->uom->name, 'id' => $prl->uom_id],
+                    'qty_per_uom' => $prl->qty_per_uom,
+                    'uom_qty_required' => $uom_qty_required,
+                    'cost_per_uom' => '$' . number_format($prl->cost_per_uom, 2),
+                    'total_line_cost' => '$' . number_format($prl->cost_per_uom * $uom_qty_required, 2),
+                    'task' => ['number' => $prl->task->number, 'id' => $prl->task_id],
+                    'need_date' => date('m-d-Y', strtotime($prl->need_date)),
+                    'supplier' => $prl->supplier
+                        ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
+                        : ['name' => '', 'id' => ''],
+                    'notes' => $prl->notes,
+                    'approver' => $prl->approver
+                        ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
+                        : ['name' => '', 'id' => ''],
+                    'buyer' => $prl->buyer
+                        ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
+                        : ['name' => '', 'id' => ''],
+                    'prl_status' => $prl->status,
+                    'next_assembly' => $prl->next_assembly,
+                    'work_order' => $prl->work_order,
+                    'po_number' => $prl->po_number,
+                    'pr_id' => $prl->purchaseRequest->id,
+                    'pr_project' => $prl->purchaseRequest->project->description,
+                    'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
+                    'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
+                    'pr_status' => $prl->purchaseRequest->status,
+                    'buyers_notes' => $prl->buyers_notes
+                ];
+            })])->toJson();
+    }
+
 }

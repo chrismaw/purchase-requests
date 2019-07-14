@@ -2,6 +2,7 @@
   <dictionary name="cmaw">
     <words>
       <w>addslashes</w>
+      <w>orderable</w>
     </words>
   </dictionary>
 </component>

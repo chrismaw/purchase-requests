@@ -14,14 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseRequestController extends Controller
 {
-    const PR_STATUSES = [
-        'Open', 'On Hold', 'Closed'
-    ];
-
-    const PRL_STATUSES = [
-        'Pending Approval', 'Unreleased Drawing', 'Approved for Purchasing',
-        'PO in Progress', 'PO Revision', 'Order Complete', 'Request Cancelled'
-    ];
 
     /**
      * Display a listing of the resource.
@@ -43,8 +35,8 @@ class PurchaseRequestController extends Controller
             'tasks' => $tasks,
             'uoms' => $uoms,
             'purchase_requests' => $purchase_requests,
-            'prStatuses' => self::PR_STATUSES,
-            'prlStatuses' => self::PRL_STATUSES
+            'prStatuses' => PurchaseRequest::PR_STATUSES,
+            'prlStatuses' => PurchaseRequestLine::PRL_STATUSES
         ]);
     }
 
