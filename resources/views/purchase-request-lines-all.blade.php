@@ -2,16 +2,43 @@
 @section('title','Purchase Request Lines | All')
 @section('styles')
     <style>
-        #DTE_Field_active, #DTE_Field_created_by-id {
+        #DTE_Field_purchase_request,
+        #DTE_Field_task-id,
+        #DTE_Field_supplier-id,
+        #DTE_Field_approver-id,
+        #DTE_Field_buyer-id,
+        #DTE_Field_prl_status,
+        #DTE_Field_uom-id {
             padding: 5px 4px;
             width: 100%;
         }
+        #DTE_Field_item_description {
+            text-transform: uppercase;
+        }
         #purchase-request-lines-table {
             display: block;
-            width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(14) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(16) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(18) > span {
+            width: 100% !important;
+        }
+        #purchase-request-lines-table > tbody > tr > td:nth-child(9),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(11),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(22),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(23),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(24),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(25),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(26) {
+            color: #333;
+            font-style: italic;
+        }
+        #purchase-request-lines-table > tfoot > tr > td.details-control {
+            background: none;
         }
         .select2-selection__rendered {
             color: #000 !important;
@@ -33,11 +60,16 @@
             border-radius: unset;
         }
         td.details-control {
-            background: url('../resources/details_open.png') no-repeat center center;
+            max-width: 16px;
+            max-height: 16px;
+            background: url({{ url('/icons/down-caret.png') }}) no-repeat center center;
             cursor: pointer;
         }
         tr.shown td.details-control {
-            background: url('../resources/details_close.png') no-repeat center center;
+            max-width: 16px;
+            max-height: 16px;
+            background: url({{ url('/icons/up-caret.png') }}) no-repeat center center;
+            cursor: pointer;
         }
     </style>
 @endsection
@@ -46,7 +78,7 @@
         <div class="title m-b-md">
             Purchase Request Lines | All
         </div>
-        <table id="purchase-request-lines-table" class="display" cellspacing="0" width="100%">
+        <table id="purchase-request-lines-table" class="display" cellspacing="0">
             <thead>
             <tr>
                 <th></th>
@@ -168,15 +200,7 @@
         $(document).ready(function() {
             // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
-                ajax: {
-                    url: "{{ route('purchase-request-lines-all-update') }}",
-                    data: function (d){
-                        var selected = prTable.row({selected:true});
-                        if (selected.any()){
-                            d.prl = selected.data().id;
-                        }
-                    }
-                },
+                ajax: "{{ route('purchase-request-lines-all-update') }}",
                 table: "#purchase-request-lines-table",
                 fields: [
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
@@ -217,7 +241,6 @@
                     { label: "Notes:", name: "notes" },
                     { label: "Approver:", name: "approver.id", type: 'select',
                         options: [
-                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach
@@ -225,7 +248,6 @@
                     },
                     { label: "Buyer:", name: "buyer.id", type: 'select',
                         options: [
-                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach
@@ -233,8 +255,8 @@
                     },
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
-                                @foreach ($prlStatuses as $status)
-                            { label: "{{ addslashes($status) }}", value: "{{ $status }}"},
+                            @foreach ($prlStatuses as $status)
+                                { label: "{{ addslashes($status) }}", value: "{{ $status }}"},
                             @endforeach
                         ]
                     },
@@ -252,22 +274,20 @@
                 }
             } );
             // Inline Edit Functionality
-            $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+            $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child):not(:nth-child(2))', function (e) {
                 prlEditor.inline( this, {
                     onBlur: 'submit'
                 });
             } );
 
+            // format child row for buyers note
             function format ( d ) {
                 // `d` is the original data object for the row
-                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                    '<tr>'+
-                    '<td>Buyer\'s Notes:</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                    '<td>'+d.buyers_notes+'</td>'+
-                    '</tr>'+
-                    '</table>';
+                return '<div style="padding-left:65px;">'+
+                        '<label style="font-weight:bold; display:block; margin-bottom: 5px;">Buyer\'s Notes</label>'+
+                        '<textarea name="note" rows="4" style="width: 600px;" id="buyers_notes_'+d.id+'">'+d.buyers_notes+'</textarea><br>'+
+                        '<input onclick="submitNote('+d.id+')" type="button" value="Submit Note"/>'+
+                        '</div>';
             }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
@@ -285,7 +305,7 @@
                     {
                         className: 'details-control',
                         orderable: false,
-                        data: "id",
+                        data: "details_control",
                         defaultContent: ''
                     },
                     { data: "item_number" },
@@ -301,8 +321,8 @@
                     { data: "need_date" },
                     { data: "supplier.name", editField: "supplier.id" },
                     { data: "notes" },
-                    { data: "approver" },
-                    { data: "buyer" },
+                    { data: "approver.name", editField: "approver.id" },
+                    { data: "buyer.name", editField: "buyer.id" },
                     { data: "prl_status" },
                     { data: "next_assembly" },
                     { data: "work_order" },
@@ -362,6 +382,7 @@
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text"/>')
             });
+
             // add search function for Purchase Request Lines Table
             prlTable.columns().every(function(){
                 let that = this;
@@ -371,6 +392,8 @@
                     }
                 });
             });
+
+            // validate form fields on create/edit
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {
                     var itemDescription = this.field('item_description'),
@@ -390,7 +413,6 @@
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
                         }
-
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
@@ -409,21 +431,6 @@
             } );
 
             prlEditor.on( 'open', function ( e, mode, action ) {
-                {{--var optionsA = [];--}}
-                {{--$.getJSON('{{ route('get-select-purchase-requests') }}',--}}
-                {{--    function (data) {--}}
-                {{--        var option = {};--}}
-                {{--        $.each(data, function (i,e) {--}}
-                {{--            option.label = e.text;--}}
-                {{--            option.value = e.id;--}}
-                {{--            optionsA.push(option);--}}
-                {{--            option = {};--}}
-                {{--        });--}}
-                {{--    }--}}
-                {{--).done(function() {--}}
-                {{--    prlEditor.field('purchase_request').update(optionsA);--}}
-                {{--});--}}
-
                 $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
@@ -437,6 +444,18 @@
                     dropdownAutoWidth : true
                 });
                 $('#DTE_Field_supplier-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_approver-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_buyer-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_prl_status').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
@@ -520,5 +539,18 @@
                 prTable.column(22).search(search, true, false).draw();
             });
         } );
+
+        // submit buyers note and alert
+        function submitNote(id){
+            var note_value = $('#buyers_notes_'+id).val();
+            $.post("{{ url('/purchase-request-line/buyers-notes') }}/"+id, { note: note_value }, function (data) {
+                if (data.success === true){
+                    // prlTable.ajax.reload()
+                    alert('Note Saved!');
+                } else {
+                    alert('There was an issue submitting the note!');
+                }
+            });
+        }
     </script>
     @endsection

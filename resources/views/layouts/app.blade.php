@@ -33,6 +33,7 @@
             <a href="{{ url('/projects') }}">Projects & Tasks</a>
             <a href="{{ url('/suppliers') }}">Suppliers</a>
             <a href="{{ url('/uoms') }}">UOMs</a>
+            <a href="{{ url('/purchase-requests-lines-all') }}">All PR Lines</a>
             @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
