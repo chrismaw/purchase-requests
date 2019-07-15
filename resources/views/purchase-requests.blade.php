@@ -569,6 +569,7 @@
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
+
                 var optionsA = [];
                 $.getJSON('{{ route('get-select-purchase-requests') }}',
                     function (data) {
@@ -608,6 +609,33 @@
                 //     selectOnClose: true,
                 //     dropdownAutoWidth : true
                 // });
+
+                tippy('#DTE_Field_qty_required',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_qty_per_uom',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_next_assembly',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_work_order',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                // initalized after select2 for id
+                tippy('#select2-DTE_Field_uom-id-container',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
             } );
 
             // purchase request table column filters
@@ -695,5 +723,6 @@
             //     }
             // })
         } );
+
     </script>
     @endsection

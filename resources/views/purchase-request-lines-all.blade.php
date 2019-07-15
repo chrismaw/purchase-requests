@@ -431,6 +431,7 @@
             } );
 
             prlEditor.on( 'open', function ( e, mode, action ) {
+
                 $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
@@ -458,6 +459,33 @@
                 $('#DTE_Field_prl_status').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
+                });
+                //initialize tooltips
+                tippy('#DTE_Field_qty_required',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_qty_per_uom',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_next_assembly',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                tippy('#DTE_Field_work_order',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                });
+                // initalized after select2 for id
+                tippy('#select2-DTE_Field_uom-id-container',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
                 });
             } );
 
