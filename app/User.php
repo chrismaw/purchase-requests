@@ -47,4 +47,12 @@ class User extends Authenticatable
     public function isAdmin(){
         return !!$this->is_admin;
     }
+
+    public function approverUser(){
+        return $this->belongsTo('App\User','approver');
+    }
+
+    public function buyerUser(){
+        return $this->belongsTo('App\User','buyer');
+    }
 }

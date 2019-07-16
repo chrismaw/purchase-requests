@@ -1,42 +1,44 @@
 @extends('layouts.app')
-@section('title','Purchase Requests')
+@section('title','Purchase Request Lines | All')
 @section('styles')
     <style>
-        #DTE_Field_project,
-        #DTE_Field_requester-id,
-        #DTE_Field_purchase_request_status,
-        #DTE_Field_uom-id,
+        #DTE_Field_purchase_request,
         #DTE_Field_task-id,
         #DTE_Field_supplier-id,
+        #DTE_Field_approver-id,
+        #DTE_Field_buyer-id,
         #DTE_Field_prl_status,
-        #DTE_Field_purchase_request {
+        #DTE_Field_uom-id {
             padding: 5px 4px;
             width: 100%;
         }
         #DTE_Field_item_description {
             text-transform: uppercase;
         }
-        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
-        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
-            display: none;
-        }
-        #purchase-requests-table_wrapper {
-            margin-bottom: 50px;
-        }
         #purchase-request-lines-table {
             display: block;
-            width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
-        #purchase-request-lines-table > tbody > tr > td:nth-child(8),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(10),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(15),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(16)
-        {
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(14) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(16) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(18) > span {
+            width: 100% !important;
+        }
+        #purchase-request-lines-table > tbody > tr > td:nth-child(9),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(11),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(22),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(23),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(24),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(25),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(26) {
             color: #333;
             font-style: italic;
+        }
+        #purchase-request-lines-table > tfoot > tr > td.details-control {
+            background: none;
         }
         .select2-selection__rendered {
             color: #000 !important;
@@ -57,56 +59,26 @@
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             border-radius: unset;
         }
-        #purchase-requests-table > tfoot > tr > td:nth-child(4) > span {
-            width: 100% !important;
+        td.details-control {
+            max-width: 16px;
+            max-height: 16px;
+            background: url({{ url('/icons/down-caret.png') }}) no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            max-width: 16px;
+            max-height: 16px;
+            background: url({{ url('/icons/up-caret.png') }}) no-repeat center center;
+            cursor: pointer;
         }
     </style>
 @endsection
 @section('content')
-    <div class="container">
-        <div class="title">
-            Purchase Requests
-        </div>
-        <table id="purchase-requests-table" class="display cell-border" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th></th>
-                <th>ID</th>
-                <th>Project</th>
-                <th>Requester</th>
-                <th>Request Date</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <td></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-requester-filter" class="filter-input" multiple>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td class="searchable"></td>
-                <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-status-filter" class="filter-input" multiple>
-                        <option selected value="Open">Open</option>
-                        <option value="On Hold">On Hold</option>
-                        <option value="Closed">Closed</option>
-                    </select>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-        <div class="title">
-            Purchase Request Lines
-        </div>
-    </div>
     <div class="container-fluid" style="width: unset;">
-        <table id="purchase-request-lines-table" class="display cell-border" cellspacing="0" width="100%">
+        <div class="title m-b-md">
+            Purchase Request Lines | All
+        </div>
+        <table id="purchase-request-lines-table" class="display" cellspacing="0">
             <thead>
             <tr>
                 <th></th>
@@ -130,6 +102,11 @@
                 <th>Next Assembly</th>
                 <th>Work Order</th>
                 <th>PO Number</th>
+                <th>Purchase Request ID</th>
+                <th>Purchase Request Project</th>
+                <th>Purchase Request Requester</th>
+                <th>Purchase Request Request Date</th>
+                <th>Purchase Request Status</th>
             </tr>
             </thead>
             <tfoot>
@@ -191,6 +168,23 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-requester-filter" class="filter-input" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-status-filter" class="filter-input" multiple>
+                        <option value="Open">Open</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -201,148 +195,18 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var prEditor, prTable, prlEditor, prlTable, prID;
+        var prlEditor, prlTable;
 
         $(document).ready(function() {
-            // Purchase Requests Editor
-            prEditor = new $.fn.dataTable.Editor( {
-                ajax: "{{ route('purchase-requests-update') }}",
-                table: "#purchase-requests-table",
-                fields: [
-                    { label: "Project:", name: "project", type: 'select',
-                        options: [
-                            @foreach ($projects as $project)
-                                { label: '{{ $project->description }}', value: '{{ $project->id }}' },
-                            @endforeach
-                        ]
-                    },
-                    { label: "Requester:", name: "requester.id", type: 'select',
-                        options: [
-                            { label: '{{ Auth::user()->name }}', value: '{{ Auth::user()->id }}' },
-
-                            @foreach ($users as $user)
-                                @if ($user->id == Auth::user()->id)
-                                @else
-                                    { label: '{{ $user->name }}', value: '{{ $user->id }}' },
-                                @endif
-                            @endforeach
-                        ]
-                    },
-                    { label: "Request Date:", name: "request_date", type:'datetime' },
-                    { label: "Status:", name: "purchase_request_status", type: 'select',
-                        options: [
-                            @foreach ($prStatuses as $status)
-                                "{{ $status }}",
-                            @endforeach
-                        ]
-                    }
-                ],
-                i18n: {
-                    create: {
-                        title:  "Add a new Purchase Request",
-                        submit: 'Submit'
-                    },
-                    edit: {
-                        title:  "Edit Purchase Request",
-                        submit: 'Submit'
-                    }
-                }
-            } );
-            // Reload Child Table - Purchase Request Lines on removal of Purchase Request
-            prEditor.on('postRemove', function (e, json, data) {
-                prlTable.ajax.reload();
-            });
-            // Purchase request Datatable
-            prTable = $('#purchase-requests-table').DataTable( {
-                dom: "B<'pr-toolbar'>frtip",
-                ajax: {
-                    url: "{{ route('purchase-requests-data') }}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                },
-                order: [[ 1, 'asc' ]],
-                columns: [
-                    {
-                        data: null,
-                        defaultContent: '',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        width: '1%'
-                    },
-                    {
-                        data: "id",
-                        width: '1%'
-                    },
-                    { data: "project" },
-                    { data: "requester.name", editField: "requester.id" },
-                    {
-                        data: "request_date",
-                        width: '10%'
-                    },
-                    {
-                        data: "purchase_request_status",
-                        width: '10%'
-                    },
-                ],
-                select: {
-                    style: 'single'
-                },
-                columnDefs: [
-                    { className: "text-nowrap", targets: '_all' }
-                ],
-                buttons: [
-                    { extend: "create", editor: prEditor, text: "Add" },
-                    { extend: "edit",   editor: prEditor },
-                    { extend: "remove", editor: prEditor }
-                ],
-                initComplete: function (settings, json) {
-                    document.getElementById('purchase-request-status-filter').value = 'Open';
-                    $('#purchase-request-status-filter').trigger('change');
-                }
-            } );
-            // create the Show Open Request checkbox
-            $('div.pr-toolbar').html('<input type="checkbox" id="status-filter-checkbox" style="margin: 10px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label>');
-            $('#status-filter-checkbox').on('change', function(){
-                if($(this).is(':checked')){
-                    document.getElementById('purchase-request-status-filter').value = 'Open';
-                    $('#purchase-request-status-filter').trigger('change');
-                } else {
-                    document.getElementById('purchase-request-status-filter').value = '';
-                    $('#purchase-request-status-filter').trigger('change');
-                }
-            });
-            // add input for each column for Purchase Requests Table
-            $('#purchase-requests-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
-            });
-            // add search function for Purchase Requests Table
-            prTable.columns().every(function(){
-                let that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if(that.search !== this.value){
-                        that.search(this.value).draw();
-                    }
-                });
-            });
             // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
-                ajax: {
-                    url: "{{ route('purchase-request-lines-update') }}",
-                    data: function (d){
-                        var selected = prTable.row({selected:true});
-                        if (selected.any()){
-                            d.prl = selected.data().id;
-                        }
-                    }
-                },
+                ajax: "{{ route('purchase-request-lines-all-update') }}",
                 table: "#purchase-request-lines-table",
                 fields: [
-                    { label: "", name: "purchase_request_ID", type: 'hidden'},
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
                         options: [
-                            @foreach ($purchase_requests as $request)
-                                { label: 'ID: {{ $request->id }} | {{ $request->project->description }}', value: '{{ $request->id }}' },
+                                @foreach ($purchase_requests as $request)
+                            { label: 'ID: {{ $request->id }} | {{ $request->project->description }}', value: '{{ $request->id }}' },
                             @endforeach
                         ]
                     },
@@ -375,22 +239,22 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    {{--{ label: "Approver:", name: "approver.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
-                    {{--{ label: "Buyer:", name: "buyer.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
+                    { label: "Approver:", name: "approver.id", type: 'select',
+                        options: [
+                            { label: '', value: '' },
+                            @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                            @endforeach
+                        ]
+                    },
+                    { label: "Buyer:", name: "buyer.id", type: 'select',
+                        options: [
+                            { label: '', value: '' },
+                            @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                            @endforeach
+                        ]
+                    },
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
@@ -412,28 +276,26 @@
                 }
             } );
             // Inline Edit Functionality
-            $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+            $('#purchase-request-lines-table').on( 'click', 'tbody td:not(:first-child):not(:nth-child(2))', function (e) {
                 prlEditor.inline( this, {
                     onBlur: 'submit'
                 });
             } );
+
+            // format child row for buyers note
+            function format ( d ) {
+                // `d` is the original data object for the row
+                return '<div style="padding-left:65px;">'+
+                        '<label style="font-weight:bold; display:block; margin-bottom: 5px;">Buyer\'s Notes</label>'+
+                        '<textarea name="note" rows="4" style="width: 600px;" id="buyers_notes_'+d.id+'">'+d.buyers_notes+'</textarea><br>'+
+                        '<input onclick="submitNote('+d.id+')" type="button" value="Submit Note"/>'+
+                        '</div>';
+            }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
                 dom: "Bfrtip",
-                ajax: {
-                    url:"{{ route('purchase-request-lines-data') }}",
-                    type: "post",
-                    // headers: {
-                    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    // },
-                    data: function (d) {
-                        var selected = prTable.rows({selected:true});
-                        if (selected.any()){
-                            d.prl = selected.data().pluck('id').join(',');
-                        }
-                    }
-                },
-                order: [[ 1, 'asc' ]],
+                ajax: "{{ route('purchase-request-lines-all-data') }}",
+                order: [[ 2, 'asc' ]],
                 columns: [
                     {
                         data: null,
@@ -442,7 +304,12 @@
                         orderable: false,
                         width: '1%'
                     },
-                    { data: "purchase_request" },
+                    {
+                        className: 'details-control',
+                        orderable: false,
+                        data: "details_control",
+                        defaultContent: ''
+                    },
                     { data: "item_number" },
                     { data: "item_revision" },
                     { data: "item_description" },
@@ -456,19 +323,23 @@
                     { data: "need_date" },
                     { data: "supplier.name", editField: "supplier.id" },
                     { data: "notes" },
-                    { data: "approver" },
-                    { data: "buyer" },
+                    { data: "approver.name", editField: "approver.id" },
+                    { data: "buyer.name", editField: "buyer.id" },
                     { data: "prl_status" },
                     { data: "next_assembly" },
                     { data: "work_order" },
                     { data: "po_number" },
+                    { data: "pr_id" },
+                    { data: "pr_project" },
+                    { data: "pr_requester" },
+                    { data: "pr_request_date" },
+                    { data: "pr_status" },
                 ],
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
                 columnDefs: [
-                    { visible: false, targets: 1 },
                     { className: "text-nowrap", "targets": [4,6,12,13,15,16,17] }
                 ],
                 paging: false,
@@ -491,11 +362,29 @@
                     { extend: "remove", editor: prlEditor }
                 ]
             } );
+
+            // Add event listener for opening and closing details
+            $('#purchase-request-lines-table tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = prlTable.row( tr );
+
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            } );
+
             // add input for each column for Purchase Request Lines Table
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
+                $(this).html('<input class="filter-input" type="text"/>')
             });
-            prlTable.buttons().disable();
+
             // add search function for Purchase Request Lines Table
             prlTable.columns().every(function(){
                 let that = this;
@@ -505,22 +394,8 @@
                     }
                 });
             });
-            prTable.on('select', function (e, dt, type, indexes) {
-                prlTable.ajax.reload();
-                // prlEditor
-                //     .field('purchase_request')
-                //     .def(prTable.rows({selected:true}).data().id);
-                prID = prTable.rows(indexes).data()[0]['id'];
-                setTimeout(function () {
-                    prlEditor.set('purchase_request',prID);
-                    prlEditor.set('purchase_request_ID',prID);
-                }, 2000);
-                prlTable.buttons().enable();
-            });
-            prTable.on('deselect',function () {
-                prlTable.ajax.reload();
-                prlTable.buttons().disable();
-            });
+
+            // validate form fields on create/edit
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {
                     var itemDescription = this.field('item_description'),
@@ -540,7 +415,6 @@
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
                         }
-
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
@@ -558,32 +432,7 @@
                 }
             } );
 
-            prEditor.on( 'open', function ( e, mode, action ) {
-                $('#DTE_Field_project').select2({
-                    selectOnClose: true,
-                    dropdownAutoWidth : true
-                });
-                $('#DTE_Field_requester-id').select2({
-                    selectOnClose: true,
-                    dropdownAutoWidth : true
-                });
-            } );
             prlEditor.on( 'open', function ( e, mode, action ) {
-
-                var optionsA = [];
-                $.getJSON('{{ route('get-select-purchase-requests') }}',
-                    function (data) {
-                        var option = {};
-                        $.each(data, function (i,e) {
-                            option.label = e.text;
-                            option.value = e.id;
-                            optionsA.push(option);
-                            option = {};
-                        });
-                    }
-                ).done(function() {
-                    prlEditor.field('purchase_request').update(optionsA);
-                });
 
                 $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
@@ -601,15 +450,19 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                // $('#DTE_Field_approver-id').select2({
-                //     selectOnClose: true,
-                //     dropdownAutoWidth : true
-                // });
-                // $('#DTE_Field_buyer-id').select2({
-                //     selectOnClose: true,
-                //     dropdownAutoWidth : true
-                // });
-
+                $('#DTE_Field_approver-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_buyer-id').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                $('#DTE_Field_prl_status').select2({
+                    selectOnClose: true,
+                    dropdownAutoWidth : true
+                });
+                //initialize tooltips
                 tippy('#DTE_Field_qty_required',{
                     content: 'Text TBD',
                     duration: 0,
@@ -638,23 +491,7 @@
                 });
             } );
 
-            // purchase request table column filters
-            $('#purchase-request-requester-filter').select2().on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-requester-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prTable.column(3).search(search, true, false).draw();
-            });
-            $('#purchase-request-status-filter').select2().on('change', function(){
-                var search = [];
-                $.each($('#purchase-request-status-filter option:selected'), function(){
-                    search.push($(this).val());
-                });
-                search = search.join('|');
-                prTable.column(5).search(search, true, false).draw();
-            });
+            // column filters w/ select2
             $('#purchase-request-lines-uom-filter').select2({
                 dropdownAutoWidth : true
             }).on('change', function(){
@@ -715,14 +552,35 @@
                 search = search.join('|');
                 prlTable.column(17).search(search, true, false).draw();
             });
-
-            // remove prl once the purchase request is changed... currently causes errors if the end user clicks into another field to submitting edit onblur
-            // prlEditor.on( 'submitComplete', function (e, json, data, action) {
-            //     if (action === 'edit'){
-            //         prlTable.ajax.reload();
-            //     }
-            // })
+            $('#purchase-request-requester-filter').select2().on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-requester-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prTable.column(20).search(search, true, false).draw();
+            });
+            $('#purchase-request-status-filter').select2().on('change', function(){
+                var search = [];
+                $.each($('#purchase-request-status-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                prTable.column(22).search(search, true, false).draw();
+            });
         } );
 
+        // submit buyers note and alert
+        function submitNote(id){
+            var note_value = $('#buyers_notes_'+id).val();
+            $.post("{{ url('/purchase-request-line/buyers-notes') }}/"+id, { note: note_value }, function (data) {
+                if (data.success === true){
+                    // prlTable.ajax.reload()
+                    alert('Note Saved!');
+                } else {
+                    alert('There was an issue submitting the note!');
+                }
+            });
+        }
     </script>
     @endsection

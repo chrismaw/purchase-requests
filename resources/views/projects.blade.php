@@ -13,12 +13,23 @@
             color: #000 !important;
         }
         .select2-container .select2-selection--single,
-        .select2-container--default .select2-selection--single {
+        .select2-container--default .select2-selection--single,
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
             border: 1px solid #aaa; !important;
             border-radius: unset !important;
         }
+        .select2-container .select2-selection--multiple {
+            min-height: 29px !important;
+        }
         .select2-dropdown {
             border-radius: unset !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            border-radius: unset;
+        }
+        #tasks-table > tfoot > tr > td:nth-child(5) > span {
+            width: 100% !important;
         }
     </style>
 @endsection
@@ -41,7 +52,9 @@
                 <td></td>
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
-                <td><input id="projects-active-filter" class="filter-input" type="text"/></td>
+                <td style="padding: 10px 18px 6px 6px;">
+                    <select id="projects-active-filter" class="filter-input"><option value="Yes" selected>Yes</option><option value="No">No</option></select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -66,8 +79,16 @@
 {{--                <td class="searchable"></td>--}}
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td><input id="tasks-active-filter" class="filter-input" type="text"/></td>
-                <td class="searchable"></td>
+                <td style="padding: 10px 18px 6px 6px;">
+                    <select id="tasks-active-filter" class="filter-input"><option value="Yes" selected>Yes</option><option value="No">No</option></select>
+                </td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="tasks-created-by-filter" class="filter-input" style="width: 100px" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -155,7 +176,10 @@
                     },
                     // { data: "number" },
                     { data: "description" },
-                    { data: "is_active" }
+                    {
+                        data: "is_active",
+                        width: '10%'
+                    }
                 ],
                 @if (Auth::user()->isAdmin())
                     select: {
@@ -175,7 +199,7 @@
                 ],
                 initComplete: function (settings, json) {
                     document.getElementById('projects-active-filter').value = 'Yes';
-                    $('#projects-active-filter').trigger('keyup');
+                    $('#projects-active-filter').trigger('change');
                 }
             } );
 
@@ -198,6 +222,11 @@
             projectsTable.columns().every(function(){
                 let that = this;
                 $('input', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
+                });
+                $('select', this.footer()).on('keyup change', function () {
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
@@ -295,7 +324,10 @@
                     // { data: "task_project" },
                     { data: "task_number" },
                     { data: "task_description" },
-                    { data: "task_active" },
+                    {
+                        data: "task_active",
+                        width: '10%'
+                    },
                     { data: "task_created_by.name", editField: "task_created_by.id"  }
                 ],
                 @if (Auth::user()->isAdmin())
@@ -316,7 +348,7 @@
                 ],
                 initComplete: function (settings, json) {
                     document.getElementById('tasks-active-filter').value = 'Yes';
-                    $('#tasks-active-filter').trigger('keyup');
+                    $('#tasks-active-filter').trigger('change');
                 }
             } );
 
@@ -341,6 +373,11 @@
                     if(that.search !== this.value){
                         that.search(this.value).draw();
                     }
+                });
+                $('select', this.footer()).on('keyup change', function () {
+                    if(that.search !== this.value){
+                        that.search(this.value).draw();
+                    }
                 })
             });
 			tasksEditor.on( 'open', function ( e, mode, action ) {
@@ -350,6 +387,25 @@
                     dropdownAutoWidth : true
                 });
 			} );
+			projectsEditor.on( 'open', function ( e, mode, action ) {
+                tippy('#DTE_Field_description', {
+                    content: "I'm a Tippy tooltip!",
+                    animation: 'scale',
+                    duration: 0,
+                    arrow: true,
+                })
+			} );
+
+            $('#tasks-created-by-filter').select2({
+                dropdownAutoWidth : true
+            }).on('change', function(){
+                var search = [];
+                $.each($('#tasks-created-by-filter option:selected'), function(){
+                    search.push($(this).val());
+                });
+                search = search.join('|');
+                tasksTable.column(4).search(search, true, false).draw();
+            });
         } );
     </script>
     @endsection

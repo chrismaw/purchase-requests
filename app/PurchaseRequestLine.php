@@ -8,6 +8,11 @@ class PurchaseRequestLine extends Model
 {
     public $timestamps = false;
 
+    const PRL_STATUSES = [
+        'Pending Approval', 'Unreleased Drawing', 'Approved for Purchasing',
+        'PO in Progress', 'PO Revision', 'Order Complete', 'Request Cancelled'
+    ];
+
     public function purchaseRequest(){
         return $this->belongsTo('App\PurchaseRequest');
     }
