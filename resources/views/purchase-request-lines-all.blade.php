@@ -217,30 +217,31 @@
                     { label: "Qty Per UOM:", name: "qty_per_uom", def: '1' },
                     { label: "Uom:", name: "uom.id", type: 'select',
                         options: [
-                                @foreach ($uoms as $uom)
-                            { label: "{{ $uom->name }}", value: "{{ $uom->id }}" },
+                            @foreach ($uoms as $uom)
+                                { label: "{{ $uom->name }}", value: "{{ $uom->id }}" },
                             @endforeach
                         ]
                     },
                     { label: "UOM Cost:", name: "cost_per_uom" },
                     { label: "Task:", name: "task.id", type: 'select',
                         options: [
-                                @foreach ($tasks as $task)
-                            { label: "{{ $task->number }} - {{ $task->description }}", value: "{{ $task->id }}" },
+                            @foreach ($tasks as $task)
+                                { label: "{{ $task->number }} - {{ $task->description }}", value: "{{ $task->id }}" },
                             @endforeach
                         ]
                     },
                     { label: "Need Date:", name: "need_date", type: 'datetime' },
                     { label: "Supplier:", name: "supplier.id", type: 'select',
                         options: [
-                                @foreach ($suppliers as $supplier)
-                            { label: '{!! addslashes($supplier->name) !!}', value: "{{ $supplier->id }}" },
+                            @foreach ($suppliers as $supplier)
+                                { label: '{!! addslashes($supplier->name) !!}', value: "{{ $supplier->id }}" },
                             @endforeach
                         ]
                     },
                     { label: "Notes:", name: "notes" },
                     { label: "Approver:", name: "approver.id", type: 'select',
                         options: [
+                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach
@@ -248,6 +249,7 @@
                     },
                     { label: "Buyer:", name: "buyer.id", type: 'select',
                         options: [
+                            { label: '', value: '' },
                             @foreach ($users as $user)
                                 { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
                             @endforeach

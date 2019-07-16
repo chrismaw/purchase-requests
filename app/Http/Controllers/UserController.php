@@ -11,7 +11,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users');
+        $users = DB::table('users')->select('id','name')->orderBy('name')->get();
+        return view('users',[
+            'users' => $users
+        ]);
     }
 
     public function data()
@@ -22,6 +25,12 @@ class UserController extends Controller
                 'name' => $u->name,
                 'email' => $u->email,
                 'admin' => $u->is_admin ? 'Yes' : 'No',
+                'approver' => $u->approver
+                    ? ['name' => $u->approverUser->name, 'id' => $u->approver]
+                    : ['name' => '', 'id' => ''],
+                'buyer' => $u->buyer
+                    ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
+                    : ['name' => '', 'id' => ''],
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
         })])->toJson();
@@ -43,6 +52,8 @@ class UserController extends Controller
             $u->email = $request->data[0]['email'];
             $u->password = Hash::make($request->data[0]['password']);
             $u->is_admin = $request->data[0]['admin'] == 'Yes' ? true : false;
+            $u->approver = $request->data[0]['approver']['id'];
+            $u->buyer = $request->data[0]['buyer']['id'];
             $u->created_at = date('Y-m-d H:i:s');
             $u->save();
             $output['data'][] = [
@@ -50,12 +61,19 @@ class UserController extends Controller
                 'name' => $u->name,
                 'email' => $u->email,
                 'admin' => $u->is_admin ? 'Yes' : 'No',
+                'approver' => $u->approver
+                    ? ['name' => $u->approverUser->name, 'id' => $u->approver]
+                    : ['name' => '', 'id' => ''],
+                'buyer' => $u->buyer
+                    ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
+                    : ['name' => '', 'id' => ''],
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
             return response()->json(
                 $output
             );
         } elseif ($request->action == 'edit') {
+//            dd($request->all());
             $u = User::find(substr(array_key_first($request->data), 4));
             if ($u instanceof User) {
                 if (array_key_exists('name', $request->data[array_key_first($request->data)])) {
@@ -72,6 +90,16 @@ class UserController extends Controller
                 if (array_key_exists('admin',$request->data[array_key_first($request->data)])){
                     $u->is_admin = $request->data[array_key_first($request->data)]['admin'] == 'Yes' ? true : false;
                 }
+                if (array_key_exists('approver',$request->data[array_key_first($request->data)])){
+                    $u->approver = preg_match('/^\d+$/',$request->data[array_key_first($request->data)]['approver']['id'])
+                        ? $request->data[array_key_first($request->data)]['approver']['id']
+                        : $u->approver_id;
+                }
+                if (array_key_exists('buyer',$request->data[array_key_first($request->data)])){
+                    $u->buyer = preg_match('/^\d+$/',$request->data[array_key_first($request->data)]['buyer']['id'])
+                        ? $request->data[array_key_first($request->data)]['buyer']['id']
+                        : $u->buyer;
+                }
                 $u->updated_at = date('Y-m-d H:i:s');
                 $u->save();
                 $output['data'][] = [
@@ -79,6 +107,12 @@ class UserController extends Controller
                     'name' => $u->name,
                     'email' => $u->email,
                     'admin' => $u->is_admin ? 'Yes' : 'No',
+                    'approver' => $u->approver
+                        ? ['name' => $u->approverUser->name, 'id' => $u->approver]
+                        : ['name' => '', 'id' => ''],
+                    'buyer' => $u->buyer
+                        ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
+                        : ['name' => '', 'id' => ''],
                     'added_on' => date('m-d-Y', strtotime($u->created_at))
                 ];
                 return response()->json(
