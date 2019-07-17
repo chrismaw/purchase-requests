@@ -78,7 +78,7 @@
         <div class="title m-b-md">
             Purchase Request Lines | All
         </div>
-        <table id="purchase-request-lines-table" class="display" cellspacing="0">
+        <table id="purchase-request-lines-table" class="display cell-border" cellspacing="0">
             <thead>
             <tr>
                 <th></th>

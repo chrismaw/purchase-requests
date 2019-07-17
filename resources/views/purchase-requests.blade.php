@@ -67,7 +67,7 @@
         <div class="title">
             Purchase Requests
         </div>
-        <table id="purchase-requests-table" class="display" cellspacing="0" width="100%">
+        <table id="purchase-requests-table" class="display cell-border" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th></th>
@@ -101,12 +101,13 @@
             </tr>
             </tfoot>
         </table>
+		<hr />
         <div class="title">
             Purchase Request Lines
         </div>
     </div>
     <div class="container-fluid" style="width: unset;">
-        <table id="purchase-request-lines-table" class="display" cellspacing="0" width="100%">
+        <table id="purchase-request-lines-table" class="display cell-border" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th></th>
@@ -314,7 +315,7 @@
             });
             // add input for each column for Purchase Requests Table
             $('#purchase-requests-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text"/>')
+                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             // add search function for Purchase Requests Table
             prTable.columns().every(function(){
@@ -493,7 +494,7 @@
             } );
             // add input for each column for Purchase Request Lines Table
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text"/>')
+                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             prlTable.buttons().disable();
             // add search function for Purchase Request Lines Table
