@@ -20,20 +20,25 @@
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
         }
-
+        /* PURCHASE REQUEST TABLE */
         #purchase-requests-table_wrapper {
             margin-bottom: 50px;
             max-width: 700px;
         }
-
         #purchase-requests-table tfoot {
             display: table-footer-group;
         }
-
         #purchase-requests-table #filter-row {
-            display: none;
+            display: none;  /* hides forced footer */
         }
-
+        #purchase-requests-table.dataTable thead th, #purchase-requests-table.dataTable thead td,
+        #purchase-requests-table_wrapper > div.dataTables_scroll > div.dataTables_scrollBody,
+        #filter-row > td {
+            border-bottom: none; /* match other tables since scroll Y adds its own footer */
+        }
+        #purchase-requests-table_wrapper > div.dataTables_scroll > div.dataTables_scrollHead > div > table > thead > tr:nth-child(1) > th {
+            border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
+        }
         #purchase-request-lines-table {
             display: block;
             width: 100%;
@@ -41,6 +46,8 @@
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
+
+        /* Differentiate read-only columns */
         #purchase-request-lines-table > tbody > tr > td:nth-child(8),
         #purchase-request-lines-table > tbody > tr > td:nth-child(10),
         #purchase-request-lines-table > tbody > tr > td:nth-child(15),
@@ -49,6 +56,8 @@
             color: #333;
             font-style: italic;
         }
+
+        /* SELECT2 and filters */
         .select2-selection__rendered {
             color: #000 !important;
         }
