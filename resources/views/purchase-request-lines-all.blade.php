@@ -15,11 +15,8 @@
         #DTE_Field_item_description {
             text-transform: uppercase;
         }
-        #purchase-request-lines-table {
-            display: block;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
+        #purchase-request-lines-table_wrapper{
+            overflow-x: scroll;
         }
         #purchase-request-lines-table > tfoot > tr > td:nth-child(14) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(16) > span,
@@ -86,9 +83,9 @@
                 <th>Item Number</th>
                 <th>Item Revision</th>
                 <th>Item Description</th>
-                <th>Qty Required</th>
-                <th>UOM</th>
-                <th>Qty Per UOM</th>
+                <th id="qty_required_th">Qty Required</th>
+                <th id="uom_th">UOM</th>
+                <th id="qty_per_uom_th">Qty Per UOM</th>
                 <th>UOM Qty Required</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
@@ -99,14 +96,14 @@
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
-                <th>Next Assembly</th>
-                <th>Work Order</th>
+                <th id="next_assembly_th">Next Assembly</th>
+                <th id="work_order_th">Work Order</th>
                 <th>PO Number</th>
                 <th>Purchase Request ID</th>
-                <th>Purchase Request Project</th>
-                <th>Purchase Request Requester</th>
-                <th>Purchase Request Request Date</th>
-                <th>Purchase Request Status</th>
+                <th>Project</th>
+                <th>Requester</th>
+                <th>Request Date</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tfoot>
@@ -462,33 +459,6 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                //initialize tooltips
-                tippy('#DTE_Field_qty_required',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_qty_per_uom',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_next_assembly',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_work_order',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                // initalized after select2 for id
-                tippy('#select2-DTE_Field_uom-id-container',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
             } );
 
             // column filters w/ select2
@@ -582,5 +552,43 @@
                 }
             });
         }
+
+        //initialize tooltips
+        tippy('#qty_required_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#qty_per_uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#next_assembly_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#work_order_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        // initalized after select2 for id
+        tippy('#uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
     </script>
     @endsection
