@@ -1,7 +1,7 @@
 html, body {
     background-color: #fff;
     /*color: #636b6f;*/
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 200;
     height: 100vh;
@@ -13,25 +13,33 @@ main {
 header {
     width: 100%;
 }
+
+
 /* Header / Nav */
 .topnav {
     overflow: hidden;
-    background-color: #fff;
+    background-color: #636b6f/*#fff*/;
 }
-#logo {
-    font-weight: 600;
-}
+
 .topnav a, .topnav #logo {
     float: left;
     display: block;
-    color: #636b6f;
+    color: #fff/*#636b6f*/;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
 }
+
+.topnav #logo {
+    font-weight: 700;
+	font-size: 22px;
+	padding: 13px 16px;
+}
+
 .topnav a:hover {
-    background-color: #636b6f;
+    font-weight: 700;
+	background-color: #636b6f;
     color: #fff;
 }
 

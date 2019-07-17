@@ -17,7 +17,8 @@
     <script src="{{ asset('js/dataTables.editor.min.js') }}"></script>
     @yield('scripts')
     <!-- Styles -->
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('css/editor.dataTables.min.css') }}" rel="stylesheet">
@@ -30,10 +31,10 @@
         <div class="topnav" id="myTopnav">
             <div id="logo">{{ config('app.name') }}</div>
             <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
+			<a href="{{ url('/purchase-requests-lines-all') }}">All PR Lines</a>
             <a href="{{ url('/projects') }}">Projects & Tasks</a>
             <a href="{{ url('/suppliers') }}">Suppliers</a>
             <a href="{{ url('/uoms') }}">UOMs</a>
-            <a href="{{ url('/purchase-requests-lines-all') }}">All PR Lines</a>
             @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -50,7 +51,6 @@
             <a href="#" class="icon" id="burger">&#9776;</a>
         </div>
     </header>
-	<hr />
     <div id="app">
         <main>
             @yield('content')
