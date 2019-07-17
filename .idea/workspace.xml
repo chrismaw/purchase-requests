@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="55" selection-start-line="55" selection-end-line="55" />
+            <state relative-caret-position="193">
+              <caret line="42" column="68" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -37,13 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="554" lean-forward="true" selection-start-line="554" selection-end-line="591" selection-end-column="11" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="1040">
+              <caret line="542" column="39" lean-forward="true" selection-start-line="542" selection-start-column="39" selection-end-line="542" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -51,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="55" selection-end-column="5" />
+            <state>
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -60,9 +53,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+            <state relative-caret-position="146">
+              <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
               <folding>
+                <element signature="e#3211#3245#0#HTML" expanded="true" />
+                <element signature="e#3638#3672#0#HTML" expanded="true" />
+                <element signature="e#4186#8335#0#HTML" />
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -73,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>file_</find>
       <find>input</find>
       <find>def</find>
       <find>cost_per_uom</find>
@@ -103,6 +98,7 @@
       <find>status-filter-checkbox</find>
       <find>res</find>
       <find>tippy</find>
+      <find>purchase-request</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,9 +159,9 @@
         <option value="$PROJECT_DIR$/resources/views/users.blade.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/.htaccess" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/public/css/app.css" />
         <option value="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" />
       </list>
     </option>
@@ -405,14 +401,8 @@
       <workItem from="1562938814575" duration="14000" />
       <workItem from="1562959136135" duration="3321000" />
       <workItem from="1563208579311" duration="4569000" />
-      <workItem from="1563366461335" duration="8029000" />
-    </task>
-    <task id="LOCAL-00002" summary="init commit">
-      <created>1561687438618</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1561687438618</updated>
+      <workItem from="1563366461335" duration="8122000" />
+      <workItem from="1563394893770" duration="3357000" />
     </task>
     <task id="LOCAL-00003" summary="project and tasks table view up and running. added full functionality for projects">
       <created>1561694929200</created>
@@ -750,20 +740,26 @@
       <option name="project" value="LOCAL" />
       <updated>1563368153208</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement">
+      <created>1563388646155</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1563388646155</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208904000" />
+    <option name="totallyTimeSpent" value="212354000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49517685" visible="true" weight="0.18532526" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49517685" visible="true" weight="0.18835099" />
       <window_info id="Structure" order="1" sideWeight="0.50482315" side_tool="true" weight="0.20149253" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="GitHub Pull Requests" weight="0.32850242" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290461" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -777,6 +773,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3236715" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.21864952" />
+      <window_info anchor="bottom" id="GitHub Pull Requests" order="13" weight="0.32850242" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -859,7 +856,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added license editor js&#10;fixed select error caused by validation" />
     <MESSAGE value="added additional parent child logic" />
     <MESSAGE value="added validation" />
     <MESSAGE value="hid purchase_request field when adding prline" />
@@ -884,7 +880,8 @@
     <MESSAGE value="added temp tooltips" />
     <MESSAGE value="added buyers and approvers to users table" />
     <MESSAGE value="adding htaccess to gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding htaccess to gitignore" />
+    <MESSAGE value="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement" />
+    <option name="LAST_COMMIT_MESSAGE" value="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
@@ -1212,37 +1209,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/app.css">
+    <entry file="file://$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="55" selection-end-column="5" />
+        <state relative-caret-position="1040">
+          <caret line="542" column="39" lean-forward="true" selection-start-line="542" selection-start-column="39" selection-end-line="542" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
+        <state relative-caret-position="193">
+          <caret line="42" column="68" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="554" lean-forward="true" selection-start-line="554" selection-end-line="591" selection-end-column="11" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state>
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+        <state relative-caret-position="146">
+          <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding>
+            <element signature="e#3211#3245#0#HTML" expanded="true" />
+            <element signature="e#3638#3672#0#HTML" expanded="true" />
+            <element signature="e#4186#8335#0#HTML" />
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
           </folding>
         </state>

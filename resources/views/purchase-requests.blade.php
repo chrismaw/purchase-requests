@@ -20,9 +20,20 @@
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
         }
+
         #purchase-requests-table_wrapper {
             margin-bottom: 50px;
+            max-width: 700px;
         }
+
+        #purchase-requests-table tfoot {
+            display: table-footer-group;
+        }
+
+        #purchase-requests-table #filter-row {
+            display: none;
+        }
+
         #purchase-request-lines-table {
             display: block;
             width: 100%;
@@ -77,9 +88,7 @@
                 <th>Request Date</th>
                 <th>Status</th>
             </tr>
-            </thead>
-            <tfoot>
-            <tr>
+            <tr id="filter-row">
                 <td></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -99,7 +108,7 @@
                     </select>
                 </td>
             </tr>
-            </tfoot>
+            </thead>
         </table>
 		<hr />
         <div class="title">
@@ -277,18 +286,15 @@
                     },
                     { data: "project" },
                     { data: "requester.name", editField: "requester.id" },
-                    {
-                        data: "request_date",
-                        width: '10%'
-                    },
-                    {
-                        data: "purchase_request_status",
-                        width: '10%'
-                    },
+                    { data: "request_date" },
+                    { data: "purchase_request_status", },
                 ],
+                paging: false,
+                scrollY: "300px",
                 select: {
                     style: 'single'
                 },
+                orderCellsTop: true,
                 columnDefs: [
                     { className: "text-nowrap", targets: '_all' }
                 ],
@@ -314,17 +320,15 @@
                 }
             });
             // add input for each column for Purchase Requests Table
-            $('#purchase-requests-table tfoot td.searchable').each(function(){
+            $('#filter-row td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             // add search function for Purchase Requests Table
-            prTable.columns().every(function(){
-                let that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if(that.search !== this.value){
-                        that.search(this.value).draw();
-                    }
-                });
+            $('#filter-row td input').on('keyup change', function () {
+                prTable
+                    .column( $(this).parent().index() )
+                    .search( this.value )
+                    .draw();
             });
             // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
