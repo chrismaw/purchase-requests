@@ -18,19 +18,21 @@
         #purchase-request-lines-table_wrapper{
             overflow-x: scroll;
         }
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(14) > span,
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(16) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(12) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(18) > span {
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(19) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(21) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(22) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(23) > span {
             width: 100% !important;
         }
-        #purchase-request-lines-table > tbody > tr > td:nth-child(9),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(11),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(22),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(23),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(24),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(25),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(26) {
+        #purchase-request-lines-table > tbody > tr > td:nth-child(3),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(4),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(5),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(6),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(7),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(14),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(16) {
             color: #333;
             font-style: italic;
         }
@@ -337,7 +339,7 @@
                     selector: 'td:first-child'
                 },
                 columnDefs: [
-                    { className: "text-nowrap", "targets": [4,6,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [5,7,17,24,25] }
                 ],
                 paging: false,
                 buttons: [

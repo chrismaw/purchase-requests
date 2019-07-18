@@ -452,7 +452,7 @@ class PurchaseRequestLineController extends Controller
         $suppliers = Supplier::orderBy('name')->get();
         $tasks = Task::all()->sortBy('number');
         $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
-        $purchase_requests = PurchaseRequest::all()->sortBy('number');
+        $purchase_requests = PurchaseRequest::orderBy('id')->get();
         return view('purchase-request-lines-all',[
             'users' => $users,
             'projects' => $projects,
