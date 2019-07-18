@@ -136,8 +136,6 @@ class PurchaseRequestLineController extends Controller
                 $prl->task_id = $request->data[0]['task']['id'];
                 $prl->supplier_id = $request->data[0]['supplier']['id'];
                 $prl->notes = $request->data[0]['notes'];
-                $prl->approver = $request->data[0]['approver']['id'];
-                $prl->buyer = $request->data[0]['buyer']['id'];
                 $prl->need_date = date('Y-m-d H:i:s', strtotime($request->data[0]['need_date']));
                 $prl->status = $request->data[0]['prl_status'];
                 $prl->next_assembly = $request->data[0]['next_assembly'];
@@ -482,6 +480,11 @@ class PurchaseRequestLineController extends Controller
                 return [
                     'DT_RowId' => 'row_' . $prl->id,
                     'details_control' => '',
+                    'purchase_request' => $prl->purchaseRequest->id,
+                    'pr_project' => $prl->purchaseRequest->project->description,
+                    'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
+                    'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
+                    'pr_status' => $prl->purchaseRequest->status,
                     'item_number' => $prl->item_number,
                     'item_revision' => $prl->item_revision,
                     'item_description' => $prl->item_description,
@@ -507,11 +510,6 @@ class PurchaseRequestLineController extends Controller
                     'next_assembly' => $prl->next_assembly,
                     'work_order' => $prl->work_order,
                     'po_number' => $prl->po_number,
-                    'pr_id' => $prl->purchaseRequest->id,
-                    'pr_project' => $prl->purchaseRequest->project->description,
-                    'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
-                    'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
-                    'pr_status' => $prl->purchaseRequest->status,
                     'buyers_notes' => $prl->buyers_notes,
                     'id' => $prl->id
                 ];
@@ -548,7 +546,12 @@ class PurchaseRequestLineController extends Controller
 
                 $output['data'][] = [
                     'DT_RowId' => 'row_' . $prl->id,
-                    'id' => '',
+                    'details_control' => '',
+                    'purchase_request' => $prl->purchaseRequest->id,
+                    'pr_project' => $prl->purchaseRequest->project->description,
+                    'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
+                    'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
+                    'pr_status' => $prl->purchaseRequest->status,
                     'item_number' => $prl->item_number,
                     'item_revision' => $prl->item_revision,
                     'item_description' => $prl->item_description,
@@ -574,11 +577,6 @@ class PurchaseRequestLineController extends Controller
                     'next_assembly' => $prl->next_assembly,
                     'work_order' => $prl->work_order,
                     'po_number' => $prl->po_number,
-                    'pr_id' => $prl->purchaseRequest->id,
-                    'pr_project' => $prl->purchaseRequest->project->description,
-                    'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
-                    'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
-                    'pr_status' => $prl->purchaseRequest->status,
                     'buyers_notes' => $prl->buyers_notes
                 ];
                 return response()->json(
@@ -668,7 +666,12 @@ class PurchaseRequestLineController extends Controller
 
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,
-                        'id' => '',
+                        'details_control' => '',
+                        'purchase_request' => $prl->purchaseRequest->id,
+                        'pr_project' => $prl->purchaseRequest->project->description,
+                        'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
+                        'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
+                        'pr_status' => $prl->purchaseRequest->status,
                         'item_number' => $prl->item_number,
                         'item_revision' => $prl->item_revision,
                         'item_description' => $prl->item_description,
@@ -694,11 +697,6 @@ class PurchaseRequestLineController extends Controller
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,
                         'po_number' => $prl->po_number,
-                        'pr_id' => $prl->purchaseRequest->id,
-                        'pr_project' => $prl->purchaseRequest->project->description,
-                        'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
-                        'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
-                        'pr_status' => $prl->purchaseRequest->status,
                         'buyers_notes' => $prl->buyers_notes
                     ];
                 }
@@ -790,7 +788,12 @@ class PurchaseRequestLineController extends Controller
 
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,
-                        'id' => '',
+                        'details_control' => '',
+                        'purchase_request' => $prl->purchaseRequest->id,
+                        'pr_project' => $prl->purchaseRequest->project->description,
+                        'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
+                        'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
+                        'pr_status' => $prl->purchaseRequest->status,
                         'item_number' => $prl->item_number,
                         'item_revision' => $prl->item_revision,
                         'item_description' => $prl->item_description,
@@ -816,11 +819,6 @@ class PurchaseRequestLineController extends Controller
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,
                         'po_number' => $prl->po_number,
-                        'pr_id' => $prl->purchaseRequest->id,
-                        'pr_project' => $prl->purchaseRequest->project->description,
-                        'pr_requester' => $prl->purchaseRequest->requestedByUser->name,
-                        'pr_request_date' => date('m-d-Y', strtotime($prl->purchaseRequest->created_at)),
-                        'pr_status' => $prl->purchaseRequest->status,
                         'buyers_notes' => $prl->buyers_notes
                     ];
                 }
