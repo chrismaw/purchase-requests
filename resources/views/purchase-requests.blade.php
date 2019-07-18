@@ -299,7 +299,7 @@
                     { data: "purchase_request_status", },
                 ],
                 paging: false,
-                scrollY: "300px",
+                scrollY: '15vh',//"300px",
                 select: {
                     style: 'single'
                 },
@@ -483,7 +483,7 @@
                 },
                 columnDefs: [
                     { visible: false, targets: 1 },
-                    { className: "text-nowrap", "targets": [4,6,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [2,5,6,11,12,18,19,20] }
                 ],
                 paging: false,
                 buttons: [

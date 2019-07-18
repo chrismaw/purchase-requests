@@ -38,10 +38,9 @@
                     <a href="{{ url('/projects') }}">Projects & Tasks</a>
                     <a href="{{ url('/suppliers') }}">Suppliers</a>
                     <a href="{{ url('/uoms') }}">UOMs</a>
+					@if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
                 </div>
-            </div>
-
-        @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
+            </div>        
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
             @else
