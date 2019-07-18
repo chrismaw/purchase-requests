@@ -26,6 +26,13 @@
         #purchase-request-lines-table > tfoot > tr > td:nth-child(23) > span {
             width: 100% !important;
         }
+
+        @if (!Auth::user()->isApprover())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(21),
+        @endif
+        @if (!Auth::user()->isBuyer())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(22),
+        @endif
         #purchase-request-lines-table > tbody > tr > td:nth-child(3),
         #purchase-request-lines-table > tbody > tr > td:nth-child(4),
         #purchase-request-lines-table > tbody > tr > td:nth-child(5),
@@ -238,22 +245,26 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    { label: "Approver:", name: "approver.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
-                    { label: "Buyer:", name: "buyer.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
+                    @if (Auth::user()->isApprover())
+                        { label: "Approver:", name: "approver.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                @foreach ($users as $user)
+                                    { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
+                    @if (Auth::user()->isBuyer())
+                        { label: "Buyer:", name: "buyer.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                @foreach ($users as $user)
+                                    { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
