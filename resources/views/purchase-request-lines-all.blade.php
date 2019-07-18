@@ -356,7 +356,7 @@
                     selector: 'td:first-child'
                 },
                 columnDefs: [
-                    { className: "text-nowrap", "targets": [5,7,17,24,25] }
+                    { className: "text-nowrap", "targets": [5,7,16,17,24,25] }
                 ],
                 paging: false,
                 buttons: [
@@ -636,21 +636,21 @@
 
         //initialize tooltips
         tippy('#qty_required_th',{
-            content: 'Text TBD',
+            content: 'Total quantity of individual units required',
             duration: 0,
             arrow: true,
             boundary: 'window',
             distance: 1
         });
         tippy('#qty_per_uom_th',{
-            content: 'Text TBD',
+            content: 'Quantity of individual units per UOM<br />EX: 100 per Pack<br />Set to 1 if UOM is EACH',
             duration: 0,
             arrow: true,
             boundary: 'window',
             distance: 1
         });
         tippy('#next_assembly_th',{
-            content: 'Text TBD',
+            content: 'Full assembly number where used<br />For multiple assy, separate with comma<br />EX: 175F0100-1, 175F0100-2',
             duration: 0,
             arrow: true,
             boundary: 'window',
@@ -665,7 +665,7 @@
         });
         // initalized after select2 for id
         tippy('#uom_th',{
-            content: 'Text TBD',
+            content: 'Unit of Measurement<br />ie: How is the product sold?',
             duration: 0,
             arrow: true,
             boundary: 'window',
