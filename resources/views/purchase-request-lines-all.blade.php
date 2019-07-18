@@ -21,6 +21,9 @@
         body {
             overflow-x: scroll;
         }
+        #purchase-request-lines-table {
+            overflow-x: visible;
+        }
         #purchase-request-lines-table > tfoot > tr > td:nth-child(12) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(19) > span,
