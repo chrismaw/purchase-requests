@@ -371,6 +371,8 @@
                     // This row is already open - close it
                     row.child.hide();
                     tr.removeClass('shown');
+                    // reload table to make sure note stays after closing child
+                    prlTable.ajax.reload();
                 }
                 else {
                     // Open this row
