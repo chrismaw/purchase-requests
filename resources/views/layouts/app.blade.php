@@ -17,7 +17,8 @@
     <script src="{{ asset('js/dataTables.editor.min.js') }}"></script>
     @yield('scripts')
     <!-- Styles -->
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('css/editor.dataTables.min.css') }}" rel="stylesheet">
@@ -37,10 +38,9 @@
                     <a href="{{ url('/projects') }}">Projects & Tasks</a>
                     <a href="{{ url('/suppliers') }}">Suppliers</a>
                     <a href="{{ url('/uoms') }}">UOMs</a>
+					@if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
                 </div>
-            </div>
-
-        @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
+            </div>        
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
             @else
