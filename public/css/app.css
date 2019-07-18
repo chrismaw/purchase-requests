@@ -12,6 +12,7 @@ main {
 }
 header {
     width: 100%;
+    border-bottom: #636b6f solid 1px;
 }
 
 
@@ -21,7 +22,7 @@ header {
     background-color: #636b6f/*#fff*/;
 }
 
-.topnav a, .topnav #logo {
+.topnav a, .topnav #logo, .dropdown .dropbtn {
     float: left;
     display: block;
     color: #fff/*#636b6f*/;
@@ -47,42 +48,41 @@ header {
     display: none;
     font-size: 15px;
 }
-
-@media screen and (max-width: 865px) {
-    #myTopnav > a:nth-child(2){
-        margin-top: 50px;
-    }
-}
-@media screen and (max-width: 865px) {
-    .topnav a {
-        display: none;
-    }
-
-    .topnav a.icon {
-        float: right;
-        display: block;
-    }
-}
-@media screen and (max-width: 865px) {
-    .topnav.responsive {
-        position: relative;
-    }
-    .topnav.responsive .icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .topnav.responsive a {
-        margin-bottom: 3px;
-        float: none;
-        display: block;
-        text-align: left;
-    }
-    .topnav.responsive .nav-item {
-        margin-right: 0;
-    }
+.dropdown {
+    float: left;
+    overflow: hidden;
 }
 
+/*.dropdown .dropbtn {*/
+/*    font-size: 16px;*/
+/*    border: none;*/
+/*    outline: none;*/
+/*    color: white;*/
+/*    background-color: inherit;*/
+/*    font-family: inherit;*/
+/*    margin: 0;*/
+/*}*/
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 49px;
+}
+
+.dropdown-content a {
+    float: none;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 /* END HEADER / NAV */
 .container-fluid {
@@ -167,4 +167,7 @@ a.link {
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
+}
+.is-invalid {
+    border: #b11f1f 1px solid;
 }

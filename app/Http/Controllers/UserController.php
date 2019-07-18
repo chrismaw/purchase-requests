@@ -25,12 +25,8 @@ class UserController extends Controller
                 'name' => $u->name,
                 'email' => $u->email,
                 'admin' => $u->is_admin ? 'Yes' : 'No',
-                'approver' => $u->approver
-                    ? ['name' => $u->approverUser->name, 'id' => $u->approver]
-                    : ['name' => '', 'id' => ''],
-                'buyer' => $u->buyer
-                    ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
-                    : ['name' => '', 'id' => ''],
+                'approver' => $u->approver ? 'Yes' : 'No',
+                'buyer' => $u->buyer ? 'Yes' : 'No',
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
         })])->toJson();
@@ -45,15 +41,14 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-//        dd($request->all());
         if ($request->action == 'create') {
             $u = new User();
             $u->name = $request->data[0]['name'];
             $u->email = $request->data[0]['email'];
             $u->password = Hash::make($request->data[0]['password']);
             $u->is_admin = $request->data[0]['admin'] == 'Yes' ? true : false;
-            $u->approver = $request->data[0]['approver']['id'];
-            $u->buyer = $request->data[0]['buyer']['id'];
+            $u->approver = $request->data[0]['approver'] == 'Yes' ? true : false;
+            $u->buyer = $request->data[0]['buyer'] == 'Yes' ? true : false;
             $u->created_at = date('Y-m-d H:i:s');
             $u->save();
             $output['data'][] = [
@@ -61,12 +56,8 @@ class UserController extends Controller
                 'name' => $u->name,
                 'email' => $u->email,
                 'admin' => $u->is_admin ? 'Yes' : 'No',
-                'approver' => $u->approver
-                    ? ['name' => $u->approverUser->name, 'id' => $u->approver]
-                    : ['name' => '', 'id' => ''],
-                'buyer' => $u->buyer
-                    ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
-                    : ['name' => '', 'id' => ''],
+                'approver' => $u->approver ? 'Yes' : 'No',
+                'buyer' => $u->buyer ? 'Yes' : 'No',
                 'added_on' => date('m-d-Y', strtotime($u->created_at))
             ];
             return response()->json(
@@ -91,14 +82,10 @@ class UserController extends Controller
                     $u->is_admin = $request->data[array_key_first($request->data)]['admin'] == 'Yes' ? true : false;
                 }
                 if (array_key_exists('approver',$request->data[array_key_first($request->data)])){
-                    $u->approver = preg_match('/^\d+$/',$request->data[array_key_first($request->data)]['approver']['id'])
-                        ? $request->data[array_key_first($request->data)]['approver']['id']
-                        : $u->approver_id;
+                    $u->approver = $request->data[array_key_first($request->data)]['approver'] == 'Yes' ? true : false;
                 }
                 if (array_key_exists('buyer',$request->data[array_key_first($request->data)])){
-                    $u->buyer = preg_match('/^\d+$/',$request->data[array_key_first($request->data)]['buyer']['id'])
-                        ? $request->data[array_key_first($request->data)]['buyer']['id']
-                        : $u->buyer;
+                    $u->buyer = $request->data[array_key_first($request->data)]['buyer'] == 'Yes' ? true : false;
                 }
                 $u->updated_at = date('Y-m-d H:i:s');
                 $u->save();
@@ -107,12 +94,8 @@ class UserController extends Controller
                     'name' => $u->name,
                     'email' => $u->email,
                     'admin' => $u->is_admin ? 'Yes' : 'No',
-                    'approver' => $u->approver
-                        ? ['name' => $u->approverUser->name, 'id' => $u->approver]
-                        : ['name' => '', 'id' => ''],
-                    'buyer' => $u->buyer
-                        ? ['name' => $u->buyerUser->name, 'id' => $u->buyer]
-                        : ['name' => '', 'id' => ''],
+                    'approver' => $u->approver ? 'Yes' : 'No',
+                    'buyer' => $u->buyer ? 'Yes' : 'No',
                     'added_on' => date('m-d-Y', strtotime($u->created_at))
                 ];
                 return response()->json(

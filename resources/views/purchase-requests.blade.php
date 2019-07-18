@@ -20,8 +20,24 @@
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
             display: none;
         }
+        /* PURCHASE REQUEST TABLE */
         #purchase-requests-table_wrapper {
             margin-bottom: 50px;
+            max-width: 700px;
+        }
+        #purchase-requests-table tfoot {
+            display: table-footer-group;
+        }
+        #purchase-requests-table #filter-row {
+            display: none;  /* hides forced footer */
+        }
+        #purchase-requests-table.dataTable thead th, #purchase-requests-table.dataTable thead td,
+        #purchase-requests-table_wrapper > div.dataTables_scroll > div.dataTables_scrollBody,
+        #filter-row > td {
+            border-bottom: none; /* match other tables since scroll Y adds its own footer */
+        }
+        #purchase-requests-table_wrapper > div.dataTables_scroll > div.dataTables_scrollHead > div > table > thead > tr:nth-child(1) > th {
+            border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
         }
         #purchase-request-lines-table {
             display: block;
@@ -30,6 +46,8 @@
             -webkit-overflow-scrolling: touch;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
+
+        /* Differentiate read-only columns */
         #purchase-request-lines-table > tbody > tr > td:nth-child(8),
         #purchase-request-lines-table > tbody > tr > td:nth-child(10),
         #purchase-request-lines-table > tbody > tr > td:nth-child(15),
@@ -38,6 +56,8 @@
             color: #333;
             font-style: italic;
         }
+
+        /* SELECT2 and filters */
         .select2-selection__rendered {
             color: #000 !important;
         }
@@ -77,9 +97,7 @@
                 <th>Request Date</th>
                 <th>Status</th>
             </tr>
-            </thead>
-            <tfoot>
-            <tr>
+            <tr id="filter-row">
                 <td></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -99,7 +117,7 @@
                     </select>
                 </td>
             </tr>
-            </tfoot>
+            </thead>
         </table>
 		<hr />
         <div class="title">
@@ -115,9 +133,9 @@
                 <th>Item Number</th>
                 <th>Item Revision</th>
                 <th>Item Description</th>
-                <th>Qty Required</th>
-                <th>UOM</th>
-                <th>Qty Per UOM</th>
+                <th id="qty_required_th">Qty Required</th>
+                <th id="uom_th">UOM</th>
+                <th id="qty_per_uom_th">Qty Per UOM</th>
                 <th>UOM Qty Required</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
@@ -128,8 +146,8 @@
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
-                <th>Next Assembly</th>
-                <th>Work Order</th>
+                <th id="next_assembly_th">Next Assembly</th>
+                <th id="work_order_th">Work Order</th>
                 <th>PO Number</th>
             </tr>
             </thead>
@@ -277,18 +295,15 @@
                     },
                     { data: "project" },
                     { data: "requester.name", editField: "requester.id" },
-                    {
-                        data: "request_date",
-                        width: '10%'
-                    },
-                    {
-                        data: "purchase_request_status",
-                        width: '10%'
-                    },
+                    { data: "request_date" },
+                    { data: "purchase_request_status", },
                 ],
+                paging: false,
+                scrollY: "300px",
                 select: {
                     style: 'single'
                 },
+                orderCellsTop: true,
                 columnDefs: [
                     { className: "text-nowrap", targets: '_all' }
                 ],
@@ -314,17 +329,15 @@
                 }
             });
             // add input for each column for Purchase Requests Table
-            $('#purchase-requests-table tfoot td.searchable').each(function(){
+            $('#filter-row td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
             // add search function for Purchase Requests Table
-            prTable.columns().every(function(){
-                let that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if(that.search !== this.value){
-                        that.search(this.value).draw();
-                    }
-                });
+            $('#filter-row td input').on('keyup change', function () {
+                prTable
+                    .column( $(this).parent().index() )
+                    .search( this.value )
+                    .draw();
             });
             // Purchase Request Lines Editor
             prlEditor = new $.fn.dataTable.Editor( {
@@ -532,27 +545,45 @@
                     if (!itemDescription.isMultiValue()){
                         if (!itemDescription.val()) {
                             itemDescription.error('A description must be provided');
+                            $('#DTE_Field_item_description').addClass('is-invalid');
                         }
                     }
+
                     if (!qtyRequired.isMultiValue()) {
-                        if (!qtyRequired.val()) {
-                            qtyRequired.error('A quantity must be provided');
-                        }
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
+                            $('#DTE_Field_qty_required').addClass('is-invalid');
                         }
-
+                        if (!qtyRequired.val()) {
+                            qtyRequired.error('A quantity must be provided');
+                            $('#DTE_Field_qty_required').addClass('is-invalid');
+                        }
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
                             qtyPerUom.error('A quantity must be a number');
+                            $('#DTE_Field_qty_per_uom').addClass('is-invalid');
                         }
                     }
                     if (!needDate.isMultiValue()){
                         if (!needDate.val()){
                             needDate.error('A date must be provided');
+                            $('#DTE_Field_need_date').addClass('is-invalid');
                         }
                     }
+                    // remove red border
+                    $('#DTE_Field_item_description').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_qty_required').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_qty_per_uom').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_need_date').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
                     if ( this.inError() ) {
                         return false;
                     }
@@ -570,7 +601,39 @@
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
+                // initiate tooltips on open since these elements dont exist on page load
+                tippy('label[for="DTE_Field_qty_required"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_qty_per_uom"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_uom-id"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_next_assembly"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_work_order"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
 
+                // load purchase requests options via ajax in case one was created and page was not refreshed
                 var optionsA = [];
                 $.getJSON('{{ route('get-select-purchase-requests') }}',
                     function (data) {
@@ -586,6 +649,7 @@
                     prlEditor.field('purchase_request').update(optionsA);
                 });
 
+                // select2 for edit fields on page load since elements do not exist on page load
                 $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
@@ -602,43 +666,14 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                // $('#DTE_Field_approver-id').select2({
-                //     selectOnClose: true,
-                //     dropdownAutoWidth : true
-                // });
-                // $('#DTE_Field_buyer-id').select2({
-                //     selectOnClose: true,
-                //     dropdownAutoWidth : true
-                // });
-
-                tippy('#DTE_Field_qty_required',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_qty_per_uom',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_next_assembly',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_work_order',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                // initalized after select2 for id
-                tippy('#select2-DTE_Field_uom-id-container',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
             } );
-
+            prlEditor.on( 'close', function () {
+                // remove red border
+                $('#DTE_Field_item_description').removeClass('is-invalid');
+                $('#DTE_Field_qty_required').removeClass('is-invalid');
+                $('#DTE_Field_qty_per_uom').removeClass('is-invalid');
+                $('#DTE_Field_need_date').removeClass('is-invalid');
+            });
             // purchase request table column filters
             $('#purchase-request-requester-filter').select2().on('change', function(){
                 var search = [];
@@ -725,5 +760,41 @@
             // })
         } );
 
+        // initialize tooltips | datatable headers
+        tippy('#qty_required_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#qty_per_uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#next_assembly_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#work_order_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
     </script>
     @endsection

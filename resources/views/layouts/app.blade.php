@@ -31,11 +31,17 @@
         <div class="topnav" id="myTopnav">
             <div id="logo">{{ config('app.name') }}</div>
             <a href="{{ url('/purchase-requests') }}">Purchase Requests</a>
-			<a href="{{ url('/purchase-requests-lines-all') }}">All PR Lines</a>
-            <a href="{{ url('/projects') }}">Projects & Tasks</a>
-            <a href="{{ url('/suppliers') }}">Suppliers</a>
-            <a href="{{ url('/uoms') }}">UOMs</a>
-            @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
+            <a href="{{ url('/purchase-requests-lines-all') }}">All PR Lines</a>
+            <div class="dropdown">
+                <a class="dropbutton">Admin Pages</a>
+                <div class="dropdown-content">
+                    <a href="{{ url('/projects') }}">Projects & Tasks</a>
+                    <a href="{{ url('/suppliers') }}">Suppliers</a>
+                    <a href="{{ url('/uoms') }}">UOMs</a>
+                </div>
+            </div>
+
+        @if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
             @else
@@ -48,7 +54,6 @@
                     @csrf
                 </form>
             @endguest
-            <a href="#" class="icon" id="burger">&#9776;</a>
         </div>
     </header>
     <div id="app">
@@ -56,15 +61,5 @@
             @yield('content')
         </main>
     </div>
-<script>
-    document.getElementById("burger").onclick = function(){
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    };
-</script>
 </body>
 </html>

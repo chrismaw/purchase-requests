@@ -15,25 +15,31 @@
         #DTE_Field_item_description {
             text-transform: uppercase;
         }
-        #purchase-request-lines-table {
-            display: block;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
+        #purchase-request-lines-table_wrapper{
+            overflow-x: scroll;
         }
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(14) > span,
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(16) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(12) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
-        #purchase-request-lines-table > tfoot > tr > td:nth-child(18) > span {
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(19) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(21) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(22) > span,
+        #purchase-request-lines-table > tfoot > tr > td:nth-child(23) > span {
             width: 100% !important;
         }
-        #purchase-request-lines-table > tbody > tr > td:nth-child(9),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(11),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(22),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(23),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(24),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(25),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(26) {
+
+        @if (!Auth::user()->isApprover())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(21),
+        @endif
+        @if (!Auth::user()->isBuyer())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(22),
+        @endif
+        #purchase-request-lines-table > tbody > tr > td:nth-child(3),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(4),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(5),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(6),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(7),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(14),
+        #purchase-request-lines-table > tbody > tr > td:nth-child(16) {
             color: #333;
             font-style: italic;
         }
@@ -83,12 +89,17 @@
             <tr>
                 <th></th>
                 <th></th>
+                <th>Purchase Request ID</th>
+                <th>Project</th>
+                <th>Requester</th>
+                <th>Request Date</th>
+                <th>Status</th>
                 <th>Item Number</th>
                 <th>Item Revision</th>
                 <th>Item Description</th>
-                <th>Qty Required</th>
-                <th>UOM</th>
-                <th>Qty Per UOM</th>
+                <th id="qty_required_th">Qty Required</th>
+                <th id="uom_th">UOM</th>
+                <th id="qty_per_uom_th">Qty Per UOM</th>
                 <th>UOM Qty Required</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
@@ -99,20 +110,32 @@
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
-                <th>Next Assembly</th>
-                <th>Work Order</th>
+                <th id="next_assembly_th">Next Assembly</th>
+                <th id="work_order_th">Work Order</th>
                 <th>PO Number</th>
-                <th>Purchase Request ID</th>
-                <th>Purchase Request Project</th>
-                <th>Purchase Request Requester</th>
-                <th>Purchase Request Request Date</th>
-                <th>Purchase Request Status</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <td></td>
                 <td></td>
+                <td class="searchable"></td>
+                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-requester-filter" class="filter-input" multiple>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td class="searchable"></td>
+                <td style="padding: 10px 6px 6px 6px;">
+                    <select id="purchase-request-status-filter" class="filter-input" multiple>
+                        <option value="Open">Open</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
@@ -168,23 +191,6 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td class="searchable"></td>
-                <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-requester-filter" class="filter-input" multiple>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td class="searchable"></td>
-                <td style="padding: 10px 6px 6px 6px;">
-                    <select id="purchase-request-status-filter" class="filter-input" multiple>
-                        <option value="Open">Open</option>
-                        <option value="On Hold">On Hold</option>
-                        <option value="Closed">Closed</option>
-                    </select>
-                </td>
             </tr>
             </tfoot>
         </table>
@@ -205,8 +211,8 @@
                 fields: [
                     { label: "Purchase Request:", name: "purchase_request", type: 'select',
                         options: [
-                                @foreach ($purchase_requests as $request)
-                            { label: 'ID: {{ $request->id }} | {{ $request->project->description }}', value: '{{ $request->id }}' },
+                            @foreach ($purchase_requests as $request)
+                                { label: 'ID: {{ $request->id }} | {{ $request->project->description }}', value: '{{ $request->id }}' },
                             @endforeach
                         ]
                     },
@@ -239,22 +245,26 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    { label: "Approver:", name: "approver.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
-                    { label: "Buyer:", name: "buyer.id", type: 'select',
-                        options: [
-                            { label: '', value: '' },
-                            @foreach ($users as $user)
-                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
-                            @endforeach
-                        ]
-                    },
+                    @if (Auth::user()->isApprover())
+                        { label: "Approver:", name: "approver.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                @foreach ($users as $user)
+                                    { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
+                    @if (Auth::user()->isBuyer())
+                        { label: "Buyer:", name: "buyer.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                @foreach ($users as $user)
+                                    { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
@@ -286,10 +296,10 @@
             function format ( d ) {
                 // `d` is the original data object for the row
                 return '<div style="padding-left:65px;">'+
-                        '<label style="font-weight:bold; display:block; margin-bottom: 5px;">Buyer\'s Notes</label>'+
-                        '<textarea name="note" rows="4" style="width: 600px;" id="buyers_notes_'+d.id+'">'+d.buyers_notes+'</textarea><br>'+
-                        '<input onclick="submitNote('+d.id+')" type="button" value="Submit Note"/>'+
-                        '</div>';
+                    '<label style="font-weight:bold; display:block; margin-bottom: 5px;">Buyer\'s Notes</label>'+
+                    '<textarea name="note" rows="4" style="width: 600px;" id="buyers_notes_'+d.id+'">'+d.buyers_notes+'</textarea><br>'+
+                    '<input onclick="submitNote('+d.id+')" type="button" value="Submit Note"/>'+
+                    '</div>';
             }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
@@ -310,6 +320,11 @@
                         data: "details_control",
                         defaultContent: ''
                     },
+                    { data: "purchase_request" },
+                    { data: "pr_project" },
+                    { data: "pr_requester" },
+                    { data: "pr_request_date" },
+                    { data: "pr_status" },
                     { data: "item_number" },
                     { data: "item_revision" },
                     { data: "item_description" },
@@ -329,18 +344,13 @@
                     { data: "next_assembly" },
                     { data: "work_order" },
                     { data: "po_number" },
-                    { data: "pr_id" },
-                    { data: "pr_project" },
-                    { data: "pr_requester" },
-                    { data: "pr_request_date" },
-                    { data: "pr_status" },
                 ],
                 select: {
                     style:    'os',
                     selector: 'td:first-child'
                 },
                 columnDefs: [
-                    { className: "text-nowrap", "targets": [4,6,12,13,15,16,17] }
+                    { className: "text-nowrap", "targets": [5,7,17,24,25] }
                 ],
                 paging: false,
                 buttons: [
@@ -372,6 +382,8 @@
                     // This row is already open - close it
                     row.child.hide();
                     tr.removeClass('shown');
+                    // reload table to make sure note stays after closing child
+                    prlTable.ajax.reload();
                 }
                 else {
                     // Open this row
@@ -406,34 +418,86 @@
                     if (!itemDescription.isMultiValue()){
                         if (!itemDescription.val()) {
                             itemDescription.error('A description must be provided');
+                            $('#DTE_Field_item_description').addClass('is-invalid');
                         }
                     }
+
                     if (!qtyRequired.isMultiValue()) {
-                        if (!qtyRequired.val()) {
-                            qtyRequired.error('A quantity must be provided');
-                        }
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
+                            $('#DTE_Field_qty_required').addClass('is-invalid');
+                        }
+                        if (!qtyRequired.val()) {
+                            qtyRequired.error('A quantity must be provided');
+                            $('#DTE_Field_qty_required').addClass('is-invalid');
                         }
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
                             qtyPerUom.error('A quantity must be a number');
+                            $('#DTE_Field_qty_per_uom').addClass('is-invalid');
                         }
                     }
                     if (!needDate.isMultiValue()){
                         if (!needDate.val()){
                             needDate.error('A date must be provided');
+                            $('#DTE_Field_need_date').addClass('is-invalid');
                         }
                     }
+                    // remove red border
+                    $('#DTE_Field_item_description').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_qty_required').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_qty_per_uom').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
+                    $('#DTE_Field_need_date').on('keyup', function () {
+                        $(this).removeClass('is-invalid')
+                    });
                     if ( this.inError() ) {
                         return false;
                     }
+
                 }
             } );
 
             prlEditor.on( 'open', function ( e, mode, action ) {
+                // initiate tooltips on open since these elements dont exist on page load
+                tippy('label[for="DTE_Field_qty_required"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_qty_per_uom"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_uom-id"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_next_assembly"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
+                tippy('label[for="DTE_Field_work_order"]',{
+                    content: 'Text TBD',
+                    duration: 0,
+                    arrow: true,
+                    placement: 'left'
+                });
 
+                // select2 for edit fields on page load since elements do not exist on page load
                 $('#DTE_Field_purchase_request').select2({
                     selectOnClose: true,
                     dropdownAutoWidth : true
@@ -462,35 +526,14 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
-                //initialize tooltips
-                tippy('#DTE_Field_qty_required',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_qty_per_uom',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_next_assembly',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                tippy('#DTE_Field_work_order',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
-                // initalized after select2 for id
-                tippy('#select2-DTE_Field_uom-id-container',{
-                    content: 'Text TBD',
-                    duration: 0,
-                    arrow: true,
-                });
             } );
-
+            prlEditor.on( 'close', function () {
+                // remove red border
+                $('#DTE_Field_item_description').removeClass('is-invalid');
+                $('#DTE_Field_qty_required').removeClass('is-invalid');
+                $('#DTE_Field_qty_per_uom').removeClass('is-invalid');
+                $('#DTE_Field_need_date').removeClass('is-invalid');
+            });
             // column filters w/ select2
             $('#purchase-request-lines-uom-filter').select2({
                 dropdownAutoWidth : true
@@ -500,7 +543,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(6).search(search, true, false).draw();
+                prlTable.column(11).search(search, true, false).draw();
             });
             $('#purchase-request-lines-task-filter').select2({
                 dropdownAutoWidth : true
@@ -510,7 +553,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(11).search(search, true, false).draw();
+                prlTable.column(16).search(search, true, false).draw();
             });
             $('#purchase-request-lines-supplier-filter').select2({
                 dropdownAutoWidth : true
@@ -520,7 +563,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(13).search(search, true, false).draw();
+                prlTable.column(18).search(search, true, false).draw();
             });
             $('#purchase-request-lines-approver-filter').select2({
                 dropdownAutoWidth : true
@@ -530,7 +573,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(15).search(search, true, false).draw();
+                prlTable.column(20).search(search, true, false).draw();
             });
             $('#purchase-request-lines-buyer-filter').select2({
                 dropdownAutoWidth : true
@@ -540,7 +583,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(16).search(search, true, false).draw();
+                prlTable.column(21).search(search, true, false).draw();
             });
             $('#purchase-request-lines-status-filter').select2({
                 dropdownAutoWidth : true
@@ -550,15 +593,16 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(17).search(search, true, false).draw();
+                prlTable.column(22).search(search, true, false).draw();
             });
             $('#purchase-request-requester-filter').select2().on('change', function(){
+                console.log('here');
                 var search = [];
                 $.each($('#purchase-request-requester-filter option:selected'), function(){
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prTable.column(20).search(search, true, false).draw();
+                prlTable.column(4).search(search, true, false).draw();
             });
             $('#purchase-request-status-filter').select2().on('change', function(){
                 var search = [];
@@ -566,10 +610,9 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prTable.column(22).search(search, true, false).draw();
+                prlTable.column(6).search(search, true, false).draw();
             });
         } );
-
         // submit buyers note and alert
         function submitNote(id){
             var note_value = $('#buyers_notes_'+id).val();
@@ -582,5 +625,44 @@
                 }
             });
         }
+
+        //initialize tooltips
+        tippy('#qty_required_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#qty_per_uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#next_assembly_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        tippy('#work_order_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+        // initalized after select2 for id
+        tippy('#uom_th',{
+            content: 'Text TBD',
+            duration: 0,
+            arrow: true,
+            boundary: 'window',
+            distance: 1
+        });
+
     </script>
     @endsection
