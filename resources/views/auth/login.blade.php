@@ -29,7 +29,7 @@
             font-weight: bold;
 
         }
-        input {
+        .input-text {
             background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQ…AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==);
             background-repeat: no-repeat;
             background-attachment: scroll;
@@ -91,7 +91,7 @@
     <form id="login-form" method="POST" action="{{ route('login') }}">
         @csrf
         <label for="email">{{ __('E-Mail Address') }}</label>
-        <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"
+        <input id="email" type="email" class="input-text @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"
                autofocus>
 
         @error('email')
@@ -102,14 +102,17 @@
 
         <label for="password">{{ __('Password') }}</label>
 
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+        <input id="password" type="password" class="input-text @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
         @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <div>
+
+        <input id="rememberMe" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+        <label for="rememberMe">Remember Me</label>
+        <div style="margin-top: 5px;">
             <button type="submit">
                 {{ __('Login') }}
             </button>
