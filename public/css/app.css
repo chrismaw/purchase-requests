@@ -160,3 +160,6 @@ a.link {
     text-decoration: none;
     text-transform: uppercase;
 }
+.is-invalid {
+    border: #b11f1f 1px solid;
+}
