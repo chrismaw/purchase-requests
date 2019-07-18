@@ -655,27 +655,35 @@
                 $('#DTE_Field_qty_per_uom').addClass('is-invalid');
                 $('#DTE_Field_need_date').addClass('is-invalid');
                 // remove red border
-                $('#DTE_Field_item_description').on('keyup', function () {
-                    $(this).removeClass('is-invalid')
+                $('#DTE_Field_item_description').on('keyup keydown', function () {
+                    if ($(this).val() === '' && !$(this).hasClass('is-invalid')){
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
                 });
-                $('#DTE_Field_qty_required').on('keyup', function () {
-                    $(this).removeClass('is-invalid')
+                $('#DTE_Field_qty_required').on('keyup keydown', function () {
+                    if ($(this).val() === '' && !$(this).hasClass('is-invalid')){
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
                 });
-                $('#DTE_Field_qty_per_uom').on('keyup', function () {
-                    $(this).removeClass('is-invalid')
+                $('#DTE_Field_qty_per_uom').on('keyup keydown', function () {
+                    if ($(this).val() === '' && !$(this).hasClass('is-invalid')){
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
                 });
-                $('#DTE_Field_need_date').on('keyup', function () {
-                    $(this).removeClass('is-invalid')
+                $('#DTE_Field_need_date').on('keyup keydown', function () {
+                    if ($(this).val() === '' && !$(this).hasClass('is-invalid')){
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
                 });
-
             } );
-            prlEditor.on( 'close', function () {
-                // remove red border
-                $('#DTE_Field_item_description').removeClass('is-invalid');
-                $('#DTE_Field_qty_required').removeClass('is-invalid');
-                $('#DTE_Field_qty_per_uom').removeClass('is-invalid');
-                $('#DTE_Field_need_date').removeClass('is-invalid');
-            });
             // purchase request table column filters
             $('#purchase-request-requester-filter').select2().on('change', function(){
                 var search = [];
