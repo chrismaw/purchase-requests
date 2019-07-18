@@ -16,8 +16,12 @@
         #DTE_Field_item_description {
             text-transform: uppercase;
         }
+        body {
+            overflow-x: scroll;
+        }
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
-        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request {
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request,
+            body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_prl_status {
             display: none;
         }
         /* PURCHASE REQUEST TABLE */
@@ -40,11 +44,7 @@
             border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
         }
         #purchase-request-lines-table {
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
+            overflow-x: visible;
         }
 
         /* Differentiate read-only columns */
@@ -545,45 +545,27 @@
                     if (!itemDescription.isMultiValue()){
                         if (!itemDescription.val()) {
                             itemDescription.error('A description must be provided');
-                            $('#DTE_Field_item_description').addClass('is-invalid');
                         }
                     }
 
                     if (!qtyRequired.isMultiValue()) {
                         if (!/\d/.test(qtyRequired.val())) {
                             qtyRequired.error('A quantity must be a number');
-                            $('#DTE_Field_qty_required').addClass('is-invalid');
                         }
                         if (!qtyRequired.val()) {
                             qtyRequired.error('A quantity must be provided');
-                            $('#DTE_Field_qty_required').addClass('is-invalid');
                         }
                     }
                     if (!qtyPerUom.isMultiValue()) {
                         if (!/\d/.test(qtyPerUom.val())) {
                             qtyPerUom.error('A quantity must be a number');
-                            $('#DTE_Field_qty_per_uom').addClass('is-invalid');
                         }
                     }
                     if (!needDate.isMultiValue()){
                         if (!needDate.val()){
                             needDate.error('A date must be provided');
-                            $('#DTE_Field_need_date').addClass('is-invalid');
                         }
                     }
-                    // remove red border
-                    $('#DTE_Field_item_description').on('keyup', function () {
-                        $(this).removeClass('is-invalid')
-                    });
-                    $('#DTE_Field_qty_required').on('keyup', function () {
-                        $(this).removeClass('is-invalid')
-                    });
-                    $('#DTE_Field_qty_per_uom').on('keyup', function () {
-                        $(this).removeClass('is-invalid')
-                    });
-                    $('#DTE_Field_need_date').on('keyup', function () {
-                        $(this).removeClass('is-invalid')
-                    });
                     if ( this.inError() ) {
                         return false;
                     }
@@ -666,6 +648,26 @@
                     selectOnClose: true,
                     dropdownAutoWidth : true
                 });
+
+                // add red border for required fields
+                $('#DTE_Field_item_description').addClass('is-invalid');
+                $('#DTE_Field_qty_required').addClass('is-invalid');
+                $('#DTE_Field_qty_per_uom').addClass('is-invalid');
+                $('#DTE_Field_need_date').addClass('is-invalid');
+                // remove red border
+                $('#DTE_Field_item_description').on('keyup', function () {
+                    $(this).removeClass('is-invalid')
+                });
+                $('#DTE_Field_qty_required').on('keyup', function () {
+                    $(this).removeClass('is-invalid')
+                });
+                $('#DTE_Field_qty_per_uom').on('keyup', function () {
+                    $(this).removeClass('is-invalid')
+                });
+                $('#DTE_Field_need_date').on('keyup', function () {
+                    $(this).removeClass('is-invalid')
+                });
+
             } );
             prlEditor.on( 'close', function () {
                 // remove red border
