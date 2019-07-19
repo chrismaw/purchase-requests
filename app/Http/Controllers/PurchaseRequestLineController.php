@@ -120,7 +120,6 @@ class PurchaseRequestLineController extends Controller
      */
     public function update(Request $request, PurchaseRequestLine $purchaseRequestLine)
     {
-//        dd($request->all());
         if ($request->action == 'create'){
             // if action is 'create', data will be an array with a single key of 0
             if (array_key_exists(0,$request->data)){
@@ -186,77 +185,58 @@ class PurchaseRequestLineController extends Controller
                 foreach ($request->data as $row_id => $data){
                     $prl = new PurchaseRequestLine();
                     if (array_key_exists('purchase_request',$data)){
-                        $prl->purchase_request_id = $data['purchase_request']
-                            ? $data['purchase_request'] : $prl->purchase_request_id;
+                        $prl->purchase_request_id = $data['purchase_request_ID'] ?: $data['purchase_request'];
                     }
                     if (array_key_exists('item_number',$data)){
-                        $prl->item_number = $data['item_number']
-                            ? $data['item_number'] : $prl->item_number;
+                        $prl->item_number = $data['item_number'];
                     }
                     if (array_key_exists('item_revision',$data)){
-                        $prl->item_revision = $data['item_revision']
-                            ? $data['item_revision'] : $prl->item_revision;
+                        $prl->item_revision = $data['item_revision'];
                     }
                     if (array_key_exists('item_description',$data)){
-                        $prl->item_description = $data['item_description']
-                            ? strtoupper($data['item_description']) : $prl->item_description;
+                        $prl->item_description = $data['item_description'];
                     }
                     if (array_key_exists('qty_required',$data)){
-                        $prl->qty_required = $data['qty_required']
-                            ? $data['qty_required'] : $prl->qty_required;
+                        $prl->qty_required = $data['qty_required'];
                     }
                     if (array_key_exists('uom',$data)){
-                        $prl->uom_id = preg_match('/^\d+$/',$data['uom']['id'])
-                            ? $data['uom']['id'] : $prl->uom_id;
+                        $prl->uom_id = $data['uom']['id'];
                     }
                     if (array_key_exists('qty_per_uom',$data)){
-                        $prl->qty_per_uom = $data['qty_per_uom']
-                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
+                        $prl->qty_per_uom = $data['qty_per_uom'];
                     }
                     if (array_key_exists('cost_per_uom',$data)){
-                        $prl->cost_per_uom = $data['cost_per_uom']
-                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
+                        $prl->cost_per_uom = ltrim($data['cost_per_uom'],'$') ?: '0.00';
                     }
                     if (array_key_exists('task',$data)){
-                        $prl->task_id = preg_match('/^\d+$/',$data['task']['id'])
-                            ? $data['task']['id'] : $prl->task_id;
+                        $prl->task_id = $data['task']['id'];
                     }
                     if (array_key_exists('need_date',$data)){
-                        $prl->need_date = ($data['need_date'] && ($data['need_date'] != date('m-d-Y',strtotime($prl->need_date))))
-                            ? date('Y-m-d H:i:s',strtotime($data['need_date']))
-                            : $prl->need_date;
+                        $prl->need_date = date('Y-m-d H:i:s', strtotime($data['need_date']));
                     }
                     if (array_key_exists('supplier',$data)){
-                        $prl->supplier_id = preg_match('/^\d+$/',$data['supplier']['id'])
-                            ? $data['supplier']['id'] : $prl->supplier_id;
+                        $prl->supplier_id = $data['supplier']['id'];
                     }
                     if (array_key_exists('notes',$data)){
-                        $prl->notes = $data['notes']
-                            ? $data['notes'] : $prl->notes;
+                        $prl->notes = $data['notes'];
                     }
                     if (array_key_exists('approver',$data)){
-                        $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
-                            ? $data['approver']['id'] : $prl->approver;
+                        $prl->approver = $data['approver']['id'];
                     }
                     if (array_key_exists('buyer',$data)){
-                        $prl->buyer = preg_match('/^\d+$/',$data['buyer']['id'])
-                            ? $data['buyer']['id'] : $prl->buyer;
+                        $prl->buyer = $data['buyer']['id'];
                     }
                     if (array_key_exists('prl_status',$data)){
-                        $prl->status = $data['prl_status']
-                            ? $data['prl_status'] : $prl->prl_status;
+                        $prl->status = $data['prl_status'];
                     }
                     if (array_key_exists('next_assembly',$data)){
-                        $prl->next_assembly = $data['next_assembly']
-                            ? $data['next_assembly'] : $prl->next_assembly;
+                        $prl->next_assembly = $data['next_assembly'];
                     }
                     if (array_key_exists('work_order',$data)){
-                        $prl->work_order = $data['work_order']
-                            ? $data['work_order'] : $prl->work_order;
+                        $prl->work_order = $data['work_order'];
                     }
                     if (array_key_exists('po_number',$data)){
-                        $prl->po_number = $data['po_number']
-                            ? $data['po_number'] : $prl->po_number;
+                        $prl->po_number = $data['po_number'];
                     }
                     $prl->buyers_notes = '';
                     $prl->save();

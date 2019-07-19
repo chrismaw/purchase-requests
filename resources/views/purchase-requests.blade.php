@@ -21,7 +21,7 @@
         }
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_datetime.DTE_Field_Name_request_date,
         body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_purchase_request,
-            body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_prl_status {
+        body > div.DTED.DTED_Lightbox_Wrapper > div > div > div > div.DTE.DTE_Action_Create > div.DTE_Body > div > form > div > div.DTE_Field.DTE_Field_Type_select.DTE_Field_Name_prl_status {
             display: none;
         }
         /* PURCHASE REQUEST TABLE */
@@ -595,6 +595,7 @@
                 });
             } );
             prlEditor.on( 'open', function ( e, mode, action ) {
+                prlEditor.set('purchase_request_ID',prID);
                 // initiate tooltips on open since these elements dont exist on page load
                 tippy('label[for="DTE_Field_qty_required"]',{
                     content: 'Text TBD',
@@ -688,7 +689,7 @@
                         $(this).removeClass('is-invalid');
                     }
                 });
-                $('#DTE_Field_need_date').on('keyup keydown', function () {
+                $('#DTE_Field_need_date').on('keyup keydown change', function () {
                     if ($(this).val() === '' && !$(this).hasClass('is-invalid')){
                         $(this).addClass('is-invalid');
                     } else {

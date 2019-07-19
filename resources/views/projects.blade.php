@@ -387,14 +387,7 @@
                     dropdownAutoWidth : true
                 });
 			} );
-			projectsEditor.on( 'open', function ( e, mode, action ) {
-                tippy('#DTE_Field_description', {
-                    content: "I'm a Tippy tooltip!",
-                    animation: 'scale',
-                    duration: 0,
-                    arrow: true,
-                })
-			} );
+			projectsEditor.on( 'open', function ( e, mode, action ) {} );
 
             $('#tasks-created-by-filter').select2({
                 dropdownAutoWidth : true
