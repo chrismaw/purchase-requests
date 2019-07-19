@@ -317,8 +317,11 @@
                     $('#purchase-request-status-filter').trigger('change');
                 }
             } );
-            // create the Show Open Request checkbox
-            $('div.pr-toolbar').html('<input type="checkbox" id="status-filter-checkbox" style="margin: 10px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label>');
+            // create the Show Open Request and Show Your Requests checkboxes
+            $('div.pr-toolbar').html(
+                '<div><input type="checkbox" id="status-filter-checkbox" style="margin: 0px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label><br>' +
+                '<input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label></div>'
+            );
             $('#status-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){
                     document.getElementById('purchase-request-status-filter').value = 'Open';
@@ -326,6 +329,15 @@
                 } else {
                     document.getElementById('purchase-request-status-filter').value = '';
                     $('#purchase-request-status-filter').trigger('change');
+                }
+            });
+            $('#requester-filter-checkbox').on('change', function(){
+                if($(this).is(':checked')){
+                    document.getElementById('purchase-request-requester-filter').value = '{{ Auth::user()->name }}';
+                    $('#purchase-request-requester-filter').trigger('change');
+                } else {
+                    document.getElementById('purchase-request-requester-filter').value = '';
+                    $('#purchase-request-requester-filter').trigger('change');
                 }
             });
             // add input for each column for Purchase Requests Table
