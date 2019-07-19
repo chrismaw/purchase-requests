@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title','Purchase Request Lines | All')
 @section('scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.4/js/dataTables.fixedHeader.min.js"></script>
 @endsection
 @section('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.dataTables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.4/js/dataTables.fixedHeader.min.js"></script>
     <style>
         #DTE_Field_purchase_request,
         #DTE_Field_task-id,
