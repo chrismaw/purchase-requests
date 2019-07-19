@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title','Purchase Request Lines | All')
+@section('scripts')
+@endsection
 @section('styles')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.dataTables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.4/js/dataTables.fixedHeader.min.js"></script>
     <style>
         #DTE_Field_purchase_request,
         #DTE_Field_task-id,
@@ -21,8 +25,12 @@
         body {
             overflow-x: scroll;
         }
-        #purchase-request-lines-table {
+        html, #purchase-request-lines-table {
             overflow-x: visible;
+        }
+        #purchase-request-lines-table > thead > tr:nth-child(1) > th,
+        body > table > thead > tr:nth-child(1) > th {
+            border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
         }
         #purchase-request-lines-table > tfoot > tr > td:nth-child(12) > span,
         #purchase-request-lines-table > tfoot > tr > td:nth-child(17) > span,
@@ -120,9 +128,7 @@
                 <th id="work_order_th">Work Order</th>
                 <th>PO Number</th>
             </tr>
-            </thead>
-            <tfoot>
-            <tr>
+            <tr id="filter-row">
                 <td></td>
                 <td></td>
                 <td class="searchable"></td>
@@ -198,7 +204,9 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
             </tr>
-            </tfoot>
+            </thead>
+            <tbody></tbody>
+            <tfoot></tfoot>
         </table>
     </div>
     <script>
@@ -312,6 +320,10 @@
                 dom: "Bfrtip",
                 ajax: "{{ route('purchase-request-lines-all-data') }}",
                 order: [[ 2, 'asc' ]],
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
                 columns: [
                     {
                         data: null,
@@ -359,6 +371,7 @@
                     { className: "text-nowrap", "targets": [5,7,17,24,25] }
                 ],
                 paging: false,
+                orderCellsTop: true,
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
                     { extend: "edit",   editor: prlEditor },
@@ -399,18 +412,16 @@
             } );
 
             // add input for each column for Purchase Request Lines Table
-            $('#purchase-request-lines-table tfoot td.searchable').each(function(){
-                $(this).html('<input class="filter-input" type="text"/>')
+            $('#filter-row td.searchable').each(function(){
+                $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
             });
 
             // add search function for Purchase Request Lines Table
-            prlTable.columns().every(function(){
-                let that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if(that.search !== this.value){
-                        that.search(this.value).draw();
-                    }
-                });
+            $('#filter-row td input').on('keyup change', function () {
+                prlTable
+                    .column( $(this).parent().index() )
+                    .search( this.value )
+                    .draw();
             });
 
             // validate form fields on create/edit
