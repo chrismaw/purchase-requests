@@ -64,44 +64,47 @@ class UserController extends Controller
                 $output
             );
         } elseif ($request->action == 'edit') {
-//            dd($request->all());
-            $u = User::find(substr(array_key_first($request->data), 4));
-            if ($u instanceof User) {
-                if (array_key_exists('name', $request->data[array_key_first($request->data)])) {
-                    $u->name = $request->data[array_key_first($request->data)]['name'];
+            $output = array();
+            $output['data'] = array();
+            foreach ($request->data as $row_id => $data) {
+                $u = User::find(substr($row_id,4));
+                if ($u instanceof User) {
+                    if (array_key_exists('name', $data)) {
+                        $u->name = $data['name'];
+                    }
+                    if (array_key_exists('email', $data)) {
+                        $u->email = $data['email'];
+                    }
+                    if (array_key_exists('password', $data)) {
+                        $u->password = $data['password']
+                            ? Hash::make($data['password'])
+                            : $u->password;
+                    }
+                    if (array_key_exists('admin', $data)) {
+                        $u->is_admin = $data['admin'] == 'Yes' ? true : false;
+                    }
+                    if (array_key_exists('approver', $data)) {
+                        $u->approver = $data['approver'] == 'Yes' ? true : false;
+                    }
+                    if (array_key_exists('buyer', $data)) {
+                        $u->buyer = $data['buyer'] == 'Yes' ? true : false;
+                    }
+                    $u->updated_at = date('Y-m-d H:i:s');
+                    $u->save();
+                    $output['data'][] = [
+                        'DT_RowId' => 'row_' . $u->id,
+                        'name' => $u->name,
+                        'email' => $u->email,
+                        'admin' => $u->is_admin ? 'Yes' : 'No',
+                        'approver' => $u->approver ? 'Yes' : 'No',
+                        'buyer' => $u->buyer ? 'Yes' : 'No',
+                        'added_on' => date('m-d-Y', strtotime($u->created_at))
+                    ];
                 }
-                if (array_key_exists('email',$request->data[array_key_first($request->data)])){
-                    $u->email = $request->data[array_key_first($request->data)]['email'];
-                }
-                if (array_key_exists('password',$request->data[array_key_first($request->data)])){
-                    $u->password = $request->data[array_key_first($request->data)]['password']
-                        ? Hash::make($request->data[array_key_first($request->data)]['password'])
-                        : $u->password;
-                }
-                if (array_key_exists('admin',$request->data[array_key_first($request->data)])){
-                    $u->is_admin = $request->data[array_key_first($request->data)]['admin'] == 'Yes' ? true : false;
-                }
-                if (array_key_exists('approver',$request->data[array_key_first($request->data)])){
-                    $u->approver = $request->data[array_key_first($request->data)]['approver'] == 'Yes' ? true : false;
-                }
-                if (array_key_exists('buyer',$request->data[array_key_first($request->data)])){
-                    $u->buyer = $request->data[array_key_first($request->data)]['buyer'] == 'Yes' ? true : false;
-                }
-                $u->updated_at = date('Y-m-d H:i:s');
-                $u->save();
-                $output['data'][] = [
-                    'DT_RowId' => 'row_' . $u->id,
-                    'name' => $u->name,
-                    'email' => $u->email,
-                    'admin' => $u->is_admin ? 'Yes' : 'No',
-                    'approver' => $u->approver ? 'Yes' : 'No',
-                    'buyer' => $u->buyer ? 'Yes' : 'No',
-                    'added_on' => date('m-d-Y', strtotime($u->created_at))
-                ];
-                return response()->json(
-                    $output
-                );
             }
+            return response()->json(
+                $output
+            );
         } elseif ($request->action == 'remove') {
 
             $u = User::find(substr(array_key_first($request->data), 4));

@@ -119,7 +119,7 @@
                     { data: "added_on" }
                 ],
                 select: {
-                    style:    'single',
+                    style:    'os',
                     selector: 'td:first-child'
                 },
                 buttons: [

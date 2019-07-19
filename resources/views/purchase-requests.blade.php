@@ -139,7 +139,7 @@
                 <th>UOM Qty Required</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
-                <th>Task</th>
+                <th style="max-width: 75px !important;">Task</th>
                 <th>Need Date</th>
                 <th>Supplier</th>
                 <th>Notes</th>
