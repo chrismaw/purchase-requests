@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +61,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="322" column="86" selection-start-line="322" selection-start-column="86" selection-end-line="322" selection-end-column="86" />
+            <state relative-caret-position="140">
+              <caret line="325" column="43" lean-forward="true" selection-start-line="325" selection-start-column="43" selection-end-line="325" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -274,10 +272,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="x" value="119" />
+    <option name="y" value="-1088" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -414,14 +412,7 @@
       <workItem from="1563394893770" duration="14327000" />
       <workItem from="1563462858277" duration="3805000" />
       <workItem from="1563474399701" duration="4627000" />
-      <workItem from="1563556631707" duration="1095000" />
-    </task>
-    <task id="LOCAL-00013" summary="parent child purchase requests added">
-      <created>1561858832842</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1561858832842</updated>
+      <workItem from="1563556631707" duration="1780000" />
     </task>
     <task id="LOCAL-00014" summary="just need to handle prl inline editing">
       <created>1561863761961</created>
@@ -759,11 +750,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563497634763</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="added Show Only Your Request checkbox to pr table">
+      <created>1563557799618</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1563557799619</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236096000" />
+    <option name="totallyTimeSpent" value="236781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -868,7 +866,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed special char bug" />
     <MESSAGE value="fixed new prl from new pr bug" />
     <MESSAGE value="switched select2 to chosen" />
     <MESSAGE value="Revert &quot;switched select2 to chosen&quot;&#10;&#10;This reverts commit 601388e1" />
@@ -893,7 +890,8 @@
     <MESSAGE value="added remember me" />
     <MESSAGE value="fixed required border" />
     <MESSAGE value="added fixed header to all prlines table" />
-    <option name="LAST_COMMIT_MESSAGE" value="added fixed header to all prlines table" />
+    <MESSAGE value="added Show Only Your Request checkbox to pr table" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Show Only Your Request checkbox to pr table" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CheckAdmin.php">
@@ -1256,10 +1254,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/purchase-requests.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="322" column="86" selection-start-line="322" selection-start-column="86" selection-end-line="322" selection-end-column="86" />
+        <state relative-caret-position="140">
+          <caret line="325" column="43" lean-forward="true" selection-start-line="325" selection-start-column="43" selection-end-line="325" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

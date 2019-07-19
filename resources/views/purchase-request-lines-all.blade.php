@@ -317,7 +317,7 @@
             }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
-                dom: "Bfrtip",
+                dom: "B<'pr-toolbar'>frtip",
                 ajax: "{{ route('purchase-request-lines-all-data') }}",
                 order: [[ 2, 'asc' ]],
                 fixedHeader: {
@@ -392,6 +392,19 @@
                 ]
             } );
 
+            // create the Show Your Requests checkbox
+            $('div.pr-toolbar').html(
+                '<div><input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label></div>'
+            );
+            $('#requester-filter-checkbox').on('change', function(){
+                if($(this).is(':checked')){
+                    document.getElementById('purchase-request-requester-filter').value = '{{ Auth::user()->name }}';
+                    $('#purchase-request-requester-filter').trigger('change');
+                } else {
+                    document.getElementById('purchase-request-requester-filter').value = '';
+                    $('#purchase-request-requester-filter').trigger('change');
+                }
+            });
             // Add event listener for opening and closing details
             $('#purchase-request-lines-table tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
