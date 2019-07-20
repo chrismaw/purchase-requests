@@ -46,7 +46,7 @@ class PurchaseRequestController extends Controller
             return [
                 'DT_RowId' => 'row_' . $pr->id,
                 'id' => $pr->id,
-                'project' => $pr->project->description,
+                'project' => ['name' => $pr->project->description, 'id' => $pr->project->id],
                 'requester' => ['name' => $pr->requestedByUser->name, 'id' => $pr->requester],
                 'request_date' => date('m-d-Y', strtotime($pr->created_at)),
                 'purchase_request_status' => $pr->status
@@ -137,7 +137,7 @@ class PurchaseRequestController extends Controller
             $output['data'][] = [
                 'DT_RowId' => 'row_' . $p->id,
                 'id' => $p->id,
-                'project' => $p->project->description,
+                'project' => ['name' => $p->project->description, 'id' => $p->project->id],
                 'requester' => ['name' => $p->requestedByUser->name, 'id' => $p->requester],
                 'request_date' => date('m-d-Y', strtotime($p->created_at)),
                 'purchase_request_status' => $p->status
@@ -174,7 +174,7 @@ class PurchaseRequestController extends Controller
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $p->id,
                         'id' => $p->id,
-                        'project' => $p->project->description,
+                        'project' => ['name' => $p->project->description, 'id' => $p->project->id],
                         'requester' => ['name' => $p->requestedByUser->name, 'id' => $p->requester],
                         'request_date' => date('m-d-Y', strtotime($p->created_at)),
                         'purchase_request_status' => $p->status

@@ -2,7 +2,7 @@
 @section('title','Purchase Requests')
 @section('styles')
     <style>
-        #DTE_Field_project,
+        #DTE_Field_project-id,
         #DTE_Field_requester-id,
         #DTE_Field_purchase_request_status,
         #DTE_Field_uom-id,
@@ -228,7 +228,7 @@
                 ajax: "{{ route('purchase-requests-update') }}",
                 table: "#purchase-requests-table",
                 fields: [
-                    { label: "Project:", name: "project", type: 'select',
+                    { label: "Project:", name: "project.id", type: 'select',
                         options: [
                             @foreach ($projects as $project)
                                 { label: '{{ $project->description }}', value: '{{ $project->id }}' },
@@ -293,7 +293,7 @@
                         data: "id",
                         width: '1%'
                     },
-                    { data: "project" },
+                    { data: "project.name", editField: "project.id" },
                     { data: "requester.name", editField: "requester.id" },
                     { data: "request_date" },
                     { data: "purchase_request_status", },
