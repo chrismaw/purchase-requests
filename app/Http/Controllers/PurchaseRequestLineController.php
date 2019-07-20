@@ -212,7 +212,7 @@ class PurchaseRequestLineController extends Controller
                         $prl->task_id = $data['task']['id'];
                     }
                     if (array_key_exists('need_date',$data)){
-                        $prl->need_date = date('Y-m-d H:i:s', strtotime($data['need_date']));
+                        $prl->need_date = date('Y-d-m H:i:s', strtotime($data['need_date']));
                     }
                     if (array_key_exists('supplier',$data)){
                         $prl->supplier_id = $data['supplier']['id'];
@@ -604,9 +604,7 @@ class PurchaseRequestLineController extends Controller
                             ? $data['task']['id'] : $prl->task_id;
                     }
                     if (array_key_exists('need_date',$data)){
-                        $prl->need_date = ($data['need_date'] && ($data['need_date'] != date('m-d-Y',strtotime($prl->need_date))))
-                            ? date('Y-m-d H:i:s',strtotime($data['need_date']))
-                            : $prl->need_date;
+                        $prl->need_date = date('Y-d-m H:i:s', strtotime($data['need_date']));
                     }
                     if (array_key_exists('supplier',$data)){
                         $prl->supplier_id = preg_match('/^\d+$/',$data['supplier']['id'])
