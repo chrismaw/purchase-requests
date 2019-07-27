@@ -129,7 +129,7 @@ class PurchaseRequestController extends Controller
     {
         if ($request->action == 'create'){
             $p = new PurchaseRequest();
-            $p->project_id = $request->data[0]['project'];
+            $p->project_id = $request->data[0]['project']['id'];
             $p->requester = $request->data[0]['requester']['id'];
             $p->created_at = date('Y-m-d H:i:s');
             $p->status = $request->data[0]['purchase_request_status'];
@@ -152,8 +152,8 @@ class PurchaseRequestController extends Controller
                 $p = PurchaseRequest::find(substr($row_id,4));
                 if ($p instanceof PurchaseRequest){
                     if (array_key_exists('project',$data)){
-                        $p->project_id = preg_match('/^\d+$/',$data['project'])
-                            ? $data['project']
+                        $p->project_id = preg_match('/^\d+$/',$data['project']['id'])
+                            ? $data['project']['id']
                             : $p->project_id;
                     }
                     if (array_key_exists('requester',$data)){
