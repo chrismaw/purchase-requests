@@ -3,3 +3,12 @@ div.DTE{position:relative}div.DTE div.DTE_Header{position:absolute;top:0;left:0;
 		100%{transform:scale(1, 1)}40%{transform:scale(1, 1.5)}}@keyframes editorProcessing{0%,
 		80%,
 		100%{transform:scale(1, 1)}40%{transform:scale(1, 1.5)}}
+		
+table.dataTable tbody td,
+table.dataTable tbody th {
+  padding: 5px !important;
+}
+
+table.dataTable th {
+  font-size: 8pt !important;
+}

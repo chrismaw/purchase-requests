@@ -103,30 +103,31 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>Purchase Request ID</th>
+                <th>PR ID</th>
                 <th>Project</th>
                 <th>Requester</th>
-                <th>Request Date</th>
+                <th>Request<br />Date</th>
                 <th>Status</th>
                 <th>Item Number</th>
-                <th>Item Revision</th>
+                <th>Item Rev</th>
                 <th>Item Description</th>
-                <th id="qty_required_th">Qty Required</th>
+                <th id="qty_required_th">Qty Req</th>
                 <th id="uom_th">UOM</th>
                 <th id="qty_per_uom_th">Qty Per UOM</th>
-                <th>UOM Qty Required</th>
+                <th>UOM Qty Req</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
                 <th style="max-width: 75px !important;">Task</th>
-                <th>Need Date</th>
+                <th>Need<br />Date</th>
                 <th>Supplier</th>
-                <th>Notes</th>
+                <!--<th>Notes</th>-->
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
                 <th id="next_assembly_th">Next Assembly</th>
                 <th id="work_order_th">Work Order</th>
                 <th>PO Number</th>
+				<th>Notes</th>
             </tr>
             <tr id="filter-row">
                 <td></td>
@@ -338,30 +339,31 @@
                         data: "details_control",
                         defaultContent: ''
                     },
-                    { data: "purchase_request" },
-                    { data: "pr_project" },
-                    { data: "pr_requester" },
-                    { data: "pr_request_date" },
-                    { data: "pr_status" },
-                    { data: "item_number" },
-                    { data: "item_revision" },
+                    { data: "purchase_request", width: '1%', className: 'dt-body-center'  },
+                    { data: "pr_project", width: '1%' },
+                    { data: "pr_requester", width: '1%' },
+                    { data: "pr_request_date", width: '1%' },
+                    { data: "pr_status", width: '1%' },
+                    { data: "item_number", width: '1%' },
+                    { data: "item_revision", width: '1%' },
                     { data: "item_description" },
-                    { data: "qty_required" },
-                    { data: "uom.name", editField: "uom.id" },
-                    { data: "qty_per_uom" },
-                    { data: "uom_qty_required" },
-                    { data: "cost_per_uom" },
-                    { data: "total_line_cost" },
-                    { data: "task.number", editField: "task.id" },
-                    { data: "need_date" },
-                    { data: "supplier.name", editField: "supplier.id" },
-                    { data: "notes" },
-                    { data: "approver.name", editField: "approver.id" },
-                    { data: "buyer.name", editField: "buyer.id" },
-                    { data: "prl_status" },
-                    { data: "next_assembly" },
-                    { data: "work_order" },
-                    { data: "po_number" },
+                    { data: "qty_required", width: '1%', className: 'dt-body-center'  },
+                    { data: "uom.name", editField: "uom.id", width: '1%' },
+                    { data: "qty_per_uom", width: '1%', className: 'dt-body-center'  },
+                    { data: "uom_qty_required", width: '1%', className: 'dt-body-center'  },
+                    { data: "cost_per_uom", width: '1%' },
+                    { data: "total_line_cost", width: '1%' },
+                    { data: "task.number", editField: "task.id", width: '1%' },
+                    { data: "need_date", width: '1%' },
+                    { data: "supplier.name", editField: "supplier.id", width: '1%' },
+                    //{ data: "notes" , width: '10%'},
+                    { data: "approver.name", editField: "approver.id", width: '1%' },
+                    { data: "buyer.name", editField: "buyer.id", width: '1%' },
+                    { data: "prl_status", width: '1%' },
+                    { data: "next_assembly", width: '1%' },
+                    { data: "work_order", width: '1%' },
+                    { data: "po_number", width: '1%' },
+					{ data: "notes" , width: '10%'},
                 ],
                 select: {
                     style:    'os',

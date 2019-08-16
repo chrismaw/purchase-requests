@@ -131,12 +131,12 @@
                 <th></th>
                 <th></th>
                 <th>Item Number</th>
-                <th>Item Revision</th>
+                <th>Item Rev</th>
                 <th>Item Description</th>
-                <th id="qty_required_th">Qty Required</th>
+                <th id="qty_required_th">Qty Req</th>
                 <th id="uom_th">UOM</th>
                 <th id="qty_per_uom_th">Qty Per UOM</th>
-                <th>UOM Qty Required</th>
+                <th>UOM Qty Req</th>
                 <th>UOM Cost</th>
                 <th>Total Line Cost</th>
                 <th style="max-width: 75px !important;">Task</th>
@@ -146,9 +146,9 @@
                 <th>Approver</th>
                 <th>Buyer</th>
                 <th>Status</th>
-                <th id="next_assembly_th">Next Assembly</th>
-                <th id="work_order_th">Work Order</th>
-                <th>PO Number</th>
+                <th id="next_assembly_th">Next<br />Assy</th>
+                <th id="work_order_th">Work<br />Order</th>
+                <th>PO<br />Number</th>
             </tr>
             </thead>
             <tfoot>
@@ -469,25 +469,25 @@
                         width: '1%'
                     },
                     { data: "purchase_request" },
-                    { data: "item_number" },
-                    { data: "item_revision" },
-                    { data: "item_description" },
-                    { data: "qty_required" },
-                    { data: "uom.name", editField: "uom.id" },
-                    { data: "qty_per_uom" },
-                    { data: "uom_qty_required" },
-                    { data: "cost_per_uom" },
-                    { data: "total_line_cost" },
-                    { data: "task.number", editField: "task.id" },
-                    { data: "need_date" },
-                    { data: "supplier.name", editField: "supplier.id" },
-                    { data: "notes" },
-                    { data: "approver" },
-                    { data: "buyer" },
-                    { data: "prl_status" },
-                    { data: "next_assembly" },
-                    { data: "work_order" },
-                    { data: "po_number" },
+                    { data: "item_number", width: '1%' },
+                    { data: "item_revision", width: '1%' },
+                    { data: "item_description", width: '10%' },
+                    { data: "qty_required", width: '1%', className: 'dt-body-center' },
+                    { data: "uom.name", editField: "uom.id", width: '1%'},
+                    { data: "qty_per_uom", width: '1%', className: 'dt-body-center'  },
+                    { data: "uom_qty_required", width: '1%', className: 'dt-body-center'  },
+                    { data: "cost_per_uom", width: '1%' },
+                    { data: "total_line_cost", width: '1%' },
+                    { data: "task.number", editField: "task.id", width: '1%' },
+                    { data: "need_date", width: '1%' },
+                    { data: "supplier.name", editField: "supplier.id", width: '10%'},
+                    { data: "notes", width: '30%'},
+                    { data: "approver", width: '1%' },
+                    { data: "buyer", width: '1%' },
+                    { data: "prl_status", width: '1%' },
+                    { data: "next_assembly", width: '1%' },
+                    { data: "work_order", width: '1%' },
+                    { data: "po_number", width: '1%' },
                 ],
                 select: {
                     style:    'os',
