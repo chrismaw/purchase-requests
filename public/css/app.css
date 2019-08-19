@@ -137,7 +137,7 @@ table {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    font-size: 10px;
+    font-size: 12px;
 }
 tfoot {
     display: table-header-group;
