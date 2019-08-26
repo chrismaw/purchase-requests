@@ -178,8 +178,7 @@
                             <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
                         @endforeach
                     </select>
-                </td>
-                <td class="searchable"></td>
+                </td>                
                 <td style="padding: 10px 6px 6px 6px;">
                     <select id="purchase-request-lines-approver-filter" class="filter-input" multiple>
                         @foreach ($users as $user)
@@ -204,6 +203,7 @@
                 <td class="searchable"></td>
                 <td class="searchable"></td>
                 <td class="searchable"></td>
+				<td class="searchable"></td>
             </tr>
             </thead>
             <tbody></tbody>
@@ -633,7 +633,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(20).search(search, true, false).draw();
+                prlTable.column(19).search(search, true, false).draw();
             });
             $('#purchase-request-lines-buyer-filter').select2({
                 dropdownAutoWidth : true
@@ -643,7 +643,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(21).search(search, true, false).draw();
+                prlTable.column(20).search(search, true, false).draw();
             });
             $('#purchase-request-lines-status-filter').select2({
                 dropdownAutoWidth : true
@@ -653,7 +653,7 @@
                     search.push($(this).val());
                 });
                 search = search.join('|');
-                prlTable.column(22).search(search, true, false).draw();
+                prlTable.column(21).search(search, true, false).draw();
             });
             $('#purchase-request-requester-filter').select2().on('change', function(){
                 console.log('here');
