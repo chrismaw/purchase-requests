@@ -28,10 +28,21 @@
         html, #purchase-request-lines-table {
             overflow-x: visible;
         }
+        .dropdown-content {
+            z-index: 2;
+        }
+        #datatables-toolbar {
+            position: sticky !important;
+            top: 0 !important;
+            height: 40px;
+            padding-top: 10px;
+            background-color: white;
+            z-index: 1;
+        }
         .pr-toolbar {
             float: left;
-
         }
+
         #purchase-request-lines-table > thead > tr:nth-child(1) > th,
         body > table > thead > tr:nth-child(1) > th {
             border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
@@ -322,10 +333,11 @@
             }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
-                dom: "B<'pr-toolbar'>frtip",
+                dom: "<'#datatables-toolbar'B<'pr-toolbar'>f>rtip",
                 ajax: "{{ route('purchase-request-lines-all-data') }}",
                 order: [[ 2, 'asc' ]],
                 fixedHeader: {
+                    headerOffset: 50,
                     header: true,
                     footer: true
                 },
