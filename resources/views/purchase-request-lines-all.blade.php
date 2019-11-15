@@ -28,6 +28,23 @@
         html, #purchase-request-lines-table {
             overflow-x: visible;
         }
+        .dropdown-content {
+            z-index: 2;
+        }
+        #datatables-toolbar {
+            position: sticky !important;
+            top: 0 !important;
+            height: 40px;
+            padding-top: 10px;
+            background-color: white;
+            z-index: 1;
+            padding-right: 15px;
+            margin-right: -15px;
+        }
+        .pr-toolbar {
+            float: left;
+        }
+
         #purchase-request-lines-table > thead > tr:nth-child(1) > th,
         body > table > thead > tr:nth-child(1) > th {
             border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
@@ -178,7 +195,7 @@
                             <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
                         @endforeach
                     </select>
-                </td>                
+                </td>
                 <td style="padding: 10px 6px 6px 6px;">
                     <select id="purchase-request-lines-approver-filter" class="filter-input" multiple>
                         @foreach ($users as $user)
@@ -318,10 +335,11 @@
             }
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
-                dom: "B<'pr-toolbar'>frtip",
+                dom: "<'#datatables-toolbar'B<'pr-toolbar'>f>rtip",
                 ajax: "{{ route('purchase-request-lines-all-data') }}",
                 order: [[ 2, 'asc' ]],
                 fixedHeader: {
+                    headerOffset: 50,
                     header: true,
                     footer: true
                 },
@@ -372,7 +390,7 @@
                 columnDefs: [
                     { className: "text-nowrap", "targets": [5,7,16,17,24,25] }
                 ],
-                paging: false,
+                pageLength: 100,
                 orderCellsTop: true,
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
@@ -398,7 +416,8 @@
 
             // create the Show Your Requests checkbox
             $('div.pr-toolbar').html(
-                '<div><input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label></div>'
+                '<input type="checkbox" id="status-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="status-filter-checkbox">Show Open Requests</label><br>' +
+                '<input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 0px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label>'
             );
             $('#requester-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){
@@ -407,6 +426,15 @@
                 } else {
                     document.getElementById('purchase-request-requester-filter').value = '';
                     $('#purchase-request-requester-filter').trigger('change');
+                }
+            });
+            $('#status-filter-checkbox').on('change', function(){
+                var selectedValues = ['Pending Approval', 'Unreleased Drawing', 'Approved for Purchasing',
+                    'PO in Progress', 'PO Revision'];
+                if($(this).is(':checked')){
+                    $('#purchase-request-lines-status-filter').val(selectedValues).trigger('change');
+                } else {
+                    $('#purchase-request-lines-status-filter').val('').trigger('change');
                 }
             });
             // Add event listener for opening and closing details
@@ -435,10 +463,13 @@
 
             // add search function for Purchase Request Lines Table
             $('#filter-row td input').on('keyup change', function () {
-                prlTable
-                    .column( $(this).parent().index() )
-                    .search( this.value )
-                    .draw();
+                let that = this;
+                setTimeout(function () {
+                    prlTable
+                        .column( $(that).parent().index() )
+                        .search( that.value )
+                        .draw();
+                }, 750);
             });
 
             // validate form fields on create/edit

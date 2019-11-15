@@ -25,6 +25,9 @@
             display: none;
         }
         /* PURCHASE REQUEST TABLE */
+        .pr-toolbar {
+            float: left;
+        }
         #purchase-requests-table_wrapper {
             margin-bottom: 50px;
             max-width: 700px;
@@ -319,8 +322,8 @@
             } );
             // create the Show Open Request and Show Your Requests checkboxes
             $('div.pr-toolbar').html(
-                '<div><input type="checkbox" id="status-filter-checkbox" style="margin: 0px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label><br>' +
-                '<input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label></div>'
+                '<input type="checkbox" id="status-filter-checkbox" style="margin: 0px 5px 10px 10px" checked="checked"/><label for="status-filter-checkbox">Show Open Requests</label><br>' +
+                '<input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 0px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label>'
             );
             $('#status-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){

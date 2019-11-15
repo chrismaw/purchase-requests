@@ -359,8 +359,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->save();
 
-                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
-
+                    $uom_qty_required = ceil(($prl->qty_required / $prl->qty_per_uom));
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,
                         'purchase_request' => $prl->purchaseRequest->id,
