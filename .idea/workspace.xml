@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="added show open requests checkbox to all prlines view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -217,14 +218,7 @@
       <workItem from="1569954251193" duration="72000" />
       <workItem from="1573562160332" duration="1613000" />
       <workItem from="1573614058505" duration="3701000" />
-      <workItem from="1573780920700" duration="2598000" />
-    </task>
-    <task id="LOCAL-00020" summary="removed sort by name for users data">
-      <created>1562075594461</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1562075594461</updated>
+      <workItem from="1573780920700" duration="6537000" />
     </task>
     <task id="LOCAL-00021" summary="added validation to prl table">
       <created>1562163837035</created>
@@ -562,7 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573781256469</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="added .75sec delay to all prlines table filter search">
+      <created>1573783555464</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1573783555465</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,7 +607,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed purchase_request select override error" />
     <MESSAGE value="fixed select option default for editing row" />
     <MESSAGE value="added $ to uom cost and total line cost" />
     <MESSAGE value="forced text description to upper&#10;removed auto reload for prl table on submit" />
@@ -631,7 +631,8 @@
     <MESSAGE value="fixed wierd need_date reversing month and day bug. minor form validation styling. disabled pr select on line duplication." />
     <MESSAGE value="fixed project selector" />
     <MESSAGE value="fixed pr update error" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed pr update error" />
+    <MESSAGE value="added .75sec delay to all prlines table filter search" />
+    <option name="LAST_COMMIT_MESSAGE" value="added .75sec delay to all prlines table filter search" />
   </component>
   <component name="masterDetails">
     <states>

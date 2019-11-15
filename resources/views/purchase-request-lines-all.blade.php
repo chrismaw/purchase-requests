@@ -28,6 +28,10 @@
         html, #purchase-request-lines-table {
             overflow-x: visible;
         }
+        .pr-toolbar {
+            float: left;
+
+        }
         #purchase-request-lines-table > thead > tr:nth-child(1) > th,
         body > table > thead > tr:nth-child(1) > th {
             border-bottom: 2px solid black; /* match other tables since scroll Y adds its own footer */
@@ -398,7 +402,8 @@
 
             // create the Show Your Requests checkbox
             $('div.pr-toolbar').html(
-                '<div><input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label></div>'
+                '<input type="checkbox" id="status-filter-checkbox" style="margin: 0px 5px 10px 10px"/><label for="status-filter-checkbox">Show Open Requests</label><br>' +
+                '<input type="checkbox" id="requester-filter-checkbox" style="margin: 0px 5px 0px 10px"/><label for="requester-filter-checkbox">Show Only Your Requests</label>'
             );
             $('#requester-filter-checkbox').on('change', function(){
                 if($(this).is(':checked')){
@@ -407,6 +412,15 @@
                 } else {
                     document.getElementById('purchase-request-requester-filter').value = '';
                     $('#purchase-request-requester-filter').trigger('change');
+                }
+            });
+            $('#status-filter-checkbox').on('change', function(){
+                var selectedValues = ['Pending Approval', 'Unreleased Drawing', 'Approved for Purchasing',
+                    'PO in Progress', 'PO Revision'];
+                if($(this).is(':checked')){
+                    $('#purchase-request-lines-status-filter').val(selectedValues).trigger('change');
+                } else {
+                    $('#purchase-request-lines-status-filter').val('').trigger('change');
                 }
             });
             // Add event listener for opening and closing details
