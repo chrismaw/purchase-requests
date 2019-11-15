@@ -178,7 +178,7 @@
                             <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
                         @endforeach
                     </select>
-                </td>                
+                </td>
                 <td style="padding: 10px 6px 6px 6px;">
                     <select id="purchase-request-lines-approver-filter" class="filter-input" multiple>
                         @foreach ($users as $user)
@@ -372,7 +372,7 @@
                 columnDefs: [
                     { className: "text-nowrap", "targets": [5,7,16,17,24,25] }
                 ],
-                paging: false,
+                pageLength: 100,
                 orderCellsTop: true,
                 buttons: [
                     { extend: "create", editor: prlEditor, text: "Add" },
