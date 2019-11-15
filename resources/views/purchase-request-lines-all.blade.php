@@ -435,10 +435,13 @@
 
             // add search function for Purchase Request Lines Table
             $('#filter-row td input').on('keyup change', function () {
-                prlTable
-                    .column( $(this).parent().index() )
-                    .search( this.value )
-                    .draw();
+                let that = this;
+                setTimeout(function () {
+                    prlTable
+                        .column( $(that).parent().index() )
+                        .search( that.value )
+                        .draw();
+                }, 750);
             });
 
             // validate form fields on create/edit
