@@ -38,6 +38,8 @@
             padding-top: 10px;
             background-color: white;
             z-index: 1;
+            padding-right: 15px;
+            margin-right: -15px;
         }
         .pr-toolbar {
             float: left;

@@ -217,14 +217,7 @@
       <workItem from="1569954251193" duration="72000" />
       <workItem from="1573562160332" duration="1613000" />
       <workItem from="1573614058505" duration="3701000" />
-      <workItem from="1573780920700" duration="9570000" />
-    </task>
-    <task id="LOCAL-00022" summary="added license editor js&#10;fixed select error caused by validation">
-      <created>1562179084921</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1562179084921</updated>
+      <workItem from="1573780920700" duration="11262000" />
     </task>
     <task id="LOCAL-00023" summary="added additional parent child logic">
       <created>1562184339058</created>
@@ -562,7 +555,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573787478004</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="added sticky feature to all pr lines toolbar">
+      <created>1573790540269</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1573790540269</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,7 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added $ to uom cost and total line cost" />
     <MESSAGE value="forced text description to upper&#10;removed auto reload for prl table on submit" />
     <MESSAGE value="rounded up uom qty required&#10;removed prl table auto reload" />
     <MESSAGE value="added extra columns to prlines" />
@@ -631,7 +630,8 @@
     <MESSAGE value="fixed pr update error" />
     <MESSAGE value="added .75sec delay to all prlines table filter search" />
     <MESSAGE value="added show open requests checkbox to all prlines view" />
-    <option name="LAST_COMMIT_MESSAGE" value="added show open requests checkbox to all prlines view" />
+    <MESSAGE value="added sticky feature to all pr lines toolbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sticky feature to all pr lines toolbar" />
   </component>
   <component name="masterDetails">
     <states>
