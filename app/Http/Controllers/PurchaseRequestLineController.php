@@ -47,14 +47,12 @@ class PurchaseRequestLineController extends Controller
                             ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                             : ['name' => '', 'id' => ''],
                         'notes' => $prl->notes,
-                        'approver' => $prl->approver ? $prl->approverUser->name : '',
-//                        'approver' => $prl->approver
-//                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
-//                            : ['name' => '', 'id' => ''],
-                        'buyer' => $prl->buyer ? $prl->buyerUser->name : '',
-//                        'buyer' => $prl->buyer
-//                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
-//                            : ['name' => '', 'id' => ''],
+                        'approver' => $prl->approver
+                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
+                            : ['name' => '', 'id' => ''],
+                        'buyer' => $prl->buyer
+                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
+                            : ['name' => '', 'id' => ''],
                         'prl_status' => $prl->status,
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,
@@ -163,14 +161,12 @@ class PurchaseRequestLineController extends Controller
                         ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                         : ['name' => '', 'id' => ''],
                     'notes' => $prl->notes,
-                    'approver' => $prl->approver ? $prl->approverUser->name : '',
-//                        'approver' => $prl->approver
-//                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
-//                            : ['name' => '', 'id' => ''],
-                    'buyer' => $prl->buyer ? $prl->buyerUser->name : '',
-//                        'buyer' => $prl->buyer
-//                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
-//                            : ['name' => '', 'id' => ''],
+                    'approver' => $prl->approver
+                        ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
+                        : ['name' => '', 'id' => ''],
+                    'buyer' => $prl->buyer
+                        ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
+                        : ['name' => '', 'id' => ''],
                     'prl_status' => $prl->status,
                     'next_assembly' => $prl->next_assembly,
                     'work_order' => $prl->work_order,
@@ -261,14 +257,12 @@ class PurchaseRequestLineController extends Controller
                             ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                             : ['name' => '', 'id' => ''],
                         'notes' => $prl->notes,
-                        'approver' => $prl->approver ? $prl->approverUser->name : '',
-//                        'approver' => $prl->approver
-//                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
-//                            : ['name' => '', 'id' => ''],
-                        'buyer' => $prl->buyer ? $prl->buyerUser->name : '',
-//                        'buyer' => $prl->buyer
-//                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
-//                            : ['name' => '', 'id' => ''],
+                        'approver' => $prl->approver
+                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
+                            : ['name' => '', 'id' => ''],
+                        'buyer' => $prl->buyer
+                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
+                            : ['name' => '', 'id' => ''],
                         'prl_status' => $prl->status,
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,
@@ -378,14 +372,12 @@ class PurchaseRequestLineController extends Controller
                             ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                             : ['name' => '', 'id' => ''],
                         'notes' => $prl->notes,
-                        'approver' => $prl->approver ? $prl->approverUser->name : '',
-//                        'approver' => $prl->approver
-//                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
-//                            : ['name' => '', 'id' => ''],
-                        'buyer' => $prl->buyer ? $prl->buyerUser->name : '',
-//                        'buyer' => $prl->buyer
-//                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
-//                            : ['name' => '', 'id' => ''],
+                        'approver' => $prl->approver
+                            ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
+                            : ['name' => '', 'id' => ''],
+                        'buyer' => $prl->buyer
+                            ? ['name' => $prl->buyerUser->name, 'id' => $prl->buyer]
+                            : ['name' => '', 'id' => ''],
                         'prl_status' => $prl->status,
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,

@@ -51,10 +51,14 @@
         }
 
         /* Differentiate read-only columns */
+        @if (!Auth::user()->isApprover())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(15),
+        @endif
+        @if (!Auth::user()->isBuyer())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(16),
+        @endif
         #purchase-request-lines-table > tbody > tr > td:nth-child(8),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(10),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(15),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(16)
+        #purchase-request-lines-table > tbody > tr > td:nth-child(10)
         {
             color: #333;
             font-style: italic;
@@ -404,22 +408,26 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    {{--{ label: "Approver:", name: "approver.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
-                    {{--{ label: "Buyer:", name: "buyer.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
+                    @if (Auth::user()->isApprover())
+                        { label: "Approver:", name: "approver.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                    @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
+                    @if (Auth::user()->isBuyer())
+                        { label: "Buyer:", name: "buyer.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                    @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
@@ -485,8 +493,8 @@
                     { data: "need_date", width: '1%' },
                     { data: "supplier.name", editField: "supplier.id", width: '10%'},
                     { data: "notes", width: '30%'},
-                    { data: "approver", width: '1%' },
-                    { data: "buyer", width: '1%' },
+                    { data: "approver.name", editField: "approver.id", width: '1%' },
+                    { data: "buyer.name", editField: "buyer.id", width: '1%' },
                     { data: "prl_status", width: '1%' },
                     { data: "next_assembly", width: '1%' },
                     { data: "work_order", width: '1%' },
