@@ -280,20 +280,20 @@ class PurchaseRequestLineController extends Controller
                 $prl = PurchaseRequestLine::find(substr($row_id,4));
                 if ($prl instanceof PurchaseRequestLine){
                     if (array_key_exists('purchase_request',$data)){
-                        $prl->purchase_request_id = $data['purchase_request']
-                            ? $data['purchase_request'] : $prl->purchase_request_id;
+                        $prl->purchase_request_id = $data['purchase_request'];
+//                            ? $data['purchase_request'] : $prl->purchase_request_id;
                     }
                     if (array_key_exists('item_number',$data)){
-                        $prl->item_number = $data['item_number']
-                            ? $data['item_number'] : $prl->item_number;
+                        $prl->item_number = $data['item_number'];
+//                            ? $data['item_number'] : $prl->item_number;
                     }
                     if (array_key_exists('item_revision',$data)){
-                        $prl->item_revision = $data['item_revision']
-                            ? $data['item_revision'] : $prl->item_revision;
+                        $prl->item_revision = $data['item_revision'];
+//                            ? $data['item_revision'] : $prl->item_revision;
                     }
                     if (array_key_exists('item_description',$data)){
-                        $prl->item_description = $data['item_description']
-                            ? strtoupper($data['item_description']) : $prl->item_description;
+                        $prl->item_description = $data['item_description'];
+//                            ? strtoupper($data['item_description']) : $prl->item_description;
                     }
                     if (array_key_exists('qty_required',$data)){
                         $prl->qty_required = $data['qty_required']
@@ -304,12 +304,13 @@ class PurchaseRequestLineController extends Controller
                             ? $data['uom']['id'] : $prl->uom_id;
                     }
                     if (array_key_exists('qty_per_uom',$data)){
-                        $prl->qty_per_uom = $data['qty_per_uom']
-                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
+                        $prl->qty_per_uom = $data['qty_per_uom'];
+//                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
                     }
                     if (array_key_exists('cost_per_uom',$data)){
-                        $prl->cost_per_uom = $data['cost_per_uom']
-                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
+                        $prl->cost_per_uom = ltrim($data['cost_per_uom'],'$');
+//                        $prl->cost_per_uom = $data['cost_per_uom']
+//                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
                     }
                     if (array_key_exists('task',$data)){
                         $prl->task_id = preg_match('/^\d+$/',$data['task']['id'])
@@ -325,8 +326,8 @@ class PurchaseRequestLineController extends Controller
                             ? $data['supplier']['id'] : $prl->supplier_id;
                     }
                     if (array_key_exists('notes',$data)){
-                        $prl->notes = $data['notes']
-                            ? $data['notes'] : $prl->notes;
+                        $prl->notes = $data['notes'];
+//                            ? $data['notes'] : $prl->notes;
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
@@ -341,16 +342,16 @@ class PurchaseRequestLineController extends Controller
                             ? $data['prl_status'] : $prl->prl_status;
                     }
                     if (array_key_exists('next_assembly',$data)){
-                        $prl->next_assembly = $data['next_assembly']
-                            ? $data['next_assembly'] : $prl->next_assembly;
+                        $prl->next_assembly = $data['next_assembly'];
+//                            ? $data['next_assembly'] : $prl->next_assembly;
                     }
                     if (array_key_exists('work_order',$data)){
-                        $prl->work_order = $data['work_order']
-                            ? $data['work_order'] : $prl->work_order;
+                        $prl->work_order = $data['work_order'];
+//                            ? $data['work_order'] : $prl->work_order;
                     }
                     if (array_key_exists('po_number',$data)){
-                        $prl->po_number = $data['po_number']
-                            ? $data['po_number'] : $prl->po_number;
+                        $prl->po_number = $data['po_number'];
+//                            ? $data['po_number'] : $prl->po_number;
                     }
                     $prl->save();
 
@@ -684,32 +685,33 @@ class PurchaseRequestLineController extends Controller
                             ? $data['purchase_request'] : $prl->purchase_request_id;
                     }
                     if (array_key_exists('item_number',$data)){
-                        $prl->item_number = $data['item_number']
-                            ? $data['item_number'] : $prl->item_number;
+                        $prl->item_number = $data['item_number'];
+//                            ? $data['item_number'] : $prl->item_number;
                     }
                     if (array_key_exists('item_revision',$data)){
-                        $prl->item_revision = $data['item_revision']
-                            ? $data['item_revision'] : $prl->item_revision;
+                        $prl->item_revision = $data['item_revision'];
+//                            ? $data['item_revision'] : $prl->item_revision;
                     }
                     if (array_key_exists('item_description',$data)){
-                        $prl->item_description = $data['item_description']
-                            ? strtoupper($data['item_description']) : $prl->item_description;
+                        $prl->item_description = $data['item_description'];
+//                            ? strtoupper($data['item_description']) : $prl->item_description;
                     }
                     if (array_key_exists('qty_required',$data)){
-                        $prl->qty_required = $data['qty_required']
-                            ? $data['qty_required'] : $prl->qty_required;
+                        $prl->qty_required = $data['qty_required'];
+//                            ? $data['qty_required'] : $prl->qty_required;
                     }
                     if (array_key_exists('uom',$data)){
                         $prl->uom_id = preg_match('/^\d+$/',$data['uom']['id'])
                             ? $data['uom']['id'] : $prl->uom_id;
                     }
                     if (array_key_exists('qty_per_uom',$data)){
-                        $prl->qty_per_uom = $data['qty_per_uom']
-                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
+                        $prl->qty_per_uom = $data['qty_per_uom'];
+//                            ? $data['qty_per_uom'] : $prl->qty_per_uom;
                     }
                     if (array_key_exists('cost_per_uom',$data)){
-                        $prl->cost_per_uom = $data['cost_per_uom']
-                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
+                        $prl->cost_per_uom = ltrim($data['cost_per_uom'],'$');
+//                        $prl->cost_per_uom = $data['cost_per_uom']
+//                            ? ltrim($data['cost_per_uom'],'$') : $prl->cost_per_uom;
                     }
                     if (array_key_exists('task',$data)){
                         $prl->task_id = preg_match('/^\d+$/',$data['task']['id'])
@@ -725,8 +727,8 @@ class PurchaseRequestLineController extends Controller
                             ? $data['supplier']['id'] : $prl->supplier_id;
                     }
                     if (array_key_exists('notes',$data)){
-                        $prl->notes = $data['notes']
-                            ? $data['notes'] : $prl->notes;
+                        $prl->notes = $data['notes'];
+//                            ? $data['notes'] : $prl->notes;
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
@@ -741,16 +743,16 @@ class PurchaseRequestLineController extends Controller
                             ? $data['prl_status'] : $prl->prl_status;
                     }
                     if (array_key_exists('next_assembly',$data)){
-                        $prl->next_assembly = $data['next_assembly']
-                            ? $data['next_assembly'] : $prl->next_assembly;
+                        $prl->next_assembly = $data['next_assembly'];
+//                            ? $data['next_assembly'] : $prl->next_assembly;
                     }
                     if (array_key_exists('work_order',$data)){
-                        $prl->work_order = $data['work_order']
-                            ? $data['work_order'] : $prl->work_order;
+                        $prl->work_order = $data['work_order'];
+//                            ? $data['work_order'] : $prl->work_order;
                     }
                     if (array_key_exists('po_number',$data)){
-                        $prl->po_number = $data['po_number']
-                            ? $data['po_number'] : $prl->po_number;
+                        $prl->po_number = $data['po_number'];
+//                            ? $data['po_number'] : $prl->po_number;
                     }
                     $prl->save();
 
