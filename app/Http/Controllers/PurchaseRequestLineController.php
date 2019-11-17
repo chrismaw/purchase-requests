@@ -29,7 +29,7 @@ class PurchaseRequestLineController extends Controller
                     return $q->whereIn('purchase_request_id', $prl_ids);
                 })
                 ->get()->map(function ($prl) {
-                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                    $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
                     return [
                         'DT_RowId' => 'row_' . $prl->id,
                         'purchase_request' => $prl->purchaseRequest->id,
@@ -449,7 +449,7 @@ class PurchaseRequestLineController extends Controller
             'buyerUser:id,name')
             ->where('is_deleted', '=', false)
             ->get()->map(function ($prl) {
-                $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
                 return [
                     'DT_RowId' => 'row_' . $prl->id,
                     'details_control' => '',
@@ -515,7 +515,7 @@ class PurchaseRequestLineController extends Controller
                 $prl->po_number = $request->data[0]['po_number'];
                 $prl->save();
 
-                $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
 
                 $output['data'][] = [
                     'DT_RowId' => 'row_' . $prl->id,
@@ -633,7 +633,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->save();
 
-                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                    $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
 
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,
@@ -756,7 +756,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->save();
 
-                    $uom_qty_required = ceil(number_format($prl->qty_required / $prl->qty_per_uom,2));
+                    $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
 
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $prl->id,

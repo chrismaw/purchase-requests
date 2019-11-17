@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -220,13 +219,6 @@
       <workItem from="1573614058505" duration="3701000" />
       <workItem from="1573780920700" duration="11262000" />
       <workItem from="1573855398098" duration="7000000" />
-    </task>
-    <task id="LOCAL-00024" summary="added validation">
-      <created>1562185358700</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1562185358700</updated>
     </task>
     <task id="LOCAL-00025" summary="hid purchase_request field when adding prline">
       <created>1562185536949</created>
@@ -564,7 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573913363518</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="fixed bug not allowing to erase text in full">
+      <created>1573963321385</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1573963321385</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +607,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rounded up uom qty required&#10;removed prl table auto reload" />
     <MESSAGE value="added extra columns to prlines" />
     <MESSAGE value="added tippy.js" />
     <MESSAGE value="started column filters" />
@@ -633,7 +631,8 @@
     <MESSAGE value="added show open requests checkbox to all prlines view" />
     <MESSAGE value="added sticky feature to all pr lines toolbar" />
     <MESSAGE value="added ability to edit approver and buyer via front page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added ability to edit approver and buyer via front page" />
+    <MESSAGE value="fixed bug not allowing to erase text in full" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug not allowing to erase text in full" />
   </component>
   <component name="masterDetails">
     <states>
