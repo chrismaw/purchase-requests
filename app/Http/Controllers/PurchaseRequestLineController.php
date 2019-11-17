@@ -8,6 +8,7 @@ use App\Supplier;
 use App\Task;
 use App\Uom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PurchaseRequestLineController extends Controller
@@ -818,6 +819,31 @@ class PurchaseRequestLineController extends Controller
         }
         return response()->json([
             'success' => $success
+        ]);
+    }
+    public function approve(Request $request){
+        $success = false;
+        $message = '';
+        foreach ($request->IDs as $id){
+            $id = substr($id,4);
+            $prl = PurchaseRequestLine::find($id);
+            if ($prl instanceof PurchaseRequestLine){
+                $prl->status = 'Approved for Purchasing';
+                $prl->approver = Auth::user()->id;
+                try {
+                    $prl->save();
+                    $success = true;
+                } catch (\Exception $e){
+                    if ($success){
+                        $message = 'Some of the Purchase Request Lines failed to be approved.';
+                    } else {
+                        $message = 'None of the Purchase Request Lines were successfully approved.';
+                    }
+                }
+            }
+        }
+        return response()->json([
+            'success' => $success, 'message' => $message
         ]);
     }
 }

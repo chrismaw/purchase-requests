@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="added ability">
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -219,14 +221,7 @@
       <workItem from="1573562160332" duration="1613000" />
       <workItem from="1573614058505" duration="3701000" />
       <workItem from="1573780920700" duration="11262000" />
-      <workItem from="1573855398098" duration="2619000" />
-    </task>
-    <task id="LOCAL-00023" summary="added additional parent child logic">
-      <created>1562184339058</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1562184339058</updated>
+      <workItem from="1573855398098" duration="7000000" />
     </task>
     <task id="LOCAL-00024" summary="added validation">
       <created>1562185358700</created>
@@ -564,7 +559,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573790540269</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="added ability to edit approver and buyer via front page">
+      <created>1573913363518</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1573913363518</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +610,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="forced text description to upper&#10;removed auto reload for prl table on submit" />
     <MESSAGE value="rounded up uom qty required&#10;removed prl table auto reload" />
     <MESSAGE value="added extra columns to prlines" />
     <MESSAGE value="added tippy.js" />
@@ -633,7 +634,8 @@
     <MESSAGE value="added .75sec delay to all prlines table filter search" />
     <MESSAGE value="added show open requests checkbox to all prlines view" />
     <MESSAGE value="added sticky feature to all pr lines toolbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sticky feature to all pr lines toolbar" />
+    <MESSAGE value="added ability to edit approver and buyer via front page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ability to edit approver and buyer via front page" />
   </component>
   <component name="masterDetails">
     <states>

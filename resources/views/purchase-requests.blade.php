@@ -527,7 +527,28 @@
                             prlEditor.disable('purchase_request');
                         }
                     },
-                    { extend: "remove", editor: prlEditor }
+                    { extend: "remove", editor: prlEditor },
+                    @if (Auth::user()->isApprover())
+                        {
+                            extend: "selected",
+                            text: 'Approve',
+                            action: function ( e, dt, node, config ) {
+                                var IDs = [];
+                                // get and push id to array for each selected row
+                                $.each(prlTable.rows( {selected: true} ).data(), function (k,v) {
+                                    IDs.push(v.DT_RowId);
+                                });
+                                $.post("{{ url('/purchase-request-line/approve') }}", { IDs: IDs }, function (data) {
+                                    if (data.success === true){
+                                        prlTable.ajax.reload();
+                                        alert('Lines Approved!');
+                                    } else {
+                                        alert(data.message);
+                                    }
+                                });
+                            }
+                        },
+                    @endif
                 ]
             } );
             // add input for each column for Purchase Request Lines Table
