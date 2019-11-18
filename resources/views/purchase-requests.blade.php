@@ -51,10 +51,14 @@
         }
 
         /* Differentiate read-only columns */
+        @if (!Auth::user()->isApprover())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(15),
+        @endif
+        @if (!Auth::user()->isBuyer())
+            #purchase-request-lines-table > tbody > tr > td:nth-child(16),
+        @endif
         #purchase-request-lines-table > tbody > tr > td:nth-child(8),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(10),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(15),
-        #purchase-request-lines-table > tbody > tr > td:nth-child(16)
+        #purchase-request-lines-table > tbody > tr > td:nth-child(10)
         {
             color: #333;
             font-style: italic;
@@ -404,22 +408,26 @@
                         ]
                     },
                     { label: "Notes:", name: "notes" },
-                    {{--{ label: "Approver:", name: "approver.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
-                    {{--{ label: "Buyer:", name: "buyer.id", type: 'select',--}}
-                    {{--    options: [--}}
-                    {{--        { label: '', value: '' },--}}
-                    {{--        @foreach ($users as $user)--}}
-                    {{--            { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },--}}
-                    {{--        @endforeach--}}
-                    {{--    ]--}}
-                    {{--},--}}
+                    @if (Auth::user()->isApprover())
+                        { label: "Approver:", name: "approver.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                    @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
+                    @if (Auth::user()->isBuyer())
+                        { label: "Buyer:", name: "buyer.id", type: 'select',
+                            options: [
+                                { label: '', value: '' },
+                                    @foreach ($users as $user)
+                                { label: "{{ addslashes($user->name) }}", value: "{{ $user->id }}" },
+                                @endforeach
+                            ]
+                        },
+                    @endif
                     { label: "Status:", name: "prl_status", type: 'select', def: 'Pending Approval',
                         options: [
                             @foreach ($prlStatuses as $status)
@@ -484,9 +492,20 @@
                     { data: "task.number", editField: "task.id", width: '1%' },
                     { data: "need_date", width: '1%' },
                     { data: "supplier.name", editField: "supplier.id", width: '10%'},
-                    { data: "notes", width: '30%'},
-                    { data: "approver", width: '1%' },
-                    { data: "buyer", width: '1%' },
+                    {
+                        data: "notes",
+                        width: '30%',
+                        render: function(data) {
+                            if (data){
+                                var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([%-=\w\/_\.]*(\?\S+)?)?)?)/ig;
+                                return data.replace(regex,"<a href='$1' target='_blank'>$1</a>");
+                            } else {
+                                return data
+                            }
+                        }
+                    },
+                    { data: "approver.name", editField: "approver.id", width: '1%' },
+                    { data: "buyer.name", editField: "buyer.id", width: '1%' },
                     { data: "prl_status", width: '1%' },
                     { data: "next_assembly", width: '1%' },
                     { data: "work_order", width: '1%' },
@@ -519,7 +538,28 @@
                             prlEditor.disable('purchase_request');
                         }
                     },
-                    { extend: "remove", editor: prlEditor }
+                    { extend: "remove", editor: prlEditor },
+                    @if (Auth::user()->isApprover())
+                        {
+                            extend: "selected",
+                            text: 'Approve',
+                            action: function ( e, dt, node, config ) {
+                                var IDs = [];
+                                // get and push id to array for each selected row
+                                $.each(prlTable.rows( {selected: true} ).data(), function (k,v) {
+                                    IDs.push(v.DT_RowId);
+                                });
+                                $.post("{{ url('/purchase-request-line/approve') }}", { IDs: IDs }, function (data) {
+                                    if (data.success === true){
+                                        prlTable.ajax.reload();
+                                        alert('Lines Approved!');
+                                    } else {
+                                        alert(data.message);
+                                    }
+                                });
+                            }
+                        },
+                    @endif
                 ]
             } );
             // add input for each column for Purchase Request Lines Table

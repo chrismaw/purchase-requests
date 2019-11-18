@@ -381,7 +381,18 @@
                     { data: "next_assembly", width: '1%' },
                     { data: "work_order", width: '1%' },
                     { data: "po_number", width: '1%' },
-					{ data: "notes" , width: '10%'},
+					{
+                        data: "notes",
+                        width: '10%',
+                        render: function(data) {
+                            if (data){
+                                var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([%-=\w\/_\.]*(\?\S+)?)?)?)/ig;
+                                return data.replace(regex,"<a href='$1' target='_blank'>$1</a>");
+                            } else {
+                                return data
+                            }
+					    }
+                    },
                 ],
                 select: {
                     style:    'os',
@@ -410,7 +421,28 @@
                             prlEditor.disable('purchase_request');
                         }
                     },
-                    { extend: "remove", editor: prlEditor }
+                    { extend: "remove", editor: prlEditor },
+                    @if (Auth::user()->isApprover())
+                        {
+                            extend: "selected",
+                            text: 'Approve',
+                            action: function ( e, dt, node, config ) {
+                                var IDs = [];
+                                // get and push id to array for each selected row
+                                $.each(prlTable.rows( {selected: true} ).data(), function (k,v) {
+                                    IDs.push(v.DT_RowId);
+                                });
+                                $.post("{{ url('/purchase-request-line/approve') }}", { IDs: IDs }, function (data) {
+                                    if (data.success === true){
+                                        prlTable.ajax.reload();
+                                        alert('Lines Approved!');
+                                    } else {
+                                        alert(data.message);
+                                    }
+                                });
+                            }
+                        },
+                    @endif
                 ]
             } );
 

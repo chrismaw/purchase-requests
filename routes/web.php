@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/purchase-request-lines-all/data', 'PurchaseRequestLineController@allData')->name('purchase-request-lines-all-data');
     Route::post('/purchase-request-lines-all/update', 'PurchaseRequestLineController@allUpdate')->name('purchase-request-lines-all-update');
     Route::post('/purchase-request-line/buyers-notes/{id}', 'PurchaseRequestLineController@updateBuyersNotes');
+    Route::post('/purchase-request-line/approve', 'PurchaseRequestLineController@approve');
 
     //Projects
     Route::get('/projects', 'ProjectController@index')->name('projects');
