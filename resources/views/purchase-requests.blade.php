@@ -497,8 +497,8 @@
                         width: '30%',
                         render: function(data) {
                             if (data){
-                                var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([%-=\w\/_\.]*(\?\S+)?)?)?)/ig;
-                                return data.replace(regex,"<a href='$1' target='_blank'>$1</a>");
+                                var regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/ig;
+                                return data.replace(regex,"<a href='$1' target='_blank'>Link</a>");
                             } else {
                                 return data
                             }

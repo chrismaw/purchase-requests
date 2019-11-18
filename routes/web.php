@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
+Route::get('/public/data', 'PurchaseRequestLineController@allData')->name('purchase-request-lines-all-data');
 
 Route::middleware(['auth'])->group(function() {
 
