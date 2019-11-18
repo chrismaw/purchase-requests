@@ -492,7 +492,18 @@
                     { data: "task.number", editField: "task.id", width: '1%' },
                     { data: "need_date", width: '1%' },
                     { data: "supplier.name", editField: "supplier.id", width: '10%'},
-                    { data: "notes", width: '30%'},
+                    {
+                        data: "notes",
+                        width: '30%',
+                        render: function(data) {
+                            if (data){
+                                var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([%-=\w\/_\.]*(\?\S+)?)?)?)/ig;
+                                return data.replace(regex,"<a href='$1' target='_blank'>$1</a>");
+                            } else {
+                                return data
+                            }
+                        }
+                    },
                     { data: "approver.name", editField: "approver.id", width: '1%' },
                     { data: "buyer.name", editField: "buyer.id", width: '1%' },
                     { data: "prl_status", width: '1%' },

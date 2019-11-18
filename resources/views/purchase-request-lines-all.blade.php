@@ -381,7 +381,18 @@
                     { data: "next_assembly", width: '1%' },
                     { data: "work_order", width: '1%' },
                     { data: "po_number", width: '1%' },
-					{ data: "notes" , width: '10%'},
+					{
+                        data: "notes",
+                        width: '10%',
+                        render: function(data) {
+                            if (data){
+                                var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([%-=\w\/_\.]*(\?\S+)?)?)?)/ig;
+                                return data.replace(regex,"<a href='$1' target='_blank'>$1</a>");
+                            } else {
+                                return data
+                            }
+					    }
+                    },
                 ],
                 select: {
                     style:    'os',

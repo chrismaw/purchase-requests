@@ -47,7 +47,6 @@ class PurchaseRequestLineController extends Controller
                         'supplier' => $prl->supplier
                             ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                             : ['name' => '', 'id' => ''],
-                        'notes' => $prl->notes,
                         'approver' => $prl->approver
                             ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
                             : ['name' => '', 'id' => ''],
@@ -58,6 +57,7 @@ class PurchaseRequestLineController extends Controller
                         'next_assembly' => $prl->next_assembly,
                         'work_order' => $prl->work_order,
                         'po_number' => $prl->po_number,
+                        'notes' => $prl->notes,
                     ];
                 })])->toJson();
         } else {
@@ -472,7 +472,6 @@ class PurchaseRequestLineController extends Controller
                     'supplier' => $prl->supplier
                         ? ['name' => $prl->supplier->name, 'id' => $prl->supplier_id]
                         : ['name' => '', 'id' => ''],
-                    'notes' => $prl->notes,
                     'approver' => $prl->approver
                         ? ['name' => $prl->approverUser->name, 'id' => $prl->approver]
                         : ['name' => '', 'id' => ''],
@@ -484,7 +483,8 @@ class PurchaseRequestLineController extends Controller
                     'work_order' => $prl->work_order,
                     'po_number' => $prl->po_number,
                     'buyers_notes' => $prl->buyers_notes,
-                    'id' => $prl->id
+                    'id' => $prl->id,
+                    'notes' => $prl->notes,
                 ];
             })])->toJson();
     }
