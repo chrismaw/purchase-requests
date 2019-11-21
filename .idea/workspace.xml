@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="added excel import to main page.">
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -225,14 +223,8 @@
       <workItem from="1574169521046" duration="1903000" />
       <workItem from="1574176065702" duration="4967000" />
       <workItem from="1574196890314" duration="2914000" />
-      <workItem from="1574219568454" duration="3755000" />
-    </task>
-    <task id="LOCAL-00025" summary="hid purchase_request field when adding prline">
-      <created>1562185536949</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1562185536949</updated>
+      <workItem from="1574219568454" duration="4406000" />
+      <workItem from="1574340690006" duration="1076000" />
     </task>
     <task id="LOCAL-00026" summary="select2 working.">
       <created>1562187888600</created>
@@ -570,7 +562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573963321385</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="added excel import to main page.">
+      <created>1574223367395</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1574223367395</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +613,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added extra columns to prlines" />
     <MESSAGE value="added tippy.js" />
     <MESSAGE value="started column filters" />
     <MESSAGE value="added view datatable only" />
@@ -639,7 +637,8 @@
     <MESSAGE value="added sticky feature to all pr lines toolbar" />
     <MESSAGE value="added ability to edit approver and buyer via front page" />
     <MESSAGE value="fixed bug not allowing to erase text in full" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug not allowing to erase text in full" />
+    <MESSAGE value="added excel import to main page." />
+    <option name="LAST_COMMIT_MESSAGE" value="added excel import to main page." />
   </component>
   <component name="masterDetails">
     <states>

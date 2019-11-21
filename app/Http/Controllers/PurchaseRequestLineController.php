@@ -392,15 +392,14 @@ class PurchaseRequestLineController extends Controller
                 $output
             );
 
-        } elseif ($request->action == 'remove'){
-
-            $p = PurchaseRequestLine::find(substr(array_key_first($request->data),4));
-            if ($p instanceof PurchaseRequestLine){
-                $p->delete();
-
-                return response()->json();
+        } elseif ($request->action == 'remove') {
+            foreach ($request->data as $k => $row) {
+                $p = PurchaseRequestLine::find(substr($k, 4));
+                if ($p instanceof PurchaseRequestLine) {
+                    $p->delete();
+                }
             }
-
+            return response()->json();
         };
     }
 
@@ -800,15 +799,14 @@ class PurchaseRequestLineController extends Controller
                 $output
             );
 
-        } elseif ($request->action == 'remove'){
-
-            $p = PurchaseRequestLine::find(substr(array_key_first($request->data),4));
-            if ($p instanceof PurchaseRequestLine){
-                $p->delete();
-
-                return response()->json();
+        } elseif ($request->action == 'remove') {
+            foreach ($request->data as $k => $row) {
+                $p = PurchaseRequestLine::find(substr($k, 4));
+                if ($p instanceof PurchaseRequestLine) {
+                    $p->delete();
+                }
             }
-
+            return response()->json();
         };
     }
 
