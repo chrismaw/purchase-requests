@@ -4,6 +4,7 @@
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -224,14 +225,8 @@
       <workItem from="1574176065702" duration="4967000" />
       <workItem from="1574196890314" duration="2914000" />
       <workItem from="1574219568454" duration="4406000" />
-      <workItem from="1574340690006" duration="1076000" />
-    </task>
-    <task id="LOCAL-00026" summary="select2 working.">
-      <created>1562187888600</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1562187888600</updated>
+      <workItem from="1574340690006" duration="1193000" />
+      <workItem from="1574511200475" duration="2496000" />
     </task>
     <task id="LOCAL-00027" summary="adjusted select2 styling and fixed auto set purchase_request value when adding new prline">
       <created>1562208248641</created>
@@ -569,7 +564,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574223367395</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="added fix for deleting multiple pr lines">
+      <created>1574341787403</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1574341787403</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -613,7 +615,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added tippy.js" />
     <MESSAGE value="started column filters" />
     <MESSAGE value="added view datatable only" />
     <MESSAGE value="added temp tooltips" />
@@ -638,7 +639,8 @@
     <MESSAGE value="added ability to edit approver and buyer via front page" />
     <MESSAGE value="fixed bug not allowing to erase text in full" />
     <MESSAGE value="added excel import to main page." />
-    <option name="LAST_COMMIT_MESSAGE" value="added excel import to main page." />
+    <MESSAGE value="added fix for deleting multiple pr lines" />
+    <option name="LAST_COMMIT_MESSAGE" value="added fix for deleting multiple pr lines" />
   </component>
   <component name="masterDetails">
     <states>

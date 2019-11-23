@@ -858,7 +858,6 @@
                 if (this.files[0] && prID){
                     var file = this.files[0];
                     var extension = file.name.split('.').pop().toLowerCase();
-                    console.log(extension);
                     if (extension !== 'xlsx'){
                         alert('Only .xlsx files are able to be imported.');
                         return;
@@ -877,8 +876,10 @@
                                 if (data.success === true){
                                     prlTable.ajax.reload();
                                     alert('Lines Successfully Imported!');
+                                    that.value = null;
                                 } else {
                                     alert(data.message);
+                                    that.value = null;
                                 }
                             });
                         })

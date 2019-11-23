@@ -873,7 +873,7 @@ class PurchaseRequestLineController extends Controller
                     $prl->work_order = isset($row->Work_Order) ? trim($row->Work_Order) : null;
                     $prl->po_number = isset($row->PO_Number) ? trim($row->PO_Number) : null;
 
-                    if (!$row->Qty_Req){
+                    if (!property_exists($row,'Qty_Req')){
                         $message = 'Row'. $count . ': A quantity is required!';
                         break;
                     }
@@ -883,7 +883,7 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->qty_required = trim($row->Qty_Req);
 
-                    if (!$row->UOM){
+                    if (!property_exists($row,'UOM')){
                         $message = 'Row'. $count . ': A Unit of Measure is required!';
                         break;
                     }
@@ -900,13 +900,13 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->qty_per_uom = $row->Qty_Per_UOM ? trim($row->Qty_Per_UOM) : null;
 
-                    if (preg_match('/[a-zA-Z]/',$row->UOM_Cost)){
+                    if (property_exists($row,'UOM_Cost') && preg_match('/[a-zA-Z]/',$row->UOM_Cost)){
                         $message = 'Row'. $count . ': Cost per Unit of Measure must be digits only!';
                         break;
                     }
-                    $prl->cost_per_uom = $row->UOM_Cost ? trim(str_replace('$','',$row->UOM_Cost)) : null;
+                    $prl->cost_per_uom = property_exists($row,'UOM_Cost') ? trim(str_replace('$','',$row->UOM_Cost)) : '0.00';
 
-                    if (!$row->Task){
+                    if (!property_exists($row,'Task')){
                         $message = 'Row'. $count . ': A Task is required!';
                         break;
                     }
@@ -917,13 +917,13 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->task_id = $task->id;
 
-                    if (!$row->Need_Date){
+                    if (!property_exists($row,'Need_Date')){
                         $message = 'Row'. $count . ': A Need Date is required!';
                         break;
                     }
                     $prl->need_date = date('Y-m-d 00:00:00',strtotime($row->Need_Date));
 
-                    if (!$row->Supplier){
+                    if (!property_exists($row,'Supplier')){
                         $message = 'Row'. $count . ': A Supplier is required!';
                         break;
                     }
