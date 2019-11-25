@@ -332,11 +332,11 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
-                            ? $data['approver']['id'] : $prl->approver;
+                            ? $data['approver']['id'] : (is_null($data['approver']['id']) ? null : $prl->approver);
                     }
                     if (array_key_exists('buyer',$data)){
                         $prl->buyer = preg_match('/^\d+$/',$data['buyer']['id'])
-                            ? $data['buyer']['id'] : $prl->buyer;
+                            ? $data['buyer']['id'] : (is_null($data['buyer']['id']) ? null : $prl->buyer);
                     }
                     if (array_key_exists('prl_status',$data)){
                         $prl->status = $data['prl_status']
@@ -732,11 +732,11 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
-                            ? $data['approver']['id'] : $prl->approver;
+                            ? $data['approver']['id'] : (is_null($data['approver']['id']) ? null : $prl->approver);
                     }
                     if (array_key_exists('buyer',$data)){
                         $prl->buyer = preg_match('/^\d+$/',$data['buyer']['id'])
-                            ? $data['buyer']['id'] : $prl->buyer;
+                            ? $data['buyer']['id'] : (is_null($data['buyer']['id']) ? null : $prl->buyer);
                     }
                     if (array_key_exists('prl_status',$data)){
                         $prl->status = $data['prl_status']
