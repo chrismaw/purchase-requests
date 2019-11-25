@@ -867,11 +867,16 @@ class PurchaseRequestLineController extends Controller
                     $prl->purchase_request_id = $request->prID;
                     $prl->item_number = $row->Item_Number ? trim($row->Item_Number) : null;
                     $prl->item_revision = $row->Item_Rev ? trim($row->Item_Rev) : null;
-                    $prl->item_description = $row->Item_Description ? trim($row->Item_Description) : null;
                     $prl->notes = isset($row->Notes) ? trim($row->Notes) : null;
                     $prl->next_assembly = isset($row->Next_Assy) ? trim($row->Next_Assy) : null;
                     $prl->work_order = isset($row->Work_Order) ? trim($row->Work_Order) : null;
                     $prl->po_number = isset($row->PO_Number) ? trim($row->PO_Number) : null;
+                    
+                    if (!property_exists($row,'Item_Description')){
+                        $message = 'Row'. $count . ': A description is required!';
+                        break;
+                    }
+                    $prl->item_description = trim($row->Item_Description);
 
                     if (!property_exists($row,'Qty_Req')){
                         $message = 'Row'. $count . ': A quantity is required!';
@@ -923,16 +928,16 @@ class PurchaseRequestLineController extends Controller
                     }
                     $prl->need_date = date('Y-m-d 00:00:00',strtotime($row->Need_Date));
 
-                    if (!property_exists($row,'Supplier')){
-                        $message = 'Row'. $count . ': A Supplier is required!';
-                        break;
+                    if (property_exists($row,'Supplier')){
+                        $supplier = DB::table('suppliers')->select('id')->where([['name','=',$row->Supplier],['is_active','=',true]])->first();
+                        if (empty($supplier)){
+                            $message = 'Row'. $count . ': Supplier name not recognized!';
+                            break;
+                        }
+                        $prl->supplier_id = $supplier->id;
+                    } else {
+                        $prl->supplier_id = 3;
                     }
-                    $supplier = DB::table('suppliers')->select('id')->where([['name','=',$row->Supplier],['is_active','=',true]])->first();
-                    if (empty($supplier)){
-                        $message = 'Row'. $count . ': Supplier name not recognized!';
-                        break;
-                    }
-                    $prl->supplier_id = $supplier->id;
 
                     $prls[$count] = $prl;
                     $success = true;
