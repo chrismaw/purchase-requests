@@ -865,13 +865,13 @@ class PurchaseRequestLineController extends Controller
                         break;
                     }
                     $prl->purchase_request_id = $request->prID;
-                    $prl->item_number = $row->Item_Number ? trim($row->Item_Number) : null;
-                    $prl->item_revision = $row->Item_Rev ? trim($row->Item_Rev) : null;
-                    $prl->notes = isset($row->Notes) ? trim($row->Notes) : null;
-                    $prl->next_assembly = isset($row->Next_Assy) ? trim($row->Next_Assy) : null;
-                    $prl->work_order = isset($row->Work_Order) ? trim($row->Work_Order) : null;
-                    $prl->po_number = isset($row->PO_Number) ? trim($row->PO_Number) : null;
-                    
+                    $prl->item_number = property_exists($row,'Item_Number') ? trim($row->Item_Number) : null;
+                    $prl->item_revision = property_exists($row,'Item_Rev') ? trim($row->Item_Rev) : null;
+                    $prl->notes = property_exists($row,'Notes') ? trim($row->Notes) : null;
+                    $prl->next_assembly = property_exists($row,'Next_Assy') ? trim($row->Next_Assy) : null;
+                    $prl->work_order = property_exists($row,'Work_Order') ? trim($row->Work_Order) : null;
+                    $prl->po_number = property_exists($row,'PO_Number') ? trim($row->PO_Number) : null;
+
                     if (!property_exists($row,'Item_Description')){
                         $message = 'Row'. $count . ': A description is required!';
                         break;

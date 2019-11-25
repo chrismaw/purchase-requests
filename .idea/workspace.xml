@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
-    </list>
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,14 +222,7 @@
       <workItem from="1574196890314" duration="2914000" />
       <workItem from="1574219568454" duration="4406000" />
       <workItem from="1574340690006" duration="1193000" />
-      <workItem from="1574511200475" duration="3461000" />
-    </task>
-    <task id="LOCAL-00028" summary="minor fixes from 7/3">
-      <created>1562237655923</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1562237655923</updated>
+      <workItem from="1574511200475" duration="3638000" />
     </task>
     <task id="LOCAL-00029" summary="minor fixes from 7/3">
       <created>1562240707265</created>
@@ -570,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574513995823</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="added default supplier to excel import and required description">
+      <created>1574649055250</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1574649055250</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +611,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added view datatable only" />
     <MESSAGE value="added temp tooltips" />
     <MESSAGE value="added buyers and approvers to users table" />
     <MESSAGE value="adding htaccess to gitignore" />
@@ -639,7 +635,8 @@
     <MESSAGE value="added excel import to main page." />
     <MESSAGE value="added fix for deleting multiple pr lines" />
     <MESSAGE value="added fix for importing lines consecutively and fix for unrecognized class properties" />
-    <option name="LAST_COMMIT_MESSAGE" value="added fix for importing lines consecutively and fix for unrecognized class properties" />
+    <MESSAGE value="added default supplier to excel import and required description" />
+    <option name="LAST_COMMIT_MESSAGE" value="added default supplier to excel import and required description" />
   </component>
   <component name="masterDetails">
     <states>
