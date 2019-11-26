@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="added link rendering to notes">
+    <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -222,41 +220,14 @@
       <workItem from="1573614058505" duration="3701000" />
       <workItem from="1573780920700" duration="11262000" />
       <workItem from="1573855398098" duration="7000000" />
-    </task>
-    <task id="LOCAL-00025" summary="hid purchase_request field when adding prline">
-      <created>1562185536949</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1562185536949</updated>
-    </task>
-    <task id="LOCAL-00026" summary="select2 working.">
-      <created>1562187888600</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1562187888600</updated>
-    </task>
-    <task id="LOCAL-00027" summary="adjusted select2 styling and fixed auto set purchase_request value when adding new prline">
-      <created>1562208248641</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1562208248641</updated>
-    </task>
-    <task id="LOCAL-00028" summary="minor fixes from 7/3">
-      <created>1562237655923</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1562237655923</updated>
-    </task>
-    <task id="LOCAL-00029" summary="minor fixes from 7/3">
-      <created>1562240707265</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1562240707265</updated>
+      <workItem from="1574169521046" duration="1903000" />
+      <workItem from="1574176065702" duration="4967000" />
+      <workItem from="1574196890314" duration="2914000" />
+      <workItem from="1574219568454" duration="4406000" />
+      <workItem from="1574340690006" duration="1193000" />
+      <workItem from="1574511200475" duration="4531000" />
+      <workItem from="1574710116874" duration="5000" />
+      <workItem from="1574716490747" duration="914000" />
     </task>
     <task id="LOCAL-00030" summary="fixed apostrophe bug">
       <created>1562263640233</created>
@@ -566,7 +537,42 @@
       <option name="project" value="LOCAL" />
       <updated>1573963321385</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="added excel import to main page.">
+      <created>1574223367395</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1574223367395</updated>
+    </task>
+    <task id="LOCAL-00075" summary="added fix for deleting multiple pr lines">
+      <created>1574341787403</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1574341787403</updated>
+    </task>
+    <task id="LOCAL-00076" summary="added fix for importing lines consecutively and fix for unrecognized class properties">
+      <created>1574513995823</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1574513995823</updated>
+    </task>
+    <task id="LOCAL-00077" summary="added default supplier to excel import and required description">
+      <created>1574649055250</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1574649055250</updated>
+    </task>
+    <task id="LOCAL-00078" summary="fixed blank item no and item rev for excel import">
+      <created>1574684540461</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1574684540461</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,11 +616,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added extra columns to prlines" />
-    <MESSAGE value="added tippy.js" />
-    <MESSAGE value="started column filters" />
-    <MESSAGE value="added view datatable only" />
-    <MESSAGE value="added temp tooltips" />
     <MESSAGE value="added buyers and approvers to users table" />
     <MESSAGE value="adding htaccess to gitignore" />
     <MESSAGE value="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement" />
@@ -635,7 +636,12 @@
     <MESSAGE value="added sticky feature to all pr lines toolbar" />
     <MESSAGE value="added ability to edit approver and buyer via front page" />
     <MESSAGE value="fixed bug not allowing to erase text in full" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug not allowing to erase text in full" />
+    <MESSAGE value="added excel import to main page." />
+    <MESSAGE value="added fix for deleting multiple pr lines" />
+    <MESSAGE value="added fix for importing lines consecutively and fix for unrecognized class properties" />
+    <MESSAGE value="added default supplier to excel import and required description" />
+    <MESSAGE value="fixed blank item no and item rev for excel import" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed blank item no and item rev for excel import" />
   </component>
   <component name="masterDetails">
     <states>

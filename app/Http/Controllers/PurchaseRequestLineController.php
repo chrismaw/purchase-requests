@@ -10,6 +10,7 @@ use App\Uom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class PurchaseRequestLineController extends Controller
 {
@@ -331,11 +332,11 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
-                            ? $data['approver']['id'] : $prl->approver;
+                            ? $data['approver']['id'] : (is_null($data['approver']['id']) ? null : $prl->approver);
                     }
                     if (array_key_exists('buyer',$data)){
                         $prl->buyer = preg_match('/^\d+$/',$data['buyer']['id'])
-                            ? $data['buyer']['id'] : $prl->buyer;
+                            ? $data['buyer']['id'] : (is_null($data['buyer']['id']) ? null : $prl->buyer);
                     }
                     if (array_key_exists('prl_status',$data)){
                         $prl->status = $data['prl_status']
@@ -391,15 +392,14 @@ class PurchaseRequestLineController extends Controller
                 $output
             );
 
-        } elseif ($request->action == 'remove'){
-
-            $p = PurchaseRequestLine::find(substr(array_key_first($request->data),4));
-            if ($p instanceof PurchaseRequestLine){
-                $p->delete();
-
-                return response()->json();
+        } elseif ($request->action == 'remove') {
+            foreach ($request->data as $k => $row) {
+                $p = PurchaseRequestLine::find(substr($k, 4));
+                if ($p instanceof PurchaseRequestLine) {
+                    $p->delete();
+                }
             }
-
+            return response()->json();
         };
     }
 
@@ -732,11 +732,11 @@ class PurchaseRequestLineController extends Controller
                     }
                     if (array_key_exists('approver',$data)){
                         $prl->approver = preg_match('/^\d+$/',$data['approver']['id'])
-                            ? $data['approver']['id'] : $prl->approver;
+                            ? $data['approver']['id'] : (is_null($data['approver']['id']) ? null : $prl->approver);
                     }
                     if (array_key_exists('buyer',$data)){
                         $prl->buyer = preg_match('/^\d+$/',$data['buyer']['id'])
-                            ? $data['buyer']['id'] : $prl->buyer;
+                            ? $data['buyer']['id'] : (is_null($data['buyer']['id']) ? null : $prl->buyer);
                     }
                     if (array_key_exists('prl_status',$data)){
                         $prl->status = $data['prl_status']
@@ -799,15 +799,14 @@ class PurchaseRequestLineController extends Controller
                 $output
             );
 
-        } elseif ($request->action == 'remove'){
-
-            $p = PurchaseRequestLine::find(substr(array_key_first($request->data),4));
-            if ($p instanceof PurchaseRequestLine){
-                $p->delete();
-
-                return response()->json();
+        } elseif ($request->action == 'remove') {
+            foreach ($request->data as $k => $row) {
+                $p = PurchaseRequestLine::find(substr($k, 4));
+                if ($p instanceof PurchaseRequestLine) {
+                    $p->delete();
+                }
             }
-
+            return response()->json();
         };
     }
 
@@ -840,6 +839,125 @@ class PurchaseRequestLineController extends Controller
                         $message = 'Some of the Purchase Request Lines failed to be approved.';
                     } else {
                         $message = 'None of the Purchase Request Lines were successfully approved.';
+                    }
+                }
+            }
+        }
+        return response()->json([
+            'success' => $success, 'message' => $message
+        ]);
+    }
+    public function import(Request $request){
+        $success = false;
+        $message = '';
+        $count = 0;
+        $prls = [];;
+
+        if ($request->data){
+            $json = json_decode($request->data);
+            if (count($json) > 0){
+                $json = json_decode($request->data);
+                foreach ($json as $row){
+                    $count++;
+                    $prl = new PurchaseRequestLine();
+                    if (!$request->prID){
+                        $message = 'Row'. $count . ': Purchase Request not selected!';
+                        break;
+                    }
+                    $prl->purchase_request_id = $request->prID;
+                    $prl->item_number = property_exists($row,'Item_Number') ? trim($row->Item_Number) : null;
+                    $prl->item_revision = property_exists($row,'Item_Rev') ? trim($row->Item_Rev) : null;
+                    $prl->notes = property_exists($row,'Notes') ? trim($row->Notes) : null;
+                    $prl->next_assembly = property_exists($row,'Next_Assy') ? trim($row->Next_Assy) : null;
+                    $prl->work_order = property_exists($row,'Work_Order') ? trim($row->Work_Order) : null;
+                    $prl->po_number = property_exists($row,'PO_Number') ? trim($row->PO_Number) : null;
+
+                    if (!property_exists($row,'Item_Description')){
+                        $message = 'Row'. $count . ': A description is required!';
+                        break;
+                    }
+                    $prl->item_description = trim($row->Item_Description);
+
+                    if (!property_exists($row,'Qty_Req')){
+                        $message = 'Row'. $count . ': A quantity is required!';
+                        break;
+                    }
+                    if (preg_match('/[a-zA-Z]/',$row->Qty_Req)){
+                        $message = 'Row'. $count . ': Quantity must be digits only!';
+                        break;
+                    }
+                    $prl->qty_required = trim($row->Qty_Req);
+
+                    if (!property_exists($row,'UOM')){
+                        $message = 'Row'. $count . ': A Unit of Measure is required!';
+                        break;
+                    }
+                    $uom = DB::table('uoms')->select('id')->where('name','=',$row->UOM)->first();
+                    if (empty($uom)){
+                        $message = 'Row'. $count . ': Unit of Measure not recognized!';
+                        break;
+                    }
+                    $prl->uom_id = $uom->id;
+
+                    if (preg_match('/[a-zA-Z]/',$row->Qty_Per_UOM)){
+                        $message = 'Row'. $count . ': Quantity must be digits only!';
+                        break;
+                    }
+                    $prl->qty_per_uom = $row->Qty_Per_UOM ? trim($row->Qty_Per_UOM) : null;
+
+                    if (property_exists($row,'UOM_Cost') && preg_match('/[a-zA-Z]/',$row->UOM_Cost)){
+                        $message = 'Row'. $count . ': Cost per Unit of Measure must be digits only!';
+                        break;
+                    }
+                    $prl->cost_per_uom = property_exists($row,'UOM_Cost') ? trim(str_replace('$','',$row->UOM_Cost)) : '0.00';
+
+                    if (!property_exists($row,'Task')){
+                        $message = 'Row'. $count . ': A Task is required!';
+                        break;
+                    }
+                    $task = DB::table('tasks')->select('id')->where('number','=',$row->Task)->first();
+                    if (empty($task)){
+                        $message = 'Row'. $count . ': Task number not recognized!';
+                        break;
+                    }
+                    $prl->task_id = $task->id;
+
+                    if (!property_exists($row,'Need_Date')){
+                        $message = 'Row'. $count . ': A Need Date is required!';
+                        break;
+                    }
+                    $prl->need_date = date('Y-m-d 00:00:00',strtotime($row->Need_Date));
+
+                    if (property_exists($row,'Supplier')){
+                        $supplier = DB::table('suppliers')->select('id')->where([['name','=',$row->Supplier],['is_active','=',true]])->first();
+                        if (empty($supplier)){
+                            $message = 'Row'. $count . ': Supplier name not recognized!';
+                            break;
+                        }
+                        $prl->supplier_id = $supplier->id;
+                    } else {
+                        $prl->supplier_id = 3;
+                    }
+
+                    $prls[$count] = $prl;
+                    $success = true;
+                }
+            }
+            else {
+                $message = 'There was no data found in the Excel Import';
+            }
+        } else {
+            $message = 'There was no data found in the Excel Import';
+        }
+        if (!empty($prls)){
+            foreach ($prls as $key => $prl){
+                if ($prl instanceof PurchaseRequestLine){
+                    try {
+                        $prl->save();
+                        $success = true;
+                    } catch (\Exception $e){
+                        $success = false;
+                        $message = 'An error occurred when trying to save the Purchase Request Lines. Error message: ' . $e->getMessage();
                     }
                 }
             }

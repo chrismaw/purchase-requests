@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('title','Purchase Requests')
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+@endsection
 @section('styles')
     <style>
         #DTE_Field_project-id,
@@ -456,7 +460,7 @@
             } );
             // Purchase Request Lines Datatable
             prlTable = $('#purchase-request-lines-table').DataTable( {
-                dom: "Bfrtip",
+                dom: "B<'toolbar'>frtip",
                 ajax: {
                     url:"{{ route('purchase-request-lines-data') }}",
                     type: "post",
@@ -541,7 +545,6 @@
                     { extend: "remove", editor: prlEditor },
                     @if (Auth::user()->isApprover())
                         {
-                            extend: "selected",
                             text: 'Approve',
                             action: function ( e, dt, node, config ) {
                                 var IDs = [];
@@ -562,6 +565,12 @@
                     @endif
                 ]
             } );
+
+            // create the Show Your Requests checkbox
+            $('div.toolbar').html(
+                '<button class="dt-button disabled" tabindex="0" aria-controls="purchase-request-lines-table" type="button" id="excel_button" onclick="$(\'#excel_file\').click()"><span>Import Excel</span></button>' +
+                '<input type="file" id="excel_file" style="display: none">'
+            );
             // add input for each column for Purchase Request Lines Table
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
@@ -587,10 +596,12 @@
                     prlEditor.set('purchase_request_ID',prID);
                 }, 2000);
                 prlTable.buttons().enable();
+                $('#excel_button').removeClass('disabled')
             });
             prTable.on('deselect',function () {
                 prlTable.ajax.reload();
                 prlTable.buttons().disable();
+                $('#excel_button').addClass('disabled');
             });
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {
@@ -842,6 +853,43 @@
             //         prlTable.ajax.reload();
             //     }
             // })
+            $('#excel_file').on('change', function () {
+                var that = this;
+                if (this.files[0] && prID){
+                    var file = this.files[0];
+                    var extension = file.name.split('.').pop().toLowerCase();
+                    if (extension !== 'xlsx'){
+                        alert('Only .xlsx files are able to be imported.');
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var data = e.target.result;
+                        var workbook = XLSX.read(data, {
+                            type: 'binary'
+                        });
+                        workbook.SheetNames.forEach(function(sheetName) {
+                            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                            var json_object = JSON.stringify(XL_row_object);
+                            var fileName = that.files[0].name;
+                            $.post("{{ url('/purchase-request-line/import') }}", { data: json_object, name: fileName, prID: prID }, function (data) {
+                                if (data.success === true){
+                                    prlTable.ajax.reload();
+                                    alert('Lines Successfully Imported!');
+                                    that.value = null;
+                                } else {
+                                    alert(data.message);
+                                    that.value = null;
+                                }
+                            });
+                        })
+                    };
+                    reader.onerror = function(ex) {
+                        console.log(ex);
+                    };
+                    reader.readAsBinaryString(file);
+                }
+            })
         } );
 
         // initialize tooltips | datatable headers
