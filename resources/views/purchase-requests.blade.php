@@ -224,6 +224,7 @@
             </tr>
             </tfoot>
         </table>
+		<h5><a href={{url('pr_line_template.xlsx')}}>Download Excel Template</a></h5>
     </div>
     <script>
         $.ajaxSetup({

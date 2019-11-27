@@ -404,7 +404,7 @@
                 pageLength: 100,
                 orderCellsTop: true,
                 buttons: [
-                    { extend: "create", editor: prlEditor, text: "Add" },
+                    //{ extend: "create", editor: prlEditor, text: "Add" },
                     { extend: "edit",   editor: prlEditor },
                     {
                         extend: "selected",
