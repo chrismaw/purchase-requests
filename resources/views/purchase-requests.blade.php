@@ -570,8 +570,16 @@
             // create the Show Your Requests checkbox
             $('div.toolbar').html(
                 '<button class="dt-button disabled" tabindex="0" aria-controls="purchase-request-lines-table" type="button" id="excel_button" onclick="$(\'#excel_file\').click()"><span>Import Excel</span></button>' +
-                '<input type="file" id="excel_file" style="display: none">'
+                '<input type="file" id="excel_file" style="display: none">' +
+                '<input type="checkbox" id="select-all-checkbox" disabled="disabled" style="margin: 0px 5px 0px 10px"/><label for="select-all-checkbox">Select All</label>'
             );
+            $('#select-all-checkbox').on('change', function(){
+                if($(this).is(':checked')){
+                    prlTable.rows().select();
+                } else {
+                    prlTable.rows().deselect();
+                }
+            });
             // add input for each column for Purchase Request Lines Table
             $('#purchase-request-lines-table tfoot td.searchable').each(function(){
                 $(this).html('<input class="filter-input" type="text" placeholder="Filter..."/>')
@@ -597,12 +605,14 @@
                     prlEditor.set('purchase_request_ID',prID);
                 }, 2000);
                 prlTable.buttons().enable();
-                $('#excel_button').removeClass('disabled')
+                $('#excel_button').removeClass('disabled');
+                $('#select-all-checkbox').attr('disabled', false);
             });
             prTable.on('deselect',function () {
                 prlTable.ajax.reload();
                 prlTable.buttons().disable();
                 $('#excel_button').addClass('disabled');
+                $('#select-all-checkbox').attr('disabled', true).prop('checked', false);
             });
             prlEditor.on( 'preSubmit', function ( e, o, action ) {
                 if ( action !== 'remove' ) {

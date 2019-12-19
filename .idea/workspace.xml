@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,13 +234,6 @@
       <workItem from="1574716490747" duration="1170000" />
       <workItem from="1576695026803" duration="2764000" />
       <workItem from="1576701668882" duration="78000" />
-    </task>
-    <task id="LOCAL-00031" summary="fixed special char bug">
-      <created>1562264024933</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1562264024933</updated>
     </task>
     <task id="LOCAL-00032" summary="fixed special char bug">
       <created>1562267084874</created>
@@ -579,7 +571,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574718024148</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="added export button for prlines">
+      <created>1576786649045</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1576786649045</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,7 +622,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding htaccess to gitignore" />
     <MESSAGE value="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement" />
     <MESSAGE value="add vertical scroll to pr table" />
     <MESSAGE value="added is-invalid class to form validation" />
@@ -648,9 +646,14 @@
     <MESSAGE value="added default supplier to excel import and required description" />
     <MESSAGE value="fixed blank item no and item rev for excel import" />
     <MESSAGE value="fix for null approver and buyer updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix for null approver and buyer updates" />
+    <MESSAGE value="added export button for prlines" />
+    <option name="LAST_COMMIT_MESSAGE" value="added export button for prlines" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1182" y="-962" key="CommitChangelistDialog2" timestamp="1576786647253">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1182" y="-962" key="CommitChangelistDialog2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576786647253" />
     <state x="1058" y="-914" key="SettingsEditor" timestamp="1576695555581">
       <screen x="277" y="-1080" width="2560" height="1050" />
     </state>
