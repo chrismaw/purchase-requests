@@ -386,7 +386,7 @@
                         width: '10%',
                         render: function(data) {
                             if (data){
-                                var regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/ig;
+                                var regex = /((?:(?:https?|ftp):\/\/|^(?:[a-z\d\.\-]+\.)(?:com|org|net|us|co|edu|gov))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?)/ig;
                                 return data.replace(regex,"<a href='$1' target='_blank'>Link</a>");
                             } else {
                                 return data
@@ -404,7 +404,7 @@
                 pageLength: 100,
                 orderCellsTop: true,
                 buttons: [
-                    { extend: "create", editor: prlEditor, text: "Add" },
+                    //{ extend: "create", editor: prlEditor, text: "Add" },
                     { extend: "edit",   editor: prlEditor },
                     {
                         extend: "selected",
