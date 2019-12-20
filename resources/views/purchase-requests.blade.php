@@ -3,6 +3,8 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 @endsection
 @section('styles')
     <style>
@@ -564,6 +566,19 @@
                             }
                         },
                     @endif
+                    {
+                        extend: 'excel',
+                        text: 'Export',
+                        title: '',
+                        exportOptions: {
+                            columns: [2,3,4,5,6,7,9,11,12,13,14,18,19,20],
+                            format: {
+                                header: function (data, i) {
+                                    return data.replace(/( |<br>)/g,"_");
+                                }
+                            }
+                        }
+                    }
                 ]
             } );
 
