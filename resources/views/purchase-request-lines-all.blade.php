@@ -108,6 +108,9 @@
             background: url({{ url('/icons/up-caret.png') }}) no-repeat center center;
             cursor: pointer;
         }
+        /*#datatables-toolbar > div.dt-buttons > button:nth-child(6) {*/
+        /*    display: none;*/
+        /*}*/
     </style>
 @endsection
 @section('content')

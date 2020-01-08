@@ -40,7 +40,7 @@
                     <a href="{{ url('/uoms') }}">UOMs</a>
 					@if (Auth::user()->isAdmin())<a href="{{ url('/users') }}">Users</a>@endif
                 </div>
-            </div>        
+            </div>
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
             @else

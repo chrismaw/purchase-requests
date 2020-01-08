@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -129,6 +131,11 @@
   </component>
   <component name="ProjectId" id="1Rc6tGPlTXOhjn8tk7VPcd5MsbD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -137,7 +144,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/Program Files/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="Configurable.PHP.Blade" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -151,23 +158,23 @@
       <recent name="C:\wamp\www\purchase-requests\public\css" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -227,28 +234,9 @@
       <workItem from="1574340690006" duration="1193000" />
       <workItem from="1574511200475" duration="4531000" />
       <workItem from="1574710116874" duration="5000" />
-      <workItem from="1574716490747" duration="914000" />
-    </task>
-    <task id="LOCAL-00030" summary="fixed apostrophe bug">
-      <created>1562263640233</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1562263640233</updated>
-    </task>
-    <task id="LOCAL-00031" summary="fixed special char bug">
-      <created>1562264024933</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1562264024933</updated>
-    </task>
-    <task id="LOCAL-00032" summary="fixed special char bug">
-      <created>1562267084874</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1562267084874</updated>
+      <workItem from="1574716490747" duration="1170000" />
+      <workItem from="1576695026803" duration="2764000" />
+      <workItem from="1576701668882" duration="78000" />
     </task>
     <task id="LOCAL-00033" summary="fixed new prl from new pr bug">
       <created>1562346889236</created>
@@ -572,7 +560,28 @@
       <option name="project" value="LOCAL" />
       <updated>1574684540461</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="fix for null approver and buyer updates">
+      <created>1574718024148</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1574718024148</updated>
+    </task>
+    <task id="LOCAL-00080" summary="added export button for prlines">
+      <created>1576786649045</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1576786649045</updated>
+    </task>
+    <task id="LOCAL-00081" summary="moved export scripts to prlines page only">
+      <created>1576790205737</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1576790205737</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -616,9 +625,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added buyers and approvers to users table" />
-    <MESSAGE value="adding htaccess to gitignore" />
-    <MESSAGE value="added x scroll to allprlines tables. added dropdown to nav. fixed tooltip placement" />
     <MESSAGE value="add vertical scroll to pr table" />
     <MESSAGE value="added is-invalid class to form validation" />
     <MESSAGE value="moved pr columns to start of prlines table. fixed urgent bugs" />
@@ -641,7 +647,32 @@
     <MESSAGE value="added fix for importing lines consecutively and fix for unrecognized class properties" />
     <MESSAGE value="added default supplier to excel import and required description" />
     <MESSAGE value="fixed blank item no and item rev for excel import" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed blank item no and item rev for excel import" />
+    <MESSAGE value="fix for null approver and buyer updates" />
+    <MESSAGE value="added export button for prlines" />
+    <MESSAGE value="moved export scripts to prlines page only" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved export scripts to prlines page only" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1182" y="-962" key="CommitChangelistDialog2" timestamp="1576849892491">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1182" y="-962" key="CommitChangelistDialog2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849892491" />
+    <state x="1003" y="-869" width="1494" height="628" key="DiffContextDialog" timestamp="1576849930727">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1003" y="-869" width="1494" height="628" key="DiffContextDialog/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849930727" />
+    <state x="1383" y="-845" key="RollbackChangesDialog" timestamp="1576849945306">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1383" y="-845" key="RollbackChangesDialog/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849945306" />
+    <state x="1058" y="-914" key="SettingsEditor" timestamp="1576695555581">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1058" y="-914" key="SettingsEditor/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576695555581" />
+    <state x="1149" y="-823" key="Vcs.Push.Dialog.v2" timestamp="1576790208663">
+      <screen x="277" y="-1080" width="2560" height="1050" />
+    </state>
+    <state x="1149" y="-823" key="Vcs.Push.Dialog.v2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576790208663" />
   </component>
   <component name="masterDetails">
     <states>
