@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class PurchaseRequestLine extends Model
@@ -35,6 +36,12 @@ class PurchaseRequestLine extends Model
 
     public function buyerUser(){
         return $this->belongsTo('App\User','buyer');
+    }
+
+    public function scopeParent_is_active(Builder $query){
+        return $query->whereHas('PurchaseRequest', function ($query){
+            $query->active();
+        });
     }
 
 }

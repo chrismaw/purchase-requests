@@ -27,7 +27,8 @@ class PurchaseRequestController extends Controller
         $suppliers = Supplier::orderBy('name')->get();
         $tasks = Task::all()->sortBy('number');
         $uoms = Uom::orderBy('name')->orderBy('sort_order')->get();
-        $purchase_requests = PurchaseRequest::all()->sortBy('number');
+        $purchase_requests = PurchaseRequest::all()
+            ->where('is_deleted', '=', false)->sortBy('number');
         return view('purchase-requests',[
             'users' => $users,
             'projects' => $projects,
@@ -42,7 +43,8 @@ class PurchaseRequestController extends Controller
 
     public function data()
     {
-        return collect(['data' => PurchaseRequest::with('requestedByUser:id,name','project')->get()->map(function ($pr){
+        return collect(['data' => PurchaseRequest::with('requestedByUser:id,name','project')
+            ->where('is_deleted', '=', false)->get()->map(function ($pr){
             return [
                 'DT_RowId' => 'row_' . $pr->id,
                 'id' => $pr->id,
@@ -56,7 +58,8 @@ class PurchaseRequestController extends Controller
 
     public function selectData()
     {
-        return collect(PurchaseRequest::with('project')->get()->map(function ($pr){
+        return collect(PurchaseRequest::with('project')
+            ->where('is_deleted', '=', false)->get()->map(function ($pr){
             return [
                 'id' => $pr->id,
                 'text' => $pr->id . ' | ' . $pr->project->description
@@ -189,16 +192,19 @@ class PurchaseRequestController extends Controller
 
             $p = PurchaseRequest::find(substr(array_key_first($request->data),4));
             if ($p instanceof PurchaseRequest){
-                $prls = PurchaseRequestLine::where('purchase_request_id','=',$p->id)->get();
-                if ($prls){
-                    foreach ($prls as $prl){
-                        if ($prl instanceof PurchaseRequestLine){
-                            $prl->is_deleted = true;
-                            $prl->save();
-                        }
-                    }
-                }
-                $p->delete();
+                //delete prlines first
+// commented out because decision was made to keep prlines active in case parent pr is reactivated
+//                $prls = PurchaseRequestLine::where('purchase_request_id','=',$p->id)->get();
+//                if ($prls){
+//                    foreach ($prls as $prl){
+//                        if ($prl instanceof PurchaseRequestLine){
+//                            $prl->is_deleted = true;
+//                            $prl->save();
+//                        }
+//                    }
+//                }
+                $p->is_deleted = true;
+                $p->save();
 
                 return response()->json();
             }
