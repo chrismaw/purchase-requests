@@ -448,6 +448,7 @@ class PurchaseRequestLineController extends Controller
             'approverUser:id,name',
             'buyerUser:id,name')
             ->parent_is_active()
+            ->where('is_deleted',false)
             ->get()->map(function ( PurchaseRequestLine $prl) {
                 $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
                 return [
@@ -803,7 +804,8 @@ class PurchaseRequestLineController extends Controller
             foreach ($request->data as $k => $row) {
                 $p = PurchaseRequestLine::find(substr($k, 4));
                 if ($p instanceof PurchaseRequestLine) {
-                    $p->delete();
+                    $p->is_deleted = true;
+                    $p->save();
                 }
             }
             return response()->json();
