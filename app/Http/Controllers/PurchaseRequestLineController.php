@@ -447,8 +447,8 @@ class PurchaseRequestLineController extends Controller
             'uom:id,name',
             'approverUser:id,name',
             'buyerUser:id,name')
-            ->where('is_deleted', '=', false)
-            ->get()->map(function ($prl) {
+            ->parent_is_active()
+            ->get()->map(function ( PurchaseRequestLine $prl) {
                 $uom_qty_required = ceil($prl->qty_required / $prl->qty_per_uom);
                 return [
                     'DT_RowId' => 'row_' . $prl->id,
