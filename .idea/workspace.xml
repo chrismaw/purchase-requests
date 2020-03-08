@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestLineController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-request-lines-all.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/purchase-requests.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,20 +235,10 @@
       <workItem from="1574716490747" duration="1170000" />
       <workItem from="1576695026803" duration="2764000" />
       <workItem from="1576701668882" duration="78000" />
-    </task>
-    <task id="LOCAL-00033" summary="fixed new prl from new pr bug">
-      <created>1562346889236</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1562346889236</updated>
-    </task>
-    <task id="LOCAL-00034" summary="switched select2 to chosen">
-      <created>1562347760808</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1562347760808</updated>
+      <workItem from="1581193680088" duration="6459000" />
+      <workItem from="1581342623347" duration="1868000" />
+      <workItem from="1582580565718" duration="674000" />
+      <workItem from="1583616680667" duration="297000" />
     </task>
     <task id="LOCAL-00035" summary="Revert &quot;switched select2 to chosen&quot;&#10;&#10;This reverts commit 601388e1">
       <created>1562366758303</created>
@@ -581,7 +569,21 @@
       <option name="project" value="LOCAL" />
       <updated>1576790205737</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="modified export columns to match import columns">
+      <created>1576849990076</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1576849990076</updated>
+    </task>
+    <task id="LOCAL-00083" summary="modified export columns to match import columns">
+      <created>1581217880751</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1581217880751</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -625,7 +627,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add vertical scroll to pr table" />
     <MESSAGE value="added is-invalid class to form validation" />
     <MESSAGE value="moved pr columns to start of prlines table. fixed urgent bugs" />
     <MESSAGE value="minor changes" />
@@ -650,13 +651,15 @@
     <MESSAGE value="fix for null approver and buyer updates" />
     <MESSAGE value="added export button for prlines" />
     <MESSAGE value="moved export scripts to prlines page only" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved export scripts to prlines page only" />
+    <MESSAGE value="modified export columns to match import columns" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified export columns to match import columns" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1182" y="-962" key="CommitChangelistDialog2" timestamp="1576849892491">
-      <screen x="277" y="-1080" width="2560" height="1050" />
+    <state x="483" y="0" key="CommitChangelistDialog2" timestamp="1581217879124">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="1182" y="-962" key="CommitChangelistDialog2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849892491" />
+    <state x="1182" y="-962" key="CommitChangelistDialog2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849988267" />
+    <state x="483" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1581217879124" />
     <state x="1003" y="-869" width="1494" height="628" key="DiffContextDialog" timestamp="1576849930727">
       <screen x="277" y="-1080" width="2560" height="1050" />
     </state>
@@ -669,10 +672,15 @@
       <screen x="277" y="-1080" width="2560" height="1050" />
     </state>
     <state x="1058" y="-914" key="SettingsEditor/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576695555581" />
-    <state x="1149" y="-823" key="Vcs.Push.Dialog.v2" timestamp="1576790208663">
-      <screen x="277" y="-1080" width="2560" height="1050" />
+    <state x="465" y="181" key="Vcs.Push.Dialog.v2" timestamp="1581217883713">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="1149" y="-823" key="Vcs.Push.Dialog.v2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576790208663" />
+    <state x="1149" y="-823" key="Vcs.Push.Dialog.v2/0.0.1366.738/277.-1080.2560.1050/2837.-1092.2560.1050@277.-1080.2560.1050" timestamp="1576849995302" />
+    <state x="465" y="181" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1581217883713" />
+    <state x="3503" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1582580573611">
+      <screen x="2560" y="0" width="2560" height="1050" />
+    </state>
+    <state x="3503" y="227" width="672" height="678" key="search.everywhere.popup/0.0.2560.1050/2560.0.2560.1050@2560.0.2560.1050" timestamp="1582580573611" />
   </component>
   <component name="masterDetails">
     <states>

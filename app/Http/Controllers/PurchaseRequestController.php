@@ -173,6 +173,7 @@ class PurchaseRequestController extends Controller
                         $p->status = $data['purchase_request_status'];
                     }
                     $p->updated_at = date('Y-m-d H:i:s');
+                    $p->updated_at = date('Y-m-d H:i:s');
                     $p->save();
                     $output['data'][] = [
                         'DT_RowId' => 'row_' . $p->id,
