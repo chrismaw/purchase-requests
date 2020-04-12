@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\Auth0IndexController;
 use App\Project;
 use App\PurchaseRequest;
 use App\PurchaseRequestLine;
@@ -9,6 +10,7 @@ use App\Supplier;
 use App\Task;
 use App\Uom;
 use App\User;
+use Auth0\SDK\Auth0;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +24,7 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
+        dd(\Auth::user());
         $users = DB::table('users')->select('id','name')->orderBy('name')->get();
         $projects = DB::table('projects')->select('id','description')->orderBy('description')->get();
         $suppliers = Supplier::orderBy('name')->get();

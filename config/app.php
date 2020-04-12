@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'EST',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,7 @@ return [
 
         TwigBridge\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Auth0\Login\LoginServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Twig' => TwigBridge\Facade\Twig::class,
+        'Auth0' => Auth0\Login\Facade\Auth0::class,
 
     ],
 
