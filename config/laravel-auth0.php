@@ -50,7 +50,7 @@ return [
     |
     */
     'persist_user' => true,
-    'persist_access_token' => false,
+    'persist_access_token' => true,
     'persist_refresh_token' => false,
     'persist_id_token' => false,
 

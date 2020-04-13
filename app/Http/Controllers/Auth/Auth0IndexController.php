@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth0\Login\Auth0User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -49,7 +50,8 @@ class Auth0IndexController extends Controller
         if ( ! \Auth::check() ) {
             return redirect()->route('login');
         } else {
-            return view('profile')->with('user', print_r( \Auth::user()->getUserInfo(), true ));
+            return view('profile')->with('user', print_r( \Auth::user()->current(), true ));
+//            return view('profile')->with('user', print_r( \Auth::user()->getUserInfo(), true ));
         }
 
     }

@@ -25,15 +25,16 @@ class UserRepository implements Auth0UserRepository
      */
     protected function upsertUser($profile)
     {
-        $user = User::where("sub", $profile->user_id)->first();
+        $user = User::where("sub", $profile->sub)->first();
         // create user if not in database
         if ($user === null) {
             $user = new User();
             $user->email = $profile->email;
-            $user->sub = $profile->user_id;
+            $user->sub = $profile->sub;
             $user->name = $profile->name;
             // random password, we dont need it
             $user->password = md5(time());
+            $user->created_at(date('Y-m-d H:i:s'));
             $user->save();
         }
         return $user;
@@ -41,7 +42,7 @@ class UserRepository implements Auth0UserRepository
 
     public function getUserByIdentifier($identifier)
     {
-        //Get the user info of the user logged in (probably in session)
+        //Get the user info                           of the user logged in (probably in session)
         $user = \App::make('auth0')->getUser();
         if ($user === null) return null;
         // build the user

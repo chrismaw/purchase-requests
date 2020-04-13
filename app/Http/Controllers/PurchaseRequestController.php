@@ -24,7 +24,6 @@ class PurchaseRequestController extends Controller
      */
     public function index()
     {
-        dd(\Auth::user());
         $users = DB::table('users')->select('id','name')->orderBy('name')->get();
         $projects = DB::table('projects')->select('id','description')->orderBy('description')->get();
         $suppliers = Supplier::orderBy('name')->get();

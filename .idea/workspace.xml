@@ -2,22 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97eb1e99-40ed-42af-b9e6-708655fdcff0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Auth0IndexController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/CustomUserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/UserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/laravel-auth0.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_11_195020_add_sub_to_users_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/purchase-requests.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/purchase-requests.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/Auth0IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Auth0IndexController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseRequestController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/UserRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/laravel-auth0.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/laravel-auth0.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="laravel6" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -268,6 +260,7 @@
       <workItem from="1583762686644" duration="10000" />
       <workItem from="1586483087953" duration="31000" />
       <workItem from="1586629250986" duration="14404000" />
+      <workItem from="1586791520176" duration="5446000" />
     </task>
     <task id="LOCAL-00036" summary="Added autowidth and select on close for select2">
       <created>1562368171840</created>
@@ -696,10 +689,11 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="465" y="181" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1583617258358" />
-    <state x="503" y="160" width="672" height="477" key="search.everywhere.popup" timestamp="1586662083692">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="2309" y="-423" width="1260" height="679" key="search.everywhere.popup" timestamp="1586796563679">
+      <screen x="1366" y="-651" width="2560" height="1050" />
     </state>
-    <state x="503" y="160" width="672" height="477" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1586662083692" />
+    <state x="2309" y="-423" width="1260" height="679" key="search.everywhere.popup/0.0.1366.738/3926.-660.1920.1050/1366.-651.2560.1050@1366.-651.2560.1050" timestamp="1586796563679" />
+    <state x="503" y="160" width="672" height="477" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1586777263848" />
     <state x="3503" y="227" width="672" height="678" key="search.everywhere.popup/0.0.2560.1050/2560.0.2560.1050@2560.0.2560.1050" timestamp="1582580573611" />
   </component>
   <component name="masterDetails">
